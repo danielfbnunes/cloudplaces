@@ -1,5 +1,6 @@
 package cloudplaces.restapi;
 
+import java.util.Collections;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -7,7 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CloudplacesApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CloudplacesApplication.class, args);
+            SpringApplication app = new SpringApplication(CloudplacesApplication.class);
+        app.setDefaultProperties(Collections.singletonMap("server.port", "8081"));
+        app.run(args);
 	}
 
 }
