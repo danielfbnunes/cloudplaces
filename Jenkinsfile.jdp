@@ -1,0 +1,48 @@
+pipeline {
+    agent any
+    tools {
+        jdk 'jdk8'
+        maven 'mvn'
+    }
+    stages {
+        stage('Install') {
+            steps {
+                sh '''
+		            cd Lab1/
+		            mvn -U clean test cobertura:cobertura -Dcobertura.report.format=xml
+		        '''
+            }
+            post {
+                always {
+                    junit '**/target/*-reports/TEST-*.xml'
+                        step([$class: 'CoberturaPublisher', coberturaReportFile: 'Lab1/target/site/cobertura/coverage.xml'])
+
+                }
+            }
+        }
+	    stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('mySonar') {
+                    // Optionally use a Maven environment you've configured already
+                    withMaven(maven:'mvn') {
+                        sh '''
+			                cd Lab1/
+			                mvn clean package sonar:sonar
+			            '''
+                    }
+                }
+            }
+        }
+	    stage("SonarQube Quality Gate") {
+            steps {
+                timeout(time: 5, unit: 'MINUTES') {
+                    // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
+                    // true = set pipeline to UNSTABLE, false = don't
+                    // Requires SonarQube Scanner for Jenkins 2.7+
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
+    }
+}
+

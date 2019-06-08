@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--xtools2_universal_type_manager-->
+<!--Rational Software Architect Designer 9.6-->
+<?com.ibm.xtools.emf.core.signature <signature id="com.ibm.xtools.mmi.ui.signatures.diagram" version="7.0.0"><feature description="" name="Rational Modeling Platform (com.ibm.xtools.rmp)" url="" version="7.0.0"/></signature>?>
+<umlnotation:UMLDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmlns:umlnotation="http://www.ibm.com/xtools/1.5.3/Umlnotation" xmi:id="_ESrGkAEQEeemEM9u5u2anw" type="Class" name="rsa-uml-classes.dnx">
+  <eAnnotations xmi:id="_ESsUsAEQEeemEM9u5u2anw" source="com.ibm.xtools.common.ui.reduction.editingCapabilities">
+    <details xmi:id="_ESsUsQEQEeemEM9u5u2anw" key="com.ibm.xtools.activities.javaVisualizerActivity" value="1"/>
+  </eAnnotations>
+  <children xmi:type="umlnotation:UMLShape" xmi:id="_HLXyAAEQEeemEM9u5u2anw" fontName="Segoe UI" fontHeight="8" showListSignature="true" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+    <children xmi:type="notation:DecorationNode" xmi:id="_HLqs8AEQEeemEM9u5u2anw" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_HLqs8QEQEeemEM9u5u2anw" width="1320" height="1320"/>
+    </children>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_HLrUAAEQEeemEM9u5u2anw" type="Stereotype"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_HLr7EAEQEeemEM9u5u2anw" type="Name"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_HLsiIAEQEeemEM9u5u2anw" type="Parent"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_HLuXUAEQEeemEM9u5u2anw" visible="false" type="ANNOTATION_COMPARTMENT"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_HLyBsAEQEeemEM9u5u2anw" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_HL0d8AEQEeemEM9u5u2anw" type="ANNOTATED_OPERATION_COMPARTMENT"/>
+    <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=CuponEuromillions%5Bjcu%5Ename=CuponEuromillions.java%5Bjpack%5Ename=euromillions%5Bjsrcroot%5Esrcfolder=src/main/java%5Bproject%5Eid=euromillions-play%5D%5D%5D%5D$uml.Class"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_HLXyAQEQEeemEM9u5u2anw" x="1980" y="396"/>
+  </children>
+  <children xmi:type="umlnotation:UMLShape" xmi:id="_H2XPwAEQEeemEM9u5u2anw" fontName="Segoe UI" fontHeight="8" showListSignature="true" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+    <children xmi:type="notation:DecorationNode" xmi:id="_H2Yd4AEQEeemEM9u5u2anw" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_H2Yd4QEQEeemEM9u5u2anw" width="1320" height="1320"/>
+    </children>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_H2ZE8AEQEeemEM9u5u2anw" type="Stereotype"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_H2ZE8QEQEeemEM9u5u2anw" type="Name"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_H2ZsAAEQEeemEM9u5u2anw" type="Parent"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_H2aTEAEQEeemEM9u5u2anw" visible="false" type="ANNOTATION_COMPARTMENT"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_H2dWYAEQEeemEM9u5u2anw" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_H2d9cAEQEeemEM9u5u2anw" type="ANNOTATED_OPERATION_COMPARTMENT"/>
+    <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=Dip%5Bjcu%5Ename=Dip.java%5Bjpack%5Ename=euromillions%5Bjsrcroot%5Esrcfolder=src/main/java%5Bproject%5Eid=euromillions-play%5D%5D%5D%5D$uml.Class"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_H2XPwQEQEeemEM9u5u2anw" x="1188" y="8316"/>
+  </children>
+  <children xmi:type="umlnotation:UMLShape" xmi:id="_INv1AAEQEeemEM9u5u2anw" fontName="Segoe UI" fontHeight="8" showListSignature="true" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+    <children xmi:type="notation:DecorationNode" xmi:id="_INxDIAEQEeemEM9u5u2anw" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_INxDIQEQEeemEM9u5u2anw" width="1320" height="1320"/>
+    </children>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_INxDIgEQEeemEM9u5u2anw" type="Stereotype"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_INxDIwEQEeemEM9u5u2anw" type="Name"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_INxqMAEQEeemEM9u5u2anw" type="Parent"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_INxqMQEQEeemEM9u5u2anw" visible="false" type="ANNOTATION_COMPARTMENT"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_INzfYAEQEeemEM9u5u2anw" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_INzfYQEQEeemEM9u5u2anw" type="ANNOTATED_OPERATION_COMPARTMENT"/>
+    <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=EuromillionsDraw%5Bjcu%5Ename=EuromillionsDraw.java%5Bjpack%5Ename=euromillions%5Bjsrcroot%5Esrcfolder=src/main/java%5Bproject%5Eid=euromillions-play%5D%5D%5D%5D$uml.Class"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_INv1AQEQEeemEM9u5u2anw" x="7392" y="396"/>
+  </children>
+  <children xmi:type="umlnotation:UMLShape" xmi:id="_IsYRwAEQEeemEM9u5u2anw" fontName="Segoe UI" fontHeight="8" showListSignature="true" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+    <children xmi:type="notation:DecorationNode" xmi:id="_IsZf4AEQEeemEM9u5u2anw" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_IsZf4QEQEeemEM9u5u2anw" width="1320" height="1320"/>
+    </children>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_IsZf4gEQEeemEM9u5u2anw" type="Stereotype"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_IsZf4wEQEeemEM9u5u2anw" type="Name"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_IsaG8AEQEeemEM9u5u2anw" type="Parent"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_IsaG8QEQEeemEM9u5u2anw" visible="false" type="ANNOTATION_COMPARTMENT"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_Isb8IAEQEeemEM9u5u2anw" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_Isb8IQEQEeemEM9u5u2anw" type="ANNOTATED_OPERATION_COMPARTMENT"/>
+    <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=SetOfNaturals%5Bjcu%5Ename=SetOfNaturals.java%5Bjpack%5Ename=sets%5Bjsrcroot%5Esrcfolder=src/main/java%5Bproject%5Eid=euromillions-play%5D%5D%5D%5D$uml.Class"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_IsYRwQEQEeemEM9u5u2anw" x="14652" y="10956"/>
+  </children>
+  <children xmi:type="umlnotation:UMLShape" xmi:id="_JIg0IAEQEeemEM9u5u2anw" fontName="Segoe UI" fontHeight="8" showListSignature="true" transparency="0" lineColor="14263149" lineWidth="1" showStereotype="Label">
+    <children xmi:type="notation:DecorationNode" xmi:id="_JIhbMAEQEeemEM9u5u2anw" type="ImageCompartment">
+      <layoutConstraint xmi:type="notation:Size" xmi:id="_JIhbMQEQEeemEM9u5u2anw" width="1320" height="1320"/>
+    </children>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_JIiCQAEQEeemEM9u5u2anw" type="Stereotype"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_JIiCQQEQEeemEM9u5u2anw" type="Name"/>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_JIiCQgEQEeemEM9u5u2anw" type="Parent"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_JIipUAEQEeemEM9u5u2anw" visible="false" type="ANNOTATION_COMPARTMENT"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_JIlFkAEQEeemEM9u5u2anw" type="ANNOTATED_ATTRIBUTE_COMPARTMENT"/>
+    <children xmi:type="notation:ListCompartment" xmi:id="_JIlFkQEQEeemEM9u5u2anw" type="ANNOTATED_OPERATION_COMPARTMENT"/>
+    <element xmi:type="uml:Class" href="mmi:///#jsrctype%5Ename=SetOfNumbers%5Bjcu%5Ename=SetOfNumbers.java%5Bjpack%5Ename=sets%5Bjsrcroot%5Esrcfolder=src/main/java%5Bproject%5Eid=euromillions-play%5D%5D%5D%5D$uml.Class"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_JIg0IQEQEeemEM9u5u2anw" x="13068" y="4092"/>
+  </children>
+  <element xsi:nil="true"/>
+  <edges xmi:type="umlnotation:UMLConnector" xmi:id="_JMofIAEQEeemEM9u5u2anw" source="_IsYRwAEQEeemEM9u5u2anw" target="_JIg0IAEQEeemEM9u5u2anw" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+    <children xmi:type="notation:DecorationNode" xmi:id="_JM2hkAEQEeemEM9u5u2anw" type="NameLabel">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_JM2hkgEQEeemEM9u5u2anw" type="Stereotype"/>
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_JM3IoAEQEeemEM9u5u2anw" type="Name"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_JM2hkQEQEeemEM9u5u2anw" y="-186"/>
+    </children>
+    <element xmi:type="uml:Generalization" href="mmi:///#jgen%5Bjsrctype%5Ename=SetOfNaturals%5Bjcu%5Ename=SetOfNaturals.java%5Bjpack%5Ename=sets%5Bjsrcroot%5Esrcfolder=src/main/java%5Bproject%5Eid=euromillions-play%5D%5D%5D%5D%5D%5Bjsrctype%5Ename=SetOfNumbers%5Bjcu%5Ename=SetOfNumbers.java%5Bjpack%5Ename=sets%5Bjsrcroot%5Esrcfolder=src/main/java%5Bproject%5Eid=euromillions-play%5D%5D%5D%5D%5D$uml.Generalization"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_JMofIQEQEeemEM9u5u2anw" points="[1837, 855, -4408, 420]$[3575, 855, -2670, 420]"/>
+  </edges>
+  <edges xmi:type="umlnotation:UMLConnector" xmi:id="_O6_JEAEQEeemEM9u5u2anw" source="_HLXyAAEQEeemEM9u5u2anw" target="_H2XPwAEQEeemEM9u5u2anw" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+    <children xmi:type="notation:DecorationNode" xmi:id="_O7SrEAEQEeemEM9u5u2anw" type="FromMultiplicityLabel">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_O7TSIAEQEeemEM9u5u2anw" type="FromMultiplicity"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_O7SrEQEQEeemEM9u5u2anw" y="396"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_O7TSIQEQEeemEM9u5u2anw" type="FromRoleLabel">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_O7T5MAEQEeemEM9u5u2anw" type="FromRole"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_O7TSIgEQEeemEM9u5u2anw" x="-406" y="-389"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_O7T5MQEQEeemEM9u5u2anw" type="associationTypeLabel">
+      <children xmi:id="_O7T5MwEQEeemEM9u5u2anw" type="associationTypeCompartment"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_O7T5MgEQEeemEM9u5u2anw" y="-186"/>
+    </children>
+    <element xmi:type="uml:Property" href="mmi:///#jfield%5Ename=luckyDipsCollection%5Bjsrctype%5Ename=CuponEuromillions%5Bjcu%5Ename=CuponEuromillions.java%5Bjpack%5Ename=euromillions%5Bjsrcroot%5Esrcfolder=src/main/java%5Bproject%5Eid=euromillions-play%5D%5D%5D%5D%5D$uml.Property"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_O6_JEQEQEeemEM9u5u2anw" points="[284, 1835, -445, -6072]$[284, 5030, -445, -2877]"/>
+  </edges>
+  <edges xmi:type="umlnotation:UMLConnector" xmi:id="_Q1g8EAEQEeemEM9u5u2anw" source="_H2XPwAEQEeemEM9u5u2anw" target="_IsYRwAEQEeemEM9u5u2anw" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+    <children xmi:type="notation:DecorationNode" xmi:id="_Q1g8EgEQEeemEM9u5u2anw" type="FromMultiplicityLabel">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_Q1hjIAEQEeemEM9u5u2anw" type="FromMultiplicity"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Q1g8EwEQEeemEM9u5u2anw" y="396"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Q1hjIQEQEeemEM9u5u2anw" type="FromRoleLabel">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_Q1iKMAEQEeemEM9u5u2anw" type="FromRole"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Q1hjIgEQEeemEM9u5u2anw" y="-397"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Q1iKMQEQEeemEM9u5u2anw" type="associationTypeLabel">
+      <children xmi:id="_Q1iKMwEQEeemEM9u5u2anw" type="associationTypeCompartment"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Q1iKMgEQEeemEM9u5u2anw" y="-186"/>
+    </children>
+    <element xmi:type="uml:Property" href="mmi:///#jfield%5Ename=numbers%5Bjsrctype%5Ename=Dip%5Bjcu%5Ename=Dip.java%5Bjpack%5Ename=euromillions%5Bjsrcroot%5Esrcfolder=src/main/java%5Bproject%5Eid=euromillions-play%5D%5D%5D%5D%5D$uml.Property"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Q1g8EQEQEeemEM9u5u2anw" points="[3597, 1345, -6656, 856]$[8416, 1345, -1837, 856]"/>
+  </edges>
+  <edges xmi:type="umlnotation:UMLConnector" xmi:id="_Rlu4EAEQEeemEM9u5u2anw" source="_H2XPwAEQEeemEM9u5u2anw" target="_IsYRwAEQEeemEM9u5u2anw" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+    <children xmi:type="notation:DecorationNode" xmi:id="_Rlu4EgEQEeemEM9u5u2anw" type="FromMultiplicityLabel">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_RlvfIAEQEeemEM9u5u2anw" type="FromMultiplicity"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Rlu4EwEQEeemEM9u5u2anw" y="396"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_RlvfIQEQEeemEM9u5u2anw" type="FromRoleLabel">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_RlvfIwEQEeemEM9u5u2anw" type="FromRole"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_RlvfIgEQEeemEM9u5u2anw" y="-397"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_RlwGMAEQEeemEM9u5u2anw" type="associationTypeLabel">
+      <children xmi:id="_RlwGMgEQEeemEM9u5u2anw" type="associationTypeCompartment"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_RlwGMQEQEeemEM9u5u2anw" y="-186"/>
+    </children>
+    <element xmi:type="uml:Property" href="mmi:///#jfield%5Ename=starts%5Bjsrctype%5Ename=Dip%5Bjcu%5Ename=Dip.java%5Bjpack%5Ename=euromillions%5Bjsrcroot%5Esrcfolder=src/main/java%5Bproject%5Eid=euromillions-play%5D%5D%5D%5D%5D$uml.Property"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Rlu4EQEQEeemEM9u5u2anw" points="[3597, -110, -6128, -731]$[7888, -110, -1837, -731]"/>
+  </edges>
+  <edges xmi:type="umlnotation:UMLConnector" xmi:id="_VNqBAAEQEeemEM9u5u2anw" source="_INv1AAEQEeemEM9u5u2anw" target="_H2XPwAEQEeemEM9u5u2anw" fontName="Segoe UI" fontHeight="8" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1" showStereotype="Text">
+    <children xmi:type="notation:DecorationNode" xmi:id="_VNqoEAEQEeemEM9u5u2anw" type="FromMultiplicityLabel">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_VNrPIAEQEeemEM9u5u2anw" type="FromMultiplicity"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_VNqoEQEQEeemEM9u5u2anw" y="396"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_VNrPIQEQEeemEM9u5u2anw" type="FromRoleLabel">
+      <children xmi:type="notation:BasicDecorationNode" xmi:id="_VNrPIwEQEeemEM9u5u2anw" type="FromRole"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_VNrPIgEQEeemEM9u5u2anw" x="-230" y="-1069"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_VNrPJAEQEeemEM9u5u2anw" type="associationTypeLabel">
+      <children xmi:id="_VNrPJgEQEeemEM9u5u2anw" type="associationTypeCompartment"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_VNrPJQEQEeemEM9u5u2anw" x="369" y="-381"/>
+    </children>
+    <element xmi:type="uml:Property" href="mmi:///#jfield%5Ename=drawResults%5Bjsrctype%5Ename=EuromillionsDraw%5Bjcu%5Ename=EuromillionsDraw.java%5Bjpack%5Ename=euromillions%5Bjsrcroot%5Esrcfolder=src/main/java%5Bproject%5Eid=euromillions-play%5D%5D%5D%5D%5D$uml.Property"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_VNqBAQEQEeemEM9u5u2anw" points="[-1650, 1597, 3284, -6547]$[-1650, 3002, 3284, -5142]$[-2337, 3002, 2597, -5142]$[-2337, 5267, 2597, -2877]"/>
+  </edges>
+</umlnotation:UMLDiagram>
