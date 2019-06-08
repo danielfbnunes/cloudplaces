@@ -8,14 +8,14 @@ pipeline {
         stage('Install') {
             steps {
                 sh '''
-		            cd Lab1/
+		            cd tqs-euromillions-unit/
 		            mvn -U clean test cobertura:cobertura -Dcobertura.report.format=xml
 		        '''
             }
             post {
                 always {
                     junit '**/target/*-reports/TEST-*.xml'
-                        step([$class: 'CoberturaPublisher', coberturaReportFile: 'Lab1/target/site/cobertura/coverage.xml'])
+                        step([$class: 'CoberturaPublisher', coberturaReportFile: 'tqs-euromillions-unit/target/site/cobertura/coverage.xml'])
 
                 }
             }
@@ -26,7 +26,7 @@ pipeline {
                     // Optionally use a Maven environment you've configured already
                     withMaven(maven:'mvn') {
                         sh '''
-			                cd Lab1/
+			                cd tqs-euromillions-unit/
 			                mvn clean package sonar:sonar
 			            '''
                     }
