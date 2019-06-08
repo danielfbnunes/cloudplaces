@@ -15,11 +15,13 @@ public class Dip {
     public final static int REQUIRED_STARS_COUNT_FOR_BET = 2;
 
     private SetOfNaturals numbers;
-    private SetOfNaturals starts;
+    private SetOfNaturals starts; 
+    private static Random generator;
 
     public Dip() {
         numbers = new SetOfNaturals();
         starts = new SetOfNaturals();
+        generator = new Random();
     }
 
     public Dip(int[] arrayOfNumbers, int[] arrayOfStarts) {
@@ -43,7 +45,7 @@ public class Dip {
     }
 
     public static Dip generateRandomDip() {
-        Random generator = new Random();
+        
 
         Dip randomDip = new Dip();
         for (int i = 0; i < REQUIRED_NUMBERS_COUNT_FOR_BET;) {
