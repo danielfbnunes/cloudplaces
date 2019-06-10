@@ -34,6 +34,7 @@ public class DipTest {
     @Test
     public void testConstructorFromBadArrays() 
     {
+        fail();
         Assertions.assertThrows( IllegalArgumentException.class, () -> 
         {
            instance = new Dip( new int[] {10,20,30,40,50,60}, new int[] {1,2});    
