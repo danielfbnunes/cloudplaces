@@ -27,6 +27,7 @@ public class RedmineTest {
 
   @BeforeEach
   public void setUp() throws Exception {
+    System.setProperty("webdriver.chrome.driver","/usr/local/bin/chromedriver");
     driver = new ChromeDriver();
     baseUrl = "https://www.katalon.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);

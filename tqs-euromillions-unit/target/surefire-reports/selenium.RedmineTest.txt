@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
-Test set: euromillions.DipTest
+Test set: selenium.RedmineTest
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 s - in euromillions.DipTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.056 s - in selenium.RedmineTest
