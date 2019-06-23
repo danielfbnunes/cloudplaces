@@ -17,6 +17,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.Select;
 
 public class RedmineTest {
@@ -28,7 +29,11 @@ public class RedmineTest {
   @BeforeEach
   public void setUp() throws Exception {
     System.setProperty("webdriver.chrome.driver","/usr/local/bin/chromedriver");
-    driver = new ChromeDriver();
+    ChromeOptions options = new ChromeOptions();
+    options.addArguments("--no-sandbox");
+    options.addArguments("--disable-dev-shm-usage");
+    options.setExperimentalOption("useAutomationExtension", false);
+    driver = new ChromeDriver(options);
     baseUrl = "https://www.katalon.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
