@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: selenium.RedmineTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.75 s - in selenium.RedmineTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.936 s - in selenium.RedmineTest
