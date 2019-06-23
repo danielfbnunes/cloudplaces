@@ -10,6 +10,8 @@ package selenium;
  * @author rd
  */
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.*;
@@ -20,6 +22,7 @@ import org.junit.jupiter.api.*;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.GeckoDriverService;
 
 public class RedmineTest {
     private WebDriver driver;
@@ -29,14 +32,15 @@ public class RedmineTest {
     
     @BeforeEach
     public void setUp() throws Exception {
-        // Run without display
-        FirefoxBinary firefoxBinary = new FirefoxBinary();
-        //firefoxBinary.addCommandLineOptions("--headless");
-        firefoxBinary.addCommandLineOptions("-vv");
-        FirefoxOptions firefoxOptions = new FirefoxOptions();
-        firefoxOptions.setBinary(firefoxBinary);
         
-        driver = new FirefoxDriver(firefoxOptions);
+        Map<String, String> environment = new HashMap<>();
+        environment.put("DISPLAY", ":99");
+        GeckoDriverService service = new GeckoDriverService.Builder()
+        .usingAnyFreePort()
+        .withEnvironment(environment)
+        .build();;
+        
+        driver = new FirefoxDriver(service);
         baseUrl = "https://www.katalon.com/";
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
     }
