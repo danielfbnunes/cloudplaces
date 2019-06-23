@@ -30,12 +30,15 @@ public class RedmineTest {
   public void setUp() throws Exception {
     System.setProperty("webdriver.chrome.driver","/usr/local/bin/chromedriver");
     ChromeOptions options = new ChromeOptions();
-    options.addArguments("--no-sandbox");
-    options.addArguments("--disable-dev-shm-usage");
-    options.setExperimentalOption("useAutomationExtension", false);
+    options.addArguments("start-maximized"); // open Browser in maximized mode
+    options.addArguments("disable-infobars"); // disabling infobars
+    options.addArguments("--disable-extensions"); // disabling extensions
+    options.addArguments("--disable-gpu"); // applicable to windows os only
+    options.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
+    options.addArguments("--no-sandbox"); // Bypass OS security model
     driver = new ChromeDriver(options);
     baseUrl = "https://www.katalon.com/";
-    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
   }
 
   @Test
