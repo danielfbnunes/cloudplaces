@@ -20,7 +20,6 @@ import org.junit.jupiter.api.*;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.support.ui.Select;
 
 public class RedmineTest {
     private WebDriver driver;
@@ -32,7 +31,8 @@ public class RedmineTest {
     public void setUp() throws Exception {
         // Run without display
         FirefoxBinary firefoxBinary = new FirefoxBinary();
-        firefoxBinary.addCommandLineOptions("--headless");
+        //firefoxBinary.addCommandLineOptions("--headless");
+        firefoxBinary.addCommandLineOptions("-vv");
         FirefoxOptions firefoxOptions = new FirefoxOptions();
         firefoxOptions.setBinary(firefoxBinary);
         
