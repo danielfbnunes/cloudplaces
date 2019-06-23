@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.Select;
-
+        
 public class RedmineTest {
   private WebDriver driver;
   private String baseUrl;
@@ -28,15 +28,7 @@ public class RedmineTest {
 
   @BeforeEach
   public void setUp() throws Exception {
-    System.setProperty("webdriver.chrome.driver","/usr/local/bin/chromedriver");
-    ChromeOptions options = new ChromeOptions();
-    options.addArguments("start-maximized"); // open Browser in maximized mode
-    options.addArguments("disable-infobars"); // disabling infobars
-    options.addArguments("--disable-extensions"); // disabling extensions
-    options.addArguments("--disable-gpu"); // applicable to windows os only
-    options.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
-    options.addArguments("--no-sandbox"); // Bypass OS security model
-    driver = new ChromeDriver(options);
+    driver = new FirefoxDriver();
     baseUrl = "https://www.katalon.com/";
     driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
   }
