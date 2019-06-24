@@ -36,7 +36,7 @@ public class RedmineTest {
         Map<String, String> environment = new HashMap<>();
         
         // check if a GUI is available
-        if(System.getenv("DISPLAY").equals(":99")) 
+        if(System.getenv("DISPLAY") == null || System.getenv("DISPLAY").equals(":99")) 
         {
             System.out.println("Setting Up a Display");
             environment.put("DISPLAY", ":99");
