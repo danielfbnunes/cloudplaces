@@ -1,3 +1,4 @@
+// Define color maps for Slack Integration
 def COLOR_MAP = ['SUCCESS': 'good', 'FAILURE': 'danger', 'UNSTABLE': 'danger', 'ABORTED': 'danger']
 
 
@@ -8,19 +9,12 @@ pipeline {
         maven 'mvn'
     }
     stages {    
-    stage('Slack Notification'){ 
-        steps {
-            slackSend (color: '#00FF00', message: 'summary')
-            }
-    }
-    stage('Slack Notification xxx'){ 
-        steps {
-            slackSend (color: COLOR_MAP[currentBuild.currentResult], message: "Job: *${env.JOB_NAME}, build #${env.BUILD_NUMBER}* is *`${currentBuild.currentResult}`* \nRun in ${currentBuild.durationString} - <${env.BUILD_URL}|Go to this job>")
-            slackSend (color: '#00FF00', message: "Build Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open Build Log>)")
-            }
-        }
         stage('Install') {
             steps {
+                //Send message to Slack informing that the Build is Starting
+                slackSend (message: "*Build Started* - ${env.JOB_NAME} *#${env.BUILD_NUMBER}* (<${env.BUILD_URL}|Open Build Logs>)")
+                
+                // Maven Install
                 sh '''
 		            cd tqs-euromillions-unit/
 		            mvn -U clean test cobertura:cobertura -Dcobertura.report.format=xml
@@ -58,7 +52,11 @@ pipeline {
             }
         }
         
-        
+        stage('Slack Build Notification'){ 
+            steps {
+                slackSend (color: COLOR_MAP[currentBuild.currentResult], message: "Job: *${env.JOB_NAME}, build #${env.BUILD_NUMBER}* is *`${currentBuild.currentResult}`* \nRun in ${currentBuild.durationString} - <${env.BUILD_URL}|Go to this job>")
+            }
+        }
     }
 }
 
