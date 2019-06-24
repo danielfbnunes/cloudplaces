@@ -34,6 +34,7 @@ public class RedmineTest {
     public void setUp() throws Exception {
         
         Map<String, String> environment = new HashMap<>();
+        System.out.println(environment.get("DISPLAY"));
         environment.put("DISPLAY", ":99");
         GeckoDriverService service = new GeckoDriverService.Builder()
         .usingAnyFreePort()
