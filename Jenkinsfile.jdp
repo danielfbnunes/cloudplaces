@@ -6,7 +6,9 @@ pipeline {
     }
     stages {    
     stage('Slack Notification'){ 
-        step( slackSend (color: '#00FF00', message: 'summary') )
+        steps {
+            slackSend (color: '#00FF00', message: 'summary')
+            }
     }
         stage('Install') {
             steps {
