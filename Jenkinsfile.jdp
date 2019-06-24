@@ -8,7 +8,18 @@ pipeline {
         jdk 'jdk8'
         maven 'mvn'
     }
-    stages {    
+    stages {  
+    
+        stage('Teixeira - Integration Testing With Spring ') {
+            steps {
+                // Maven Install
+                sh '''
+		            cd hm1/
+		            mvn -U clean test 
+		        '''
+            }
+        }
+        
         stage('Install') {
             steps {
                 //Send message to Slack informing that the Build is Starting
@@ -35,15 +46,7 @@ pipeline {
             }
         }
         
-        stage('Teixeira - Integration Testing With Spring ') {
-            steps {
-                // Maven Install
-                sh '''
-		            cd hm1/
-		            mvn -U clean test 
-		        '''
-            }
-        }
+        
 	    stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('mySonar') {
