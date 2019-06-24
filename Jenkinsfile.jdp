@@ -6,11 +6,13 @@ pipeline {
     }
     stages {    
     stage('Slack Notification'){ 
-    	slackSend baseURL: 'https://hooks.slack.com/services/' , 
-    	channel: '#jenkins' , 
-    	message: 'Hello', 
-    	teamDomain: 'cloudspaces-devteam', 
-    	tokenCredentialId: 'slack-jenkins' 
+        steps{
+    	    slackSend baseURL: 'https://hooks.slack.com/services/' , 
+    	    channel: '#jenkins' , 
+    	    message: 'Hello', 
+    	    teamDomain: 'cloudspaces-devteam', 
+    	    tokenCredentialId: 'slack-jenkins' 
+        }
     }
         stage('Install') {
             steps {
