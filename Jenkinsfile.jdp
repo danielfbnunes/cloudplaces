@@ -54,7 +54,7 @@ pipeline {
         
         stage('Slack Build Notification'){ 
             steps {
-                slackSend (color: COLOR_MAP[currentBuild.currentResult], message: "Job: *${env.JOB_NAME}, build #${env.BUILD_NUMBER}* is *`${currentBuild.currentResult}`* \nRun in ${currentBuild.durationString} - <${env.BUILD_URL}|Go to this job>")
+                slackSend (color: COLOR_MAP[currentBuild.currentResult], message: "Job: *${env.JOB_NAME}, build #${env.BUILD_NUMBER}* is *`${currentBuild.currentResult}`* \nRun in ${currentBuild.durationString} - <${env.BUILD_URL}|Open Build Logs>")
             }
         }
     }
