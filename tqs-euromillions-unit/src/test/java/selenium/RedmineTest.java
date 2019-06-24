@@ -34,8 +34,16 @@ public class RedmineTest {
     public void setUp() throws Exception {
         
         Map<String, String> environment = new HashMap<>();
-        System.out.println(environment.get("DISPLAY"));
-        environment.put("DISPLAY", ":99");
+        
+        // check if a GUI is available
+        if(System.getenv("DISPLAY").equals(":99")) 
+        {
+            System.out.println("Setting Up a Display");
+            environment.put("DISPLAY", ":99");
+        }
+        else
+            System.out.println("Using computer's defaul GUI");
+        
         GeckoDriverService service = new GeckoDriverService.Builder()
         .usingAnyFreePort()
         .withEnvironment(environment)
@@ -46,6 +54,12 @@ public class RedmineTest {
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
     }
     
+    @AfterEach
+    public void cleanUp()
+    {
+     
+    }
+
     @Test
     public void testRedmine() throws Exception {
         driver.get("http://demo.redmine.org/");

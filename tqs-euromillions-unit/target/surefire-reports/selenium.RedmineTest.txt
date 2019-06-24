@@ -1,13 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: selenium.RedmineTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 2.122 s <<< FAILURE! - in selenium.RedmineTest
-testRedmine  Time elapsed: 2.098 s  <<< ERROR!
-org.openqa.selenium.WebDriverException: 
-invalid argument: can't kill an exited process
-Build info: version: '3.6.0', revision: '6fbf3ec767', time: '2017-09-27T15:28:36.4Z'
-System info: host: 'aluno-7564.wireless.ua.pt', ip: 'fe80:0:0:0:10b3:5504:c4de:7eb2%en0', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.14.4', java.version: '1.8.0_171'
-Driver info: driver.version: FirefoxDriver
-remote stacktrace: 
-	at selenium.RedmineTest.setUp(RedmineTest.java:43)
-
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.749 s - in selenium.RedmineTest
