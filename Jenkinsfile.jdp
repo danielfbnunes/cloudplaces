@@ -13,7 +13,7 @@ pipeline {
             steps {
                 input 'Do you approve the deployment?'
                 // copy the application
-                sh 'scp target/*.jar jenkins@192.168.50.10:/opt/pet/'
+                sh 'scp target/*.jar tqs@192.168.160.7:/opt/pet/'
                 // start the application
                 sh "ssh jenkins@192.168.50.10 'nohup java -jar /opt/pet/spring-petclinic-1.5.1.jar &'"
             }
