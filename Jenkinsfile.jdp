@@ -14,6 +14,12 @@ pipeline {
                 //Send message to Slack informing that the Build is Starting
                 slackSend (message: "*Build Started* - ${env.JOB_NAME} *#${env.BUILD_NUMBER}* (<${env.BUILD_URL}|Open Build Logs>)")
                 
+                //Create a display to emulate a GUI
+                sh '''
+                    Xvfb :99 -ac &
+                    export DISPLAY=:99 
+                '''
+                
                 // Maven Install
                 sh '''
 		            cd tqs-euromillions-unit/
