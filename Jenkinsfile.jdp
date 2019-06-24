@@ -5,7 +5,7 @@ pipeline {
         maven 'mvn'
     }
     stages {    
-    stage('Slack Notification') 
+    stage('Slack Notification'){ 
     	slackSend baseURL: 'https://hooks.slack.com/services/' , 
     	channel: '#jenkins' , 
     	message: 'Hello', 
