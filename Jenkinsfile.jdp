@@ -10,6 +10,11 @@ pipeline {
             slackSend (color: '#00FF00', message: 'summary')
             }
     }
+    stage('Slack Notification xxx'){ 
+        steps {
+            slackSend (color: '#00FF00', message: "Build Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>")
+            }
+        }
         stage('Install') {
             steps {
                 sh '''
@@ -49,11 +54,7 @@ pipeline {
             }
         }
         
-        stage('Slack Notification xxx'){ 
-        steps {
-            slackSend (color: '#00FF00', message: 'Build Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>"')
-            }
-        }
+        
     }
 }
 
