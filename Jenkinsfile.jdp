@@ -22,8 +22,9 @@ pipeline {
                 
                 // Maven Install
                 sh '''
-		            cd ~/tqs/cloudplaces/tqs-euromillions-unit
+		            cd tqs-euromillions-unit
 		            mvn -U clean test cobertura:cobertura -Dcobertura.report.format=xml
+                    cd ..
 		        '''
             }
             post {
@@ -39,8 +40,9 @@ pipeline {
             steps {
                 // Maven Install
                 sh '''
-		            cd ~/tqs/cloudplaces/hm1
+		            cd hm1
 		            mvn -U clean test 
+                    cd ..
 		        '''
             }
         }
