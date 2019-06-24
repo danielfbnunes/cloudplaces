@@ -22,7 +22,7 @@ pipeline {
                 
                 // Maven Install
                 sh '''
-		            cd tqs-euromillions-unit/
+		            cd ~/tqs/cloudplaces/tqs-euromillions-unit
 		            mvn -U clean test cobertura:cobertura -Dcobertura.report.format=xml
 		        '''
             }
@@ -31,9 +31,18 @@ pipeline {
                     junit '**/target/*-reports/TEST-*.xml'
                         step([$class: 'CoberturaPublisher', coberturaReportFile: 'tqs-euromillions-unit/target/site/cobertura/coverage.xml'])
 
+                    }
                 }
             }
-        }
+        
+        stage('Teixeira - Integration Testing With Spring ') {
+            steps {
+                // Maven Install
+                sh '''
+		            cd ~/tqs/cloudplaces/hm1
+		            mvn -U clean test 
+		        '''
+            }
 	    stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('mySonar') {
