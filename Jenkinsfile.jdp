@@ -4,7 +4,14 @@ pipeline {
         jdk 'jdk8'
         maven 'mvn'
     }
-    stages {
+    stages {    
+    stage('Slack Notification') 
+    	slackSend baseURL: 'https://hooks.slack.com/services/' , 
+    	channel: '#jenkins' , 
+    	message: 'Hello', 
+    	teamDomain: 'cloudspaces-devteam', 
+    	tokenCredentialId: 'slack-jenkins' 
+    }
         stage('Install') {
             steps {
                 sh '''
