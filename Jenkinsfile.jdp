@@ -19,7 +19,8 @@ pipeline {
     stages { 
         stage('Remote SSH') {
             steps {
-              sshPut remote: remote, from: 'SpringBootOnDocker/pom.xml', into: '.'
+              writeFile file: 'abc.sh', text: 'ls -lrt'
+              sshPut remote: remote, from: 'abc.sh', into: '.'
             }
         }
         
