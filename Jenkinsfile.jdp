@@ -36,8 +36,9 @@ pipeline {
                     sshCommand remote: remote, command: "ls -1"   
                 
                     // run jar
-                    sshCommand remote: remote, command: "export JENKINS_NODE_COOKIE=dontKillMe"      
-                    sshCommand remote: remote, command: "nohup java -jar cloudplaces-v1.0.jar &"  
+                    //sshCommand remote: remote, command: "export JENKINS_NODE_COOKIE=dontKillMe"      
+                    //sshCommand remote: remote, command: "nohup java -jar cloudplaces-v1.0.jar &" 
+                    sh "ssh tqs@13.94.238.1090 'nohup java -jar cloudplaces-v1.0.jar &'"
                     
                     
                      
