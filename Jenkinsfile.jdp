@@ -37,7 +37,7 @@ pipeline {
                 sshCommand remote: remote, command: "ls -1"   
                 
                 // run jar
-                sshCommand remote: remote, command: "java -jar cloudplaces-v1.0.jar &"   
+                sshCommand remote: remote, command: "java -jar cloudplaces-v1.0.jar \&"   
             }
         }
     
