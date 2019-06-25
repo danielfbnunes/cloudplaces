@@ -18,14 +18,13 @@ import java.util.ArrayList;
 import pt.ua.cloudplacesandroidapp.Fragments.AccommodationFragment;
 import pt.ua.cloudplacesandroidapp.R;
 
-public class AccommodationAdapter extends RecyclerView.Adapter<AccommodationAdapter.ViewHolder>
-{
+public class AccommodationAdapter extends RecyclerView.Adapter<AccommodationAdapter.ViewHolder>{
     //Member variables.
     private ArrayList<String> accommodations;
     private Context mContext;
     private Activity mActivity;
 
-    public AccommodationAdapter(Context context, ArrayList<String> accommodations, Activity mActivity) {
+    public AccommodationAdapter(Context context, ArrayList<String> accommodations, Activity mActivity){
         this.accommodations = accommodations;
         this.mContext = context;
         this.mActivity = mActivity;
@@ -36,12 +35,11 @@ public class AccommodationAdapter extends RecyclerView.Adapter<AccommodationAdap
     }
 
     @Override
-    public AccommodationAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
-    {
+    public AccommodationAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.accommodation_item, parent, false));
     }
 
-    public void onBindViewHolder(AccommodationAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(AccommodationAdapter.ViewHolder holder, int position){
         // Get current sport.
         if(accommodations != null) {
             String currentAccommodation = accommodations.get(position);
@@ -50,7 +48,7 @@ public class AccommodationAdapter extends RecyclerView.Adapter<AccommodationAdap
         }
     }
 
-    public int getItemCount() {
+    public int getItemCount(){
         if(accommodations != null)
             return accommodations.size();
         else
@@ -58,14 +56,12 @@ public class AccommodationAdapter extends RecyclerView.Adapter<AccommodationAdap
     }
 
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
-    {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         // Member Variables for the TextViews
         private TextView textview;
         private ImageView imageView;
 
-        public ViewHolder(View itemView)
-        {
+        public ViewHolder(View itemView){
             super(itemView);
             // Initialize the views.
             textview = itemView.findViewById(R.id.accommodationName);
@@ -80,8 +76,7 @@ public class AccommodationAdapter extends RecyclerView.Adapter<AccommodationAdap
             Glide.with(mContext).load("https://i.kinja-img.com/gawker-media/image/upload/s--bIV3xkEm--/c_scale,f_auto,fl_progressive,q_80,w_800/jsprifdd1gmfy7e7nola.jpg").into(imageView);
         }
 
-        public void onClick(View view)
-        {
+        public void onClick(View view){
             String a = accommodations.get(getAdapterPosition());
             AccommodationFragment accommodation = new AccommodationFragment().initializeData(a);
             AppCompatActivity activity = (AppCompatActivity) view.getContext();
