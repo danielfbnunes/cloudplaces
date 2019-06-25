@@ -34,7 +34,7 @@ public class Register extends AppCompatActivity {
             }
         });
 
-        chooseImage=(ImageView) findViewById(R.id.imageView2);
+        chooseImage = (ImageView) findViewById(R.id.imageView2);
         Button pickImage = (Button) findViewById(R.id.pickImage);
         pickImage.setOnClickListener(new View.OnClickListener() {
             @Override
