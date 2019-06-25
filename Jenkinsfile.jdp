@@ -15,7 +15,7 @@ pipeline {
                 // copy the application
                 sh '''
                     cd /home
-                    echo ola > ola.txt
+                    mkdir xxx
                     '''
             }
         }
