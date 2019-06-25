@@ -31,15 +31,17 @@ pipeline {
                     sshPut remote: remote, from: 'SpringBootOnDocker/Dockerfile', into: './deploy'
                     sshPut remote: remote, from: 'SpringBootOnDocker/target/dependency', into: './deploy'
                     
+                     sshCommand remote: remote, command: "docker ps -a", sudo:true
+                    
                     // remove old images
-                    sshCommand remote: remote, command: "docker stop cloudplaces || echo 'cloud places not stopped' "
-                    sshCommand remote: remote, command: "docker rm cloudplaces || echo 'cloud places removed stopped'"
-                    sshCommand remote: remote, command: "docker rmi cloudplaces || echo 'cloud places image not stopped'"
+                    sshCommand remote: remote, command: "docker stop cloudplaces || echo 'cloud places not stopped' ", sudo:true
+                    sshCommand remote: remote, command: "docker rm cloudplaces || echo 'cloud places removed stopped'", sudo:true
+                    sshCommand remote: remote, command: "docker rmi cloudplaces || echo 'cloud places image not stopped'", sudo:true
                     
                     sleep(time:5,unit:"SECONDS")
                     
-                    sshCommand remote: remote, command: "docker build -t cloudplaces ./deploy"
-                    sshCommand remote: remote, command: "docker run -d -p 8080:8080 --name cloudplaces -t cloudplaces "
+                    sshCommand remote: remote, command: "docker build -t cloudplaces ./deploy", sudo:true
+                    sshCommand remote: remote, command: "docker run -d -p 8080:8080 --name cloudplaces -t cloudplaces ", sudo:true
                     
                     
                 
