@@ -21,38 +21,22 @@ pipeline {
             steps {
                 input 'Do you approve the deployment?'
                 
-                // compile appplication
                 sh '''
                   cd SpringBootOnDocker
-                  mvn -N io.takari:maven:wrapper
-                  ./mvnw package
-                  docker build Dockerfile
-                  docker save -o cloudplaces_docker.tar docker/cloudplaces 
+                  mvn package
                 '''                
+                    //put jar on deployment server
+                    sshPut remote: remote, from: 'SpringBootOnDocker/target/cloudplaces-v1.0.jar', into: '.'
                 
-                    //put docker image tar on deployment server
-                    sshPut remote: remote, from: 'cloudplaces_docker.tar', into: '.'
-                
-                    
-                    sshCommand remote: remote, command: "docker stop cloudplaces"
-                    sshCommand remote: remote, command: "docker rm cloudplaces"
-                    sshCommand remote: remote, command: "docker rmi docker/cloudplaces"
-                    
-                    //load image
-                    sshCommand remote: remote, command: "docker load -i cloudplaces_docker.tar"
-                    
-                    sshCommand remote: remote, command: "docker run -d -p 8080:8080 --name cloudplaces -t docker/cloudplaces "
-                    
-                    
+                    // stop any process running on 8080 (IP tables forward traffic from port 80 to 8080
+                    sshCommand remote: remote, command: "kill \$(lsof -i:8080 -t) || echo 'No process running on 8080'"
                 
                     // run jar
-                    //sshCommand remote: remote, command: "ls -1"   
+                    sshCommand remote: remote, command: "ls -1"   
                 
                     // run jar
-                    //sshCommand remote: remote, command: "export JENKINS_NODE_COOKIE=dontKillMe"      
+                    sshCommand remote: remote, command: "JENKINS_NODE_COOKIE=dontKillMe nohup java -jar cloudplaces-v1.0.jar &"      
                     //sshCommand remote: remote, command: "nohup java -jar cloudplaces-v1.0.jar &" 
-                    //sh "ssh tqs@13.94.238.109 'nohup java -jar cloudplaces-v1.0.jar &'"
-                    
                     
                      
             
