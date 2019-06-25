@@ -27,14 +27,19 @@ pipeline {
                 '''                
                     //put jar on deployment server
                     sshPut remote: remote, from: 'SpringBootOnDocker/target/cloudplaces-v1.0.jar', into: '.'
+                    sshPut remote: remote, from: 'SpringBootOnDocker/Dockerfile', into: '.'
+                    sshCommand remote: remote, command: "docker build -t docker/cloudplaces .", sudo:true 
+                    sshCommand remote: remote, command: "docker run -d -p 8080:8080 --name cloudplaces -t docker/cloudplaces ", sudo:true 
+                    
+                    
                 
                     // stop any process running on 8080 (IP tables forward traffic from port 80 to 8080
-                    sshCommand remote: remote, command: "kill \$(lsof -i:8080 -t) || echo 'No process running on 8080'"
+                    //sshCommand remote: remote, command: "kill \$(lsof -i:8080 -t) || echo 'No process running on 8080'"
                 
                     // run jar
-                    sshCommand remote: remote, command: "ls -1"   
+                    //sshCommand remote: remote, command: "ls -1"   
                     
-                    sshCommand remote: remote, command: "sudo daemonize -E JENKINS_NODE_COOKIE=dontKillMe nohup java -jar cloudplaces-v1.0.jar &", sudo:true
+                    //sshCommand remote: remote, command: "sudo daemonize -E JENKINS_NODE_COOKIE=dontKillMe nohup java -jar cloudplaces-v1.0.jar &", sudo:true
                     
                     // run jar
                     //sshCommand remote: remote, command: "daemonize -E JENKINS_NODE_COOKIE=dontKillMe java -jar cloudplaces-v1.0.jar & "      
