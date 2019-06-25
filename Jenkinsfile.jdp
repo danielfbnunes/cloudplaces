@@ -4,7 +4,7 @@ def COLOR_MAP = ['SUCCESS': 'good', 'FAILURE': 'danger', 'UNSTABLE': 'danger', '
 
 def remote = [:]
     remote.name = 'tqs'
-    remote.host = '52.157.170.100'
+    remote.host = '13.94.238.109'
     remote.user = 'tqs'
     remote.password = 'TqsDeployment2019.'
     remote.allowAnyHosts = true
