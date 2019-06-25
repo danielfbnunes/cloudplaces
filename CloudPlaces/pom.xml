@@ -8,8 +8,8 @@
         <relativePath/>
     </parent>
     
-    <groupId>com.development</groupId>
-    <artifactId>CloudPLaces</artifactId>
+    <groupId>cloudplaces.webapp</groupId>
+    <artifactId>cloudplaces</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -17,6 +17,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <docker.image.prefix>docker</docker.image.prefix>
         <mockito.version>2.24.0</mockito.version>
     </properties>
 
@@ -60,6 +61,40 @@
     <build>
         <plugins>
             <plugin>
+               <groupId>com.spotify</groupId>
+               <artifactId>dockerfile-maven-plugin</artifactId>
+               <version>1.4.9</version>
+               <configuration>
+                   <repository>${docker.image.prefix}/${project.artifactId}</repository>
+               </configuration>
+           </plugin>
+           <!-- end::plugin[] -->
+
+           <!-- tag::unpack[] -->
+           <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-dependency-plugin</artifactId>
+               <executions>
+                   <execution>
+                       <id>unpack</id>
+                       <phase>package</phase>
+                       <goals>
+                           <goal>unpack</goal>
+                       </goals>
+                       <configuration>
+                           <artifactItems>
+                               <artifactItem>
+                                   <groupId>${project.groupId}</groupId>
+                                   <artifactId>${project.artifactId}</artifactId>
+                                   <version>${project.version}</version>
+                               </artifactItem>
+                           </artifactItems>
+                       </configuration>
+                   </execution>
+               </executions>
+           </plugin>
+           <!-- end::unpack[] -->
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
@@ -77,4 +112,5 @@
             </plugin>
         </plugins>
     </build>
+    <name>CloudPlaces</name>
 </project>
