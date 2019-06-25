@@ -19,6 +19,7 @@ pipeline {
     stages { 
         stage('Remote SSH') {
             steps {
+              sh "ls"
               writeFile file: 'abc.sh', text: 'ls -lrt'
               sshPut remote: remote, from: 'abc.sh', into: '.'
             }
