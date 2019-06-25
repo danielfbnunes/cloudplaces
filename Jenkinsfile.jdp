@@ -26,11 +26,18 @@ pipeline {
                   mvn package
                 '''                
                     //put jar on deployment server
-                    sshPut remote: remote, from: 'SpringBootOnDocker/target/cloudplaces-v1.0.jar', into: '.'
-                    sshPut remote: remote, from: 'SpringBootOnDocker/Dockerfile', into: '.'
-                    sshPut remote: remote, from: 'SpringBootOnDocker/target/dependency', into: '.'
-                    sshCommand remote: remote, command: "docker build -t docker/cloudplaces ."
-                    sshCommand remote: remote, command: "docker run -d -p 8080:8080 --name cloudplaces -t docker/cloudplaces "
+                    //send all data to deploy server
+                    sshPut remote: remote, from: 'SpringBootOnDocker/target/cloudplaces-v1.0.jar', into: './deploy'
+                    sshPut remote: remote, from: 'SpringBootOnDocker/Dockerfile', into: './deploy'
+                    sshPut remote: remote, from: 'SpringBootOnDocker/target/dependency', into: './deploy'
+                    
+                    // remove old images
+                    sshCommand remote: remote, command: "docker stop cloudplaces"
+                    sshCommand remote: remote, command: "docker rm cloudplaces"
+                    sshCommand remote: remote, command: "docker rmi cloudplaces"
+                    
+                    sshCommand remote: remote, command: "docker build -t cloudplaces ./deploy"
+                    sshCommand remote: remote, command: "docker run -d -p 8080:8080 --name cloudplaces -t cloudplaces "
                     
                     
                 
