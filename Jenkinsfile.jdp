@@ -24,7 +24,7 @@ pipeline {
                   mvn package
                  '''
               sshPut remote: remote, from: 'SpringBootOnDocker/target/cloudplaces-v1.0.jar', into: '.'
-              shCommand remote: remote, command: "java -jar cloudplaces-v1.0.jar"
+              sshCommand remote: remote, command: "java -jar cloudplaces-v1.0.jar"
             }
         }
         
