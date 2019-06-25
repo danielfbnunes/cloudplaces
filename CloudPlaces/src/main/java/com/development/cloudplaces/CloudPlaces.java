@@ -12,13 +12,15 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
-
+/**
+ * Esta classe é utilizada para criar todo o contexto de execução da aplicação.
+ */
 public class CloudPlaces{
     
     public static final Logger logger = LoggerFactory.getLogger(CloudPlaces.class);
     public static final RestTemplate restTemplate = new RestTemplate();
     
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args){
         SpringApplication app = new SpringApplication(CloudPlaces.class);
         app.run(args);
 
