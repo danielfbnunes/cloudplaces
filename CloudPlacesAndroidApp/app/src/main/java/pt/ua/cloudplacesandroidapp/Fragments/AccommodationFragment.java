@@ -25,8 +25,7 @@ public class AccommodationFragment extends Fragment {
     private String accomodation;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         DrawerLayout drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
         final Toolbar toolbar = (Toolbar)  getActivity().findViewById(R.id.toolbar);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -56,15 +55,14 @@ public class AccommodationFragment extends Fragment {
 
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
         //you can set the title for your toolbar here for different fragments different titles
         getActivity().setTitle(name);
     }
 
 
-    public AccommodationFragment initializeData(String accomodation)
-    {
+    public AccommodationFragment initializeData(String accomodation){
 
         this.accomodation = accomodation;
         this.name = accomodation;
