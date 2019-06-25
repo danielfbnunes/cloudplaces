@@ -34,7 +34,7 @@ pipeline {
                 sshCommand remote: remote, command: "kill \$(lsof -i:8080 -t) || echo 'No process running on 8080'"
                 
                 // run jar
-                sshCommand remote: remote, command: "ls"   
+                sshCommand remote: remote, command: "ls -1"   
                 
                 // run jar
                 sshCommand remote: remote, command: "java -jar cloudplaces-v1.0.jar"   
