@@ -31,7 +31,7 @@ pipeline {
                 sshPut remote: remote, from: 'SpringBootOnDocker/target/cloudplaces-v1.0.jar', into: '.'
                 
                 // stop any process running on 8080 (IP tables forward traffic from port 80 to 8080
-                sshCommand remote: remote, command: "kill \$(lsof -i:8080 -t)"
+                sshCommand remote: remote, command: "kill $(lsof -i:8080 -t) || echo 'No process running on 8080'"
                 
                 // run jar
                 sshCommand remote: remote, command: "java -jar cloudplaces-v1.0.jar &"   
