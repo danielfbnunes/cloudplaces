@@ -32,17 +32,16 @@ pipeline {
                 // Maven Install
                 sh '''
                     cd CloudPlaces
-                    rm **/target/*-reports/TEST-*.xml
-                    mvn -U clean install test cobertura:cobertura -Dcobertura.report.format=xml
+                    mvn -U clean install cobertura:cobertura -Dcobertura.report.format=xml
                 '''
             }
-            post {
-                always {
-                    junit '**/target/*-reports/TEST-*.xml'
-                        step([$class: 'CoberturaPublisher', coberturaReportFile: 'CloudPlaces/target/site/cobertura/coverage.xml'])
-
-                }
-            }
+            //post {
+            //    always {
+            //        junit '**/target/*-reports/TEST-*.xml'
+            //            step([$class: 'CoberturaPublisher', coberturaReportFile: 'CloudPlaces/target/site/cobertura/coverage.xml'])
+            //
+            //    }
+            //}
         }
 
         stage('SonarQube Analysis') {
