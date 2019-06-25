@@ -2,6 +2,14 @@
 def COLOR_MAP = ['SUCCESS': 'good', 'FAILURE': 'danger', 'UNSTABLE': 'danger', 'ABORTED': 'danger']
 
 
+def remote = [:]
+    remote.name = 'tqs'
+    remote.host = '52.157.170.100'
+    remote.user = 'tqs'
+    remote.password = 'TqsDeployment2019.'
+    remote.allowAnyHosts = true
+    
+    
 pipeline {
     agent any
     tools {
@@ -9,6 +17,10 @@ pipeline {
         maven 'mvn'
     }
     stages { 
+        stage('Remote SSH') {
+          sshCommand remote: remote, command: "touch xpto.txt"
+        }
+        
         stage('Deploy') {
             steps {
                 input 'Do you approve the deployment?'
