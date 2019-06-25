@@ -28,8 +28,8 @@ pipeline {
                     //put jar on deployment server
                     sshPut remote: remote, from: 'SpringBootOnDocker/target/cloudplaces-v1.0.jar', into: '.'
                     sshPut remote: remote, from: 'SpringBootOnDocker/Dockerfile', into: '.'
-                    sshCommand remote: remote, command: "docker build -t docker/cloudplaces .", sudo:true 
-                    sshCommand remote: remote, command: "docker run -d -p 8080:8080 --name cloudplaces -t docker/cloudplaces ", sudo:true 
+                    sshCommand remote: remote, command: "docker build -t docker/cloudplaces ."
+                    sshCommand remote: remote, command: "docker run -d -p 8080:8080 --name cloudplaces -t docker/cloudplaces "
                     
                     
                 
