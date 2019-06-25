@@ -24,8 +24,7 @@ import pt.ua.cloudplacesandroidapp.Fragments.AllAccommodations;
 import pt.ua.cloudplacesandroidapp.Fragments.Settings;
 import pt.ua.cloudplacesandroidapp.R;
 
-public class Welcome extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class Welcome extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,10 +127,5 @@ public class Welcome extends AppCompatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        // refresh your views here
     }
 }
