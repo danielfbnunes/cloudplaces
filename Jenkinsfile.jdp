@@ -18,7 +18,9 @@ pipeline {
     }
     stages { 
         stage('Remote SSH') {
-          sshCommand remote: remote, command: "touch xpto.txt"
+            steps {
+              sshCommand remote: remote, command: "touch xpto.txt"
+            }
         }
         
         stage('Deploy') {
