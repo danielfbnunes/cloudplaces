@@ -26,7 +26,7 @@ pipeline {
                   cd SpringBootOnDocker
                   mvn -N io.takari:maven:wrapper
                   ./mvnw package
-                  ./mvnw install dockerfile:build
+                  docker build Dockerfile
                   docker save -o cloudplaces_docker.tar docker/cloudplaces 
                 '''                
                 
