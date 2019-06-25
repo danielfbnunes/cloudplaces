@@ -17,25 +17,24 @@ pipeline {
         maven 'mvn'
     }
     stages { 
-        stage('Remote SSH') {
-            steps {
-              sh '''
-                  cd SpringBootOnDocker
-                  mvn package
-                 '''
-              sshPut remote: remote, from: 'SpringBootOnDocker/target/cloudplaces-v1.0.jar', into: '.'
-              sshCommand remote: remote, command: "java -jar cloudplaces-v1.0.jar"
-            }
-        }
-        
         stage('Deploy') {
             steps {
                 input 'Do you approve the deployment?'
-                // copy the application
+                
+                // compile appplication
                 sh '''
-                    cd /home
-                    mkdir xxx
-                    '''
+                  cd SpringBootOnDocker
+                  mvn package
+                '''
+                
+                //put jar on deployment server
+                sshPut remote: remote, from: 'SpringBootOnDocker/target/cloudplaces-v1.0.jar', into: '.'
+                
+                // stop any process running on 8080 (IP tables forward traffic from port 80 to 8080
+                sshCommand remote: remote, command: "fuser -n tcp -k 8080"
+                
+                // run jar
+                sshCommand remote: remote, command: "java -jar cloudplaces-v1.0.jar &"   
             }
         }
     
