@@ -25,10 +25,7 @@ pipeline {
                 sh '''
                   cd SpringBootOnDocker
                   mvn package
-                '''
-                
-                withEnv(['JENKINS_NODE_COOKIE=dontkill']) {
-                
+                '''                
                     //put jar on deployment server
                     sshPut remote: remote, from: 'SpringBootOnDocker/target/cloudplaces-v1.0.jar', into: '.'
                 
@@ -39,8 +36,12 @@ pipeline {
                     sshCommand remote: remote, command: "ls -1"   
                 
                     // run jar
-                    sshCommand remote: remote, command: "nohup java -jar cloudplaces-v1.0.jar &"   
-                }
+                    withEnv(['JENKINS_NODE_COOKIE=dontkill']) {
+                        sshCommand remote: remote, command: "nohup java -jar cloudplaces-v1.0.jar &"  
+                    }
+                    
+                     
+            
             }
         }
     
