@@ -36,6 +36,8 @@ pipeline {
                     sshCommand remote: remote, command: "docker rm cloudplaces || echo 'cloud places removed stopped'"
                     sshCommand remote: remote, command: "docker rmi cloudplaces || echo 'cloud places image not stopped'"
                     
+                    leep(time:5,unit:"SECONDS")
+                    
                     sshCommand remote: remote, command: "docker build -t cloudplaces ./deploy"
                     sshCommand remote: remote, command: "docker run -d -p 8080:8080 --name cloudplaces -t cloudplaces "
                     
