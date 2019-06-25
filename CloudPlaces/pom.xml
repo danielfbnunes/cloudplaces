@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.4.RELEASE</version>
+        <relativePath/>
+    </parent>
+    
+    <groupId>cloudplaces.webapp</groupId>
+    <artifactId>cloudplaces</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <docker.image.prefix>docker</docker.image.prefix>
+        <mockito.version>2.24.0</mockito.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.8.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc-portlet</artifactId>
+            <version>2.5.6</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.8.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+               <groupId>com.spotify</groupId>
+               <artifactId>dockerfile-maven-plugin</artifactId>
+               <version>1.4.9</version>
+               <configuration>
+                   <repository>${docker.image.prefix}/${project.artifactId}</repository>
+               </configuration>
+           </plugin>
+           <!-- end::plugin[] -->
+
+           <!-- tag::unpack[] -->
+           <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-dependency-plugin</artifactId>
+               <executions>
+                   <execution>
+                       <id>unpack</id>
+                       <phase>package</phase>
+                       <goals>
+                           <goal>unpack</goal>
+                       </goals>
+                       <configuration>
+                           <artifactItems>
+                               <artifactItem>
+                                   <groupId>${project.groupId}</groupId>
+                                   <artifactId>${project.artifactId}</artifactId>
+                                   <version>${project.version}</version>
+                               </artifactItem>
+                           </artifactItems>
+                       </configuration>
+                   </execution>
+               </executions>
+           </plugin>
+           <!-- end::unpack[] -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <name>CloudPlaces</name>
+</project>
