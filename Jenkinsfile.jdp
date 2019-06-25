@@ -32,7 +32,7 @@ pipeline {
                 // Maven Install
                 sh '''
                     cd CloudPlaces
-                    mvn -U clean install cobertura:cobertura -Dcobertura.report.format=xml
+                    mvn -U clean install test cobertura:cobertura -Dcobertura.report.format=xml
                 '''
             }
             post {
