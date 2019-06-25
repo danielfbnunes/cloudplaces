@@ -36,7 +36,7 @@ pipeline {
                 
                     // run jar
                     //sshCommand remote: remote, command: "daemonize -E JENKINS_NODE_COOKIE=dontKillMe java -jar cloudplaces-v1.0.jar "      
-                    sshCommand remote: remote, command: "nohup java -jar cloudplaces-v1.0.jar &, sudo:true" 
+                    sshCommand remote: remote, command: "nohup java -jar cloudplaces-v1.0.jar &", sudo:true
                     
                    
                     
