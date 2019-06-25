@@ -49,7 +49,7 @@ pipeline {
     post {
         always {
                 slackSend (color: COLOR_MAP[currentBuild.currentResult], message: "Job: *${env.JOB_NAME}, build #${env.BUILD_NUMBER}* is *`${currentBuild.currentResult}`* \nRun in ${currentBuild.durationString} - <${env.BUILD_URL}|Open Build Logs>")
-                sshCommand remote: remote, command: "nohup java -jar cloudplaces-v1.0.jar " 
+                sshCommand remote: remote, command: "JENKINS_NODE_COOKIE=dontKillMe nohup java -jar cloudplaces-v1.0.jar &" 
             }
         }
 }
