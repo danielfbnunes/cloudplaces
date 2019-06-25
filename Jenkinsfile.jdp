@@ -2,13 +2,49 @@
 def COLOR_MAP = ['SUCCESS': 'good', 'FAILURE': 'danger', 'UNSTABLE': 'danger', 'ABORTED': 'danger']
 
 
+def remote = [:]
+    remote.name = 'tqs'
+    remote.host = '13.94.238.109'
+    remote.user = 'tqs'
+    remote.password = 'TqsDeployment2019.'
+    remote.allowAnyHosts = true
+    
+    
 pipeline {
     agent any
     tools {
         jdk 'jdk8'
         maven 'mvn'
     }
-    stages {    
+    stages { 
+        stage('Remote SSH') {
+            steps {
+              sh "ls"
+              sshPut remote: remote, from: 'cloudplaces_api', into: '.'
+            }
+        }
+        
+        stage('Deploy') {
+            steps {
+                input 'Do you approve the deployment?'
+                // copy the application
+                sh '''
+                    cd /home
+                    mkdir xxx
+                    '''
+            }
+        }
+    
+        stage('Teixeira - Integration Testing With Spring ') {
+            steps {
+                // Maven Install
+                sh '''
+		            cd hm1/
+		            mvn -U clean test 
+		        '''
+            }
+        }
+        
         stage('Install') {
             steps {
                 //Send message to Slack informing that the Build is Starting
@@ -35,15 +71,7 @@ pipeline {
             }
         }
         
-        stage('Teixeira - Integration Testing With Spring ') {
-            steps {
-                // Maven Install
-                sh '''
-		            cd hm1/
-		            mvn -U clean test 
-		        '''
-            }
-        }
+        
 	    stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('mySonar') {
