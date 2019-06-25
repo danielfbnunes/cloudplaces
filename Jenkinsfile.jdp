@@ -17,88 +17,51 @@ pipeline {
         maven 'mvn'
     }
     stages { 
-        stage('Remote SSH') {
-            steps {
-              sh '''
-                  cd SpringBootOnDocker
-                  mvn package
-                 '''
-              sshPut remote: remote, from: 'SpringBootOnDocker/target/cloudplaces-v1.0.jar', into: '.'
-              shCommand remote: remote, command: "java -jar cloudplaces-v1.0.jar"
-            }
-        }
-        
         stage('Deploy') {
             steps {
                 input 'Do you approve the deployment?'
-                // copy the application
-                sh '''
-                    cd /home
-                    mkdir xxx
-                    '''
-            }
-        }
-    
-        stage('Teixeira - Integration Testing With Spring ') {
-            steps {
-                // Maven Install
-                sh '''
-		            cd hm1/
-		            mvn -U clean test 
-		        '''
-            }
-        }
-        
-        stage('Install') {
-            steps {
-                //Send message to Slack informing that the Build is Starting
-                slackSend (message: "*Build Started* - ${env.JOB_NAME} *#${env.BUILD_NUMBER}* (<${env.BUILD_URL}|Open Build Logs>)")
                 
-                //Create a display to emulate a GUI
                 sh '''
-                    Xvfb :99 -ac &
-                    export DISPLAY=:99 
-                '''
+                  cd SpringBootOnDocker
+                  mvn package
+                '''                
+                    //put jar on deployment server
+                    //send all data to deploy server
+                    sshPut remote: remote, from: 'SpringBootOnDocker/target/cloudplaces-v1.0.jar', into: './deploy'
+                    sshPut remote: remote, from: 'SpringBootOnDocker/Dockerfile', into: './deploy'
+                    sshPut remote: remote, from: 'SpringBootOnDocker/target/dependency', into: './deploy'
+                    
+                    // remove old images
+                    sshCommand remote: remote, command: "docker stop cloudplaces"
+                    sshCommand remote: remote, command: "docker rm cloudplaces"
+                    sshCommand remote: remote, command: "docker rmi cloudplaces"
+                    
+                    sshCommand remote: remote, command: "docker build -t cloudplaces ./deploy"
+                    sshCommand remote: remote, command: "docker run -d -p 8080:8080 --name cloudplaces -t cloudplaces "
+                    
+                    
                 
-                // Maven Install
-                sh '''
-		            cd tqs-euromillions-unit/
-		            mvn -U clean test cobertura:cobertura -Dcobertura.report.format=xml
-		        '''
-            }
-            post {
-                always {
-                    junit '**/target/*-reports/TEST-*.xml'
-                        step([$class: 'CoberturaPublisher', coberturaReportFile: 'tqs-euromillions-unit/target/site/cobertura/coverage.xml'])
-
-                }
+                    // stop any process running on 8080 (IP tables forward traffic from port 80 to 8080
+                    //sshCommand remote: remote, command: "kill \$(lsof -i:8080 -t) || echo 'No process running on 8080'"
+                
+                    // run jar
+                    //sshCommand remote: remote, command: "ls -1"   
+                    
+                    //sshCommand remote: remote, command: "sudo daemonize -E JENKINS_NODE_COOKIE=dontKillMe nohup java -jar cloudplaces-v1.0.jar &", sudo:true
+                    
+                    // run jar
+                    //sshCommand remote: remote, command: "daemonize -E JENKINS_NODE_COOKIE=dontKillMe java -jar cloudplaces-v1.0.jar & "      
+                    
+                    
+                   
+                    
+                     
+            
             }
         }
         
         
-	    stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv('mySonar') {
-                    // Optionally use a Maven environment you've configured already
-                    withMaven(maven:'mvn') {
-                        sh '''
-			                cd tqs-euromillions-unit/
-			                mvn clean package sonar:sonar
-			            '''
-                    }
-                }
-            }
-        }
-	    stage("SonarQube Quality Gate") {
-            steps {
-                timeout(time: 5, unit: 'MINUTES') {
-                    // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
-                    // true = set pipeline to UNSTABLE, false = don't
-                    // Requires SonarQube Scanner for Jenkins 2.7+
-                    waitForQualityGate abortPipeline: true
-                }
-            }
-        }
+        
     }
     post {
         always {
