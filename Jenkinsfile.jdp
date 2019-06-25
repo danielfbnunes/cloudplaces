@@ -19,8 +19,12 @@ pipeline {
     stages { 
         stage('Remote SSH') {
             steps {
-              sh "ls"
-              sshPut remote: remote, from: 'cloudplaces_api', into: '.'
+              sh '''
+                  cd SpringBootOnDocker
+                  mvn package
+                 '''
+              sshPut remote: remote, from: 'SpringBootOnDocker/target/cloudplaces-v1.0.jar', into: '.'
+              shCommand remote: remote, command: "java -jar cloudplaces-v1.0.jar"
             }
         }
         
