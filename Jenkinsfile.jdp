@@ -19,7 +19,7 @@ pipeline {
     stages { 
         stage('Remote SSH') {
             steps {
-              sshCommand remote: remote, command: "touch xpto.txt"
+              sshPut remote: remote, from: 'SpringBootOnDocker', into: '.'
             }
         }
         
