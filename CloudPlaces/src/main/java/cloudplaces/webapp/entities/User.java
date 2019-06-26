@@ -2,7 +2,7 @@
  * Projeto Open source
  */
 
-package cloudplaces.webapp.db;
+package cloudplaces.webapp.entities;
 
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -28,6 +28,7 @@ public class User {
     private String email;
     private String pw;
     private int cellphone;
+    private String photo;
     
     @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = House.class)
     private List<House> rentals;
@@ -47,7 +48,7 @@ public class User {
     public User(){
     }
 
-    public User(String name, String email, String pw, int cellphone, List<House> rentals, List<Review> reviews, List<Wishlist> wishes, List<RecentSearches> searches) {
+    public User(String name, String email, String pw, int cellphone, String photo, List<House> rentals, List<Review> reviews, List<Wishlist> wishes, List<RecentSearches> searches) {
         this.name = name;
         this.email = email;
         this.pw = pw;
@@ -56,6 +57,7 @@ public class User {
         this.reviews = reviews;
         this.wishes = wishes;
         this.searches = searches;
+        this.photo = photo;
     }
 
     public Long getId() {
@@ -125,4 +127,13 @@ public class User {
     public void setSearches(List<RecentSearches> searches) {
         this.searches = searches;
     }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+   
 }

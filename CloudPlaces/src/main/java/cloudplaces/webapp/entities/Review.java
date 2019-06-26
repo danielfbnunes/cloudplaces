@@ -2,7 +2,7 @@
  * Projeto Open source
  */
 
-package cloudplaces.webapp.db;
+package cloudplaces.webapp.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

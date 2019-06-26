@@ -3,14 +3,26 @@
  */
 package cloudplaces.webapp.mappings;
 
+import cloudplaces.webapp.databaseQueries.PropertyQueries;
+import cloudplaces.webapp.entities.House;
+import cloudplaces.webapp.entities.PropertyRepository;
+import cloudplaces.webapp.entities.UserRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import javax.persistence.EntityManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -21,6 +33,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Api(value = "Property Resources", description = "Shows property resources")
 public class PropertyResources {
+    
+    @Autowired
+    PropertyQueries query;
+    
     /**
      * Retorna uma lista de propriedades de acordo com os parâmetros definidos.
      * 
@@ -33,16 +49,18 @@ public class PropertyResources {
      * @return Lista de Casas.
      */
     @ApiOperation("Returns a list of properties")
-    @GetMapping("get_properties/{name}/{location}/{radius}/{price}/{n_rooms}") 
-    public ArrayList<Object> getProperties(
-            @PathVariable("name") final String name,
-            @PathVariable("location") final String location,
-            @PathVariable("radius") final float radius,
-            @PathVariable("price") final float price,
-            @PathVariable("n_rooms") final int n_rooms
+    @GetMapping("api/get_properties")
+    @ResponseBody
+    public List<House> getProperties(
+            @RequestParam(required = false) final String name,
+            @RequestParam(required = false) final String location,
+            @RequestParam(required = false) final Float radius,
+            @RequestParam(required = false) final Float min_price,
+            @RequestParam(required = false) final Float max_price,
+            @RequestParam(required = false) final Integer n_rooms
             ){
-        return new ArrayList<>();
-    }
+        return query.getProperties(name, location, radius, min_price, max_price, n_rooms);
+    }    
     
     /**
      * Retorna a propriedade correspondente ao id recebido
@@ -51,11 +69,11 @@ public class PropertyResources {
      * @return 
      */
     @ApiOperation("Returns a property")
-    @GetMapping("get_property/{id}")
-    public Object getProperty(
+    @GetMapping("api/get_property/{id}")
+    public House getProperty(
             @PathVariable("id") final long id
             ){
-        return new Object();
+        return query.getProperty(id);
     }
     
     /**
@@ -67,15 +85,21 @@ public class PropertyResources {
      * @param n_rooms Número de quartos
      * @return True ou False mediante o successo ou não da adição da propriedade
      */
-    @ApiOperation("Adds a property") //TODO Adicionar o id do utilizador que a criou (Não seria post?)
-    @PostMapping("add_property/{name}/{location}/{price}/{n_rooms}")
-    public boolean addProperty(
+    @ApiOperation("Adds a property")
+    @PostMapping("api/add_property/{name}/{location}/{price}/{n_rooms}/{user_id}/{hab_space}/{n_bathrooms}/{garage}/{description}/{property_features}")
+    public House addProperty(
             @PathVariable("name") final String name,
             @PathVariable("location") final String location,
             @PathVariable("price") final float price,
-            @PathVariable("n_rooms") final int n_rooms
+            @PathVariable("n_rooms") final int n_rooms,
+            @PathVariable("user_id") final long user_id,
+            @PathVariable("hab_space") final int hab_space,
+            @PathVariable("n_bathrooms") final int n_bathrooms,
+            @PathVariable("garage") final int garage,
+            @PathVariable("description") final String description,
+            @PathVariable("property_features") final String property_features
             ){
-        return true;
+        return query.addProperty(name, location, price, n_rooms, user_id, hab_space, n_bathrooms, garage, description, property_features);
     }
     
     /**
@@ -84,11 +108,11 @@ public class PropertyResources {
      * @param id corresponde ao id da propriedade
      */
     @ApiOperation("Edits a property")
-    @PutMapping("edit_property/{id}")
+    @PutMapping("api/edit_property/{id}")
     public boolean editProperty(
             @PathVariable("id") final long id
             ){
-        return true;
+        return query.editProperty(id);
     }
     
     /**
@@ -103,14 +127,14 @@ public class PropertyResources {
      * @return 
      */
     @ApiOperation("Adds a review")
-    @PostMapping("add_review/{property_id}/{user_id}{review}/{cotation}") 
+    @PostMapping("api/add_review/{property_id}/{user_id}{review}/{cotation}") 
     public boolean addReview(
             @PathVariable("user_id") final long user_id,
             @PathVariable("property_id") final long property_id,
             @PathVariable("review") final String review,
             @PathVariable("cotation") final String cotation
             ){
-        return true;
+        return query.addReview(user_id, property_id, review, cotation);
     }
     
     /**
@@ -120,11 +144,11 @@ public class PropertyResources {
      * @return True ou False consoante o resultado.
      */
     @ApiOperation("Edits a review")
-    @PutMapping("edit_review/{review_id}")
+    @PutMapping("api/edit_review/{review_id}")
     public boolean editReview(
             @PathVariable("review_id") final long review_id
             ){
-        return true;
+        return query.editProperty(review_id);
     }
     
     /**
@@ -134,15 +158,9 @@ public class PropertyResources {
      * @return True ou False consoante o resultado.
      */
     @ApiOperation("Deletes a review")
-    @DeleteMapping("delete_review/{review_id}")
+    @DeleteMapping("api/delete_review/{review_id}")
     public boolean deleteReview(
             @PathVariable("review_id") final long review_id){
-        return true;
+        return query.deleteReview(review_id);
     }
-    
-    
-    
-    
-    
-    
 }
