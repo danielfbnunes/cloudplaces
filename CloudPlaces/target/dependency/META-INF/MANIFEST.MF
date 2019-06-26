@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: CloudPlaces
+Implementation-Version: 1.0-SNAPSHOT
+Built-By: user
+Implementation-Vendor-Id: cloudplaces.webapp
+Created-By: Apache Maven 3.0.5
+Build-Jdk: 1.8.0_212
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/cloudplaces
+
