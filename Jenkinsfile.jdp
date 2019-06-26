@@ -16,6 +16,14 @@ pipeline {
         jdk 'jdk8'
         maven 'mvn'
     }
+    stages{
+        stage("hello"){
+            steps{
+                sh 'echo hi'
+            }
+        }
+    }
+    
     
     post {
         always {
