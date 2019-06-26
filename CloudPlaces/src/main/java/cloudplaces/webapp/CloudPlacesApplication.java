@@ -4,11 +4,14 @@
 
 package cloudplaces.webapp;
 
+import cloudplaces.webapp.databaseQueries.PropertyQueries;
+import cloudplaces.webapp.databaseQueries.UserQueries;
 import java.util.Collections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
@@ -30,5 +33,14 @@ public class CloudPlacesApplication{
 
     }
     
+    @Bean
+    public PropertyQueries getPropertyQuery(){
+        return new PropertyQueries();
+    }
+    
+    @Bean
+    public UserQueries getUserQuery(){
+        return new UserQueries();
+    }
 }
 

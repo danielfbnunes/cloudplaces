@@ -1,9 +1,9 @@
 package cloudplaces.unitTests;
 
 import cloudplaces.webapp.CloudPlacesApplication;
-import cloudplaces.webapp.db.House;
-import cloudplaces.webapp.db.User;
-import cloudplaces.webapp.db.UserRepository;
+import cloudplaces.webapp.entities.House;
+import cloudplaces.webapp.entities.User;
+import cloudplaces.webapp.entities.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
