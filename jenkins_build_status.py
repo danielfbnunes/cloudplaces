@@ -19,13 +19,13 @@ GPIO.setup(redLed,GPIO.OUT)
 # access credentials
 jenkinsUrl = 'http://192.168.160.7:8082/'
 jobName = 'cloudplaces'
-user =  'admin' #input("jenkins username: ")
-password = 'admin' #input("jenkins password: ")
+user =  input("jenkins username: ")
+password = input("jenkins password: ")
 
 # run in loop - 10 seconds delay
 while True:
     # connect to the server
-    response = requests.get( jenkinsUrl + "job/" + jobName + "/lastBuild/api/json")
+    response = requests.get( "{}job/{}/lastBuild/api/json".format(jenkinsUrl, jobName))
 
     # check if server is online and we can get a response
     if (response.status_code == 200):
