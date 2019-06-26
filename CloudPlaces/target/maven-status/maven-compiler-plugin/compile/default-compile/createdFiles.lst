@@ -1,2 +1,11 @@
-com/development/cloudplaces/CloudPlacesController.class
-com/development/cloudplaces/CloudPlaces.class
+cloudplaces/webapp/db/UserRepository.class
+cloudplaces/webapp/db/User.class
+cloudplaces/webapp/db/Wishlist.class
+cloudplaces/webapp/mappings/UserResources.class
+cloudplaces/webapp/db/Review.class
+cloudplaces/webapp/CloudPlacesApplication.class
+cloudplaces/webapp/config/SwaggerConfig.class
+cloudplaces/webapp/mappings/PropertyResources.class
+cloudplaces/webapp/mappings/CloudPlacesController.class
+cloudplaces/webapp/db/House.class
+cloudplaces/webapp/db/RecentSearches.class
