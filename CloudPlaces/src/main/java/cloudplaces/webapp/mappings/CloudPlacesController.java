@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 //Todo create logs when pages are accessed.
 @Controller
-public class CloudPlacesController 
-{
+public class CloudPlacesController {
 
     /**
      * Este método disponibiliza a página inicial da aplicação web.

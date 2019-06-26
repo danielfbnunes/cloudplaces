@@ -15,7 +15,7 @@ import javax.persistence.Id;
 public class Wishlist {
     
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long whishListId;
 
     public Wishlist() {

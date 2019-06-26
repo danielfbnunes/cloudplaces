@@ -18,16 +18,19 @@ import javax.persistence.Id;
 public class Review {
     
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long reviewId;
     
     private String comment;
+    
+    private int quotation;
 
     public Review() {
     }
 
-    public Review(House house, User lessee, String comment) {
+    public Review(String comment, int quotation) {
         this.comment = comment;
+        this.quotation = quotation;
     }
 
     public Long getReviewId() {

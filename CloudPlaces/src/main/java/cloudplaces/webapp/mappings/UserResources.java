@@ -18,9 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
  */
 //Todo create logs when pages are accessed.
 @RestController
-@Api(value="User Resources", description = "Shows user resources")
-public class UserResources 
-{
+@Api(value = "User Resources", description = "Shows user resources")
+public class UserResources {
     /**
      * Obtém uma lista de propriedades associadas a um utilizador
      * 
@@ -29,7 +28,7 @@ public class UserResources
      */
     @ApiOperation("Returns a list of properties")
     @GetMapping("get_wishlist/{user_id}")
-    public ArrayList<Object> GetWishlist(
+    public ArrayList<Object> getWishlist(
             @PathVariable("user_id") final long user_id
             ){
         return new ArrayList<>();
@@ -44,11 +43,10 @@ public class UserResources
      */
     @ApiOperation("Inserts a property into a wishlist")
     @PostMapping("add_to_wishlist/{user_id}/{property_id}")
-    public boolean AddToWishlist(
+    public boolean addToWishlist(
             @PathVariable("user_id") final long user_id,
             @PathVariable("property_id") final long property_id
             ){
-        
         return true;
     }
     
@@ -61,7 +59,7 @@ public class UserResources
     */
     @ApiOperation("Deletes a property from a wishlist")
     @DeleteMapping("delete_from_wishlist/{user_id}/{property_id}")
-    public boolean DeleteFromWishlist(
+    public boolean deleteFromWishlist(
             @PathVariable("user_id") final long user_id,
             @PathVariable("property_id") final long property_id
             ){

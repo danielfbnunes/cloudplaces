@@ -20,8 +20,8 @@ import javax.persistence.OneToMany;
 @Entity
 public class House {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID")
     private Long houseId;
     private String address;
     private int n_rooms;

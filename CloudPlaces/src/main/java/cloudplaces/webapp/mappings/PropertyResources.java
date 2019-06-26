@@ -19,9 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
  */
 //Todo create logs when pages are accessed.
 @RestController
-@Api(value="Property Resources", description = "Shows property resources")
-public class PropertyResources 
-{
+@Api(value = "Property Resources", description = "Shows property resources")
+public class PropertyResources {
     /**
      * Retorna uma lista de propriedades de acordo com os parâmetros definidos.
      * 
@@ -35,7 +34,7 @@ public class PropertyResources
      */
     @ApiOperation("Returns a list of properties")
     @GetMapping("get_properties/{name}/{location}/{radius}/{price}/{n_rooms}") 
-    public ArrayList<Object> GetProperties(
+    public ArrayList<Object> getProperties(
             @PathVariable("name") final String name,
             @PathVariable("location") final String location,
             @PathVariable("radius") final float radius,
@@ -53,10 +52,11 @@ public class PropertyResources
      */
     @ApiOperation("Returns a property")
     @GetMapping("get_property/{id}")
-    public Object GetProperty(
+    public Object getProperty(
             @PathVariable("id") final long id
-            )
-    {return new Object();}
+            ){
+        return new Object();
+    }
     
     /**
      * Adiciona uma nova propriedade de acordo com os valores recebidos.
@@ -69,14 +69,14 @@ public class PropertyResources
      */
     @ApiOperation("Adds a property") //TODO Adicionar o id do utilizador que a criou (Não seria post?)
     @PostMapping("add_property/{name}/{location}/{price}/{n_rooms}")
-    public boolean AddProperty(
+    public boolean addProperty(
             @PathVariable("name") final String name,
             @PathVariable("location") final String location,
             @PathVariable("price") final float price,
             @PathVariable("n_rooms") final int n_rooms
-            )
-    {return true;}
-    
+            ){
+        return true;
+    }
     
     /**
      * Edita a propriedade com o id correspondente
@@ -85,10 +85,11 @@ public class PropertyResources
      */
     @ApiOperation("Edits a property")
     @PutMapping("edit_property/{id}")
-    public boolean EditProperty(
+    public boolean editProperty(
             @PathVariable("id") final long id
-            )
-    {return true;}
+            ){
+        return true;
+    }
     
     /**
      * Adiciona uma review
@@ -103,13 +104,14 @@ public class PropertyResources
      */
     @ApiOperation("Adds a review")
     @PostMapping("add_review/{property_id}/{user_id}{review}/{cotation}") 
-    public boolean AddReview(
+    public boolean addReview(
             @PathVariable("user_id") final long user_id,
             @PathVariable("property_id") final long property_id,
             @PathVariable("review") final String review,
             @PathVariable("cotation") final String cotation
-            )
-    {return true;}
+            ){
+        return true;
+    }
     
     /**
      * Edita uma dada review
@@ -119,10 +121,11 @@ public class PropertyResources
      */
     @ApiOperation("Edits a review")
     @PutMapping("edit_review/{review_id}")
-    public boolean EditReview(
+    public boolean editReview(
             @PathVariable("review_id") final long review_id
-            )
-    {return true;}
+            ){
+        return true;
+    }
     
     /**
      * Remove uma review.
@@ -132,9 +135,8 @@ public class PropertyResources
      */
     @ApiOperation("Deletes a review")
     @DeleteMapping("delete_review/{review_id}")
-    public boolean DeleteReview(
-            @PathVariable("review_id") final long review_id
-            ){
+    public boolean deleteReview(
+            @PathVariable("review_id") final long review_id){
         return true;
     }
     

@@ -16,7 +16,7 @@ import javax.persistence.Id;
 public class RecentSearches {
     
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long searchId;
 
     public RecentSearches() {
