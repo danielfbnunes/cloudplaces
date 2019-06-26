@@ -34,7 +34,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="logo" >
+                    <div class="logo">
                         Cloud Places
                     </div>
                     <ul class="main-menu">
@@ -52,7 +52,6 @@
     <!-- Hero Section Begin -->
     <section class="hero-section set-bg single-property-r" data-setbg="img/bg.jpg">
         <div class="container hero-text text-white">
-            <h2>Property Page</h2>
         </div>
     </section>
     <!-- Hero Section End -->
@@ -62,17 +61,18 @@
             <div class="row spad-p">
                 <div class="col-lg-12">
                     <div class="property-title">
-                        <h3>Country Style House with beautiful garden and terrace</h3>
-                        <a href="#"><i class="fa flaticon-placeholder"></i> London, 76 Guild Street, EC3P 3WF</a>
+                        <h3 th:text="${house.getName()}"></h3>
+                        <a th:text="${house.getAddress()}" href="#"><i class="fa flaticon-placeholder"></i> London, 76 Guild
+                            Street, EC3P 3WF</a>
                     </div>
                     <div class="property-price">
-                        <p>For Sale</p>
-                        <span>$345,000</span>
+                        <p>Price Per Month</p>
+                        <span th:text="${house.getPrice()}"></span><span> $</span>
                         <a href="#" style="height:50px">
                             <i class="flaticon-heart"></i>
                         </a>
                     </div>
-                    
+
                 </div>
             </div>
             <div class="row">
@@ -100,29 +100,29 @@
                             <div class="col-lg-12">
                                 <div class="t-details">
                                     <div class="register-id">
-                                        <p>Registered ID: <span>0D05426FF1</span></p>
+                                        <p>Registered ID: <span th:text="${house.getHouseId()}"></span></p>
                                     </div>
                                     <div class="popular-room-features single-property">
                                         <div class="size">
                                             <p>Lot Size</p>
                                             <img src="img/rooms/size.png" alt="">
                                             <i class="flaticon-bath"></i>
-                                            <span>2561 sqft</span>
+                                            <span th:text="${house.getHab_space()}"></span><span> sqft</span>
                                         </div>
                                         <div class="beds">
-                                            <p>Beds</p>
+                                            <p>Rooms</p>
                                             <img src="img/rooms/bed.png" alt="">
-                                            <span>9</span>
+                                            <span th:text="${house.getN_rooms()}"></span>
                                         </div>
                                         <div class="baths">
                                             <p>Baths</p>
                                             <img src="img/rooms/bath.png" alt="">
-                                            <span>2</span>
+                                            <span th:text="${house.getN_bathrooms()}"></span>
                                         </div>
                                         <div class="garage">
                                             <p>Garage</p>
                                             <img src="img/rooms/garage.png" alt="">
-                                            <span>1</span>
+                                            <span th:text="${house.getGarage()}"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -132,76 +132,16 @@
                             <div class="col-lg-12">
                                 <div class="property-description">
                                     <h4>Description</h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent in justo
-                                        elementum,fermentum justo ac, rutrum erat. Aenean ut malesuada diam. Proin
-                                        bibendum
-                                        sapien sodales, convallis dolor facilisis, ultricies nisl. Sed malesuada nibh
-                                        sed
-                                        velit ultricies, id varius lacus feugiat. Aenean vestibulum, nisl eget accumsan
-                                        aliquam, magna diam convallis risus, in tristique metus sem eu tortor. Cras leo
-                                        libero, fermentum quis aliquam et, tincidunt at dolor. </p>
+                                    <p th:text="${house.getDescription()}" />
                                 </div>
                                 <div class="property-features">
                                     <h4>Property Features</h4>
-                                    <div class="property-table">
-                                        <table>
-                                            <tr>
-                                                <td><img src="img/check.png" alt=""> Home theater</td>
-                                                <td><img src="img/check.png" alt=""> Carpeting</td>
-                                                <td><img src="img/check.png" alt=""> Attic fans</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="img/check.png" alt=""> Media room</td>
-                                                <td><img src="img/check.png" alt=""> Concrete</td>
-                                                <td><img src="img/check.png" alt=""> Ceiling fans</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="img/check.png" alt=""> Family room</td>
-                                                <td><img src="img/check.png" alt=""> Bamboo</td>
-                                                <td><img src="img/check.png" alt=""> Thermostats</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="img/check.png" alt=""> Gym/workout room</td>
-                                                <td><img src="img/check.png" alt=""> Stone</td>
-                                                <td><img src="img/check.png" alt=""> Single flush toilets</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="img/check.png" alt=""> Library</td>
-                                                <td><img src="img/check.png" alt=""> Tile</td>
-                                                <td><img src="img/check.png" alt=""> Window shutters</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="img/check.png" alt=""> Butler's pantry</td>
-                                                <td><img src="img/check.png" alt=""> Laminate</td>
-                                                <td><img src="img/check.png" alt=""> Solar heat</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="img/check.png" alt=""> Sunroom</td>
-                                                <td><img src="img/check.png" alt=""> Cork</td>
-                                                <td><img src="img/check.png" alt=""> Solar plumbing</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="img/check.png" alt=""> Downstairs's bedroom</td>
-                                                <td><img src="img/check.png" alt=""> Vinyl / linoleum</td>
-                                                <td><img src="img/check.png" alt=""> Solar Screens</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="img/check.png" alt=""> Basement</td>
-                                                <td><img src="img/check.png" alt=""> Manufactured wood</td>
-                                                <td><img src="img/check.png" alt=""> Storm windows</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="img/check.png" alt=""> Guest quarters</td>
-                                                <td><img src="img/check.png" alt=""> Marble</td>
-                                                <td><img src="img/check.png" alt=""> Tankless water heater</td>
-                                            </tr>
-                                            <tr>
-                                                <td><img src="img/check.png" alt=""> Wine storage</td>
-                                                <td><img src="img/check.png" alt=""> Wood</td>
-                                                <td><img src="img/check.png" alt=""> Skylights or sky tubes</td>
-                                            </tr>
-                                        </table>
-                                    </div>
+                                </div>
+                                <div class="col-lg-12 row">
+                                    <th:block th:each="feature : ${houseFeatures}">
+                                        <div class="col-lg-4" style="padding: 3px"><img src="img/check.png" alt="">
+                                            <span th:text="${feature}"></span></div>
+                                    </th:block>
                                 </div>
                             </div>
                         </div>
@@ -212,23 +152,14 @@
                         <div class="col-lg-12">
                             <div class="contact-service">
                                 <img src="img/single-property/small.png" alt="">
-                                <p>Listed by</p>
-                                <h5>Oliver G Harris</h5>
+                                <p >Listed by</p>
+                                <h5 th:text="${user.getName()}"></h5>
                                 <table>
                                     <tr>
-                                        <td>Office : <span>1-139-954-3228</span></td>
+                                        <td>Email : <span th:text="${user.getEmail()}"></span></td>
                                     </tr>
                                     <tr>
-                                        <td>Mobile : <span>1-517-328-7751</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Fax : <span>1-458-284-9871</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>WhatsApp : <span>1-812-117-2663</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Email : <span>oliver@homes.com</span></td>
+                                        <td>Mobile : <span th:text="${user.getCellphone()}"></span></td>
                                     </tr>
                                 </table>
                             </div>
@@ -242,11 +173,6 @@
     <!-- Footer Section Begin -->
     <footer class="footer-section p-40">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center sp-60">
-                    <img src="img/only-logo.png" alt="">
-                </div>
-            </div>
             <div class="row p-37">
                 <div class="col-lg-4">
                     <div class="about-footer">
@@ -263,42 +189,6 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
-                    <div class="footer-blog">
-                        <h5>Latest Blog Posts</h5>
-
-                        <div class="single-blog">
-                            <div class="lt-side">
-                                <img src="img/footer-blog-1.jpg" alt="">
-                            </div>
-                            <div class="rt-side">
-                                <h6>How to find the perfect area for<br> your next house.</h6>
-                                <div class="blog-time">
-                                    <i class="flaticon-clock"></i>
-                                    <span>5 min</span>
-                                </div>
-                                <a href="#" class="read-more">
-                                    <i class="flaticon-right-arrow-1"></i>
-                                    <span>Read More</span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="single-blog">
-                            <div class="lt-side">
-                                <img src="img/footer-blog-2.jpg" alt="">
-                            </div>
-                            <div class="rt-side">
-                                <h6>How to find the perfect area for<br> your next house.</h6>
-                                <div class="blog-time">
-                                    <i class="flaticon-clock"></i>
-                                    <span>5 min</span>
-                                </div>
-                                <a href="#" class="read-more">
-                                    <i class="flaticon-right-arrow-1"></i>
-                                    <span>Read More</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="footer-address">
@@ -319,8 +209,11 @@
                 <div class="col-lg-12 text-center">
                     <div class="copyright">
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy;<script>
+                            document.write(new Date().getFullYear());
+                        </script> All rights reserved | This template is made with <i class="fa fa-heart-o"
+                            aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 
                     </div>
                 </div>
