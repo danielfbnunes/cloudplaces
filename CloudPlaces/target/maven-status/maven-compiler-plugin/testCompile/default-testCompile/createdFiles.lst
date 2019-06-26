@@ -1,2 +1,3 @@
-cloudplaces/test/unitTests/UserRepositoryTest.class
-cloudplaces/test/unitTests/CloudplacesApplicationTests.class
+cloudplaces/cucumber/Stepdefs.class
+cloudplaces/unitTests/UserRepositoryTest.class
+cloudplaces/cucumber/RunCucumberTest.class
