@@ -1,4 +1,4 @@
-package cloudplaces.test.unitTests;
+package cloudplaces.unitTests;
 
 import cloudplaces.webapp.CloudPlacesApplication;
 import cloudplaces.webapp.db.House;

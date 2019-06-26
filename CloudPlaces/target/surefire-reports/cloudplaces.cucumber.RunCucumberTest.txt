@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: cloudplaces.cucumber.RunCucumberTest
+-------------------------------------------------------------------------------
+Tests run: 132, Failures: 0, Errors: 0, Skipped: 131, Time elapsed: 25.454 s - in cloudplaces.cucumber.RunCucumberTest
