@@ -1,18 +1,18 @@
 /**
  * Projeto Open source
  */
-package cloudplaces.webapp.db;
+package cloudplaces.webapp.entities;
 
 import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * Interface de acesso aos utilizadores presentes na base de dados.
+ * Interface de acesso às propriedades presentes na base de dados.
  * 
  */
 @Repository
 @Transactional
-public interface UserRepository extends JpaRepository<User, Long>  {
+public interface PropertyRepository extends JpaRepository<House, Long>  {
     
 }

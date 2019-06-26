@@ -1,7 +1,7 @@
 /**
  * Projeto Open source
  */
-package cloudplaces.webapp.db;
+package cloudplaces.webapp.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,21 +9,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
- * Representa uma procura realizada por um utilizador.
- * 
- */
+ * Representa a lista de casas desejadas por um utilizador.
+*/
 @Entity
-public class RecentSearches {
+public class Wishlist {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long searchId;
+    private Long whishListId;
 
-    public RecentSearches() {
+    public Wishlist() {
     }
 
-    public Long getSearchId() {
-        return searchId;
+    public Long getWhishListId() {
+        return whishListId;
     }
-    
 }

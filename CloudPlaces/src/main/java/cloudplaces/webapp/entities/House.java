@@ -1,7 +1,7 @@
 /**
  * Projeto Open source
  */
-package cloudplaces.webapp.db;
+package cloudplaces.webapp.entities;
 
 import java.util.List;
 import javax.persistence.Column;
@@ -29,6 +29,10 @@ public class House {
     private double price;
     private String name;
     private String publishDay;
+    private int n_bathrooms;
+    private int garage;
+    private String description;
+    private String property_features;
     
     @ManyToOne
     private User user;
@@ -45,11 +49,15 @@ public class House {
     @JoinColumn(name = "house_id")
     private List<RecentSearches> searches;
     
+    @OneToMany
+    @JoinColumn(name = "house_id")
+    private List<HousePhotos> photos;
+    
     
     public House() {
     }
 
-    public House(String address, int n_rooms, int hab_space, double price, String name, String publishDay, User user, List<Review> reviews, List<Wishlist> wishes, List<RecentSearches> searches) {
+    public House(String address, int n_rooms, int hab_space, double price, String name, String publishDay, User user, int n_bathrooms, int garage, String description, String property_features, List<HousePhotos> photos, List<Review> reviews, List<Wishlist> wishes, List<RecentSearches> searches) {
         this.address = address;
         this.n_rooms = n_rooms;
         this.hab_space = hab_space;
@@ -60,6 +68,11 @@ public class House {
         this.reviews = reviews;
         this.wishes = wishes;
         this.searches = searches;
+        this.n_bathrooms = n_bathrooms;
+        this.garage = garage;
+        this.description = description;
+        this.property_features = property_features;
+        this.photos = photos;
     }
 
     public User getUser() {
@@ -145,5 +158,46 @@ public class House {
     public void setSearches(List<RecentSearches> searches) {
         this.searches = searches;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getGarage() {
+        return garage;
+    }
+
+    public void setGarage(int garage) {
+        this.garage = garage;
+    }
+
+    public int getN_bathrooms() {
+        return n_bathrooms;
+    }
+
+    public void setN_bathrooms(int n_bathrooms) {
+        this.n_bathrooms = n_bathrooms;
+    }
+
+    public List<HousePhotos> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<HousePhotos> photos) {
+        this.photos = photos;
+    }
+
+    public String getProperty_features() {
+        return property_features;
+    }
+
+    public void setProperty_features(String property_features) {
+        this.property_features = property_features;
+    }
   
+    
 }
