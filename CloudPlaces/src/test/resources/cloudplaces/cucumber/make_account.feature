@@ -10,7 +10,6 @@ Feature: Register a User on the plataform
 		   And fills the password with "pw"
                    And fills the email with "email2@ua.pt"
                    And fills the cellphone with "919999999"
-                   And adds a picture
 		Then he should see a success message
 		    And be able to login with email "email2@ua.pt"
 		    And password "pw"
@@ -23,7 +22,6 @@ Feature: Register a User on the plataform
 		   And fills the password with "pw1"
                    And fills the email with "email2@ua.pt"
                    And fills the cellphone with "919999999"
-                   And adds a picture
 		Then he should see an unsuccessful message
 		   And can't be able to login using email "email2@ua.pt"
    		   And using password "pw1"
