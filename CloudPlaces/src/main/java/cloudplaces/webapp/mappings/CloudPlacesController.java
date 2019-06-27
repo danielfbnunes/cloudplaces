@@ -99,6 +99,15 @@ public class CloudPlacesController {
     //Link user attributes to html template
     model.addAttribute("user", tmp.getUser());
     
+    //convert byte images do b64
+    model.addAttribute("userImage" ,new String(tmp.getUser().getPhoto()));
+    
+    String[] houseImages = new String[tmp.getPhotos().size()];
+    for (int i=0; i<tmp.getPhotos().size(); i++)
+      houseImages[i] = new String(tmp.getPhotos().get(0).getPhoto());
+    
+    model.addAttribute("houseImages" ,houseImages);
+    
     return "single-property.html";
   }
   
