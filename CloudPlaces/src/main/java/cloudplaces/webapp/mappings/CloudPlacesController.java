@@ -92,7 +92,7 @@ public class CloudPlacesController {
   public String postSignUp(@RequestBody Map<String,String> postPayload){
     
     logger.info("Received the following data: " + postPayload);
-    boolean userAdded = userQueries.addUser(
+    User addedUser = userQueries.addUser(
             postPayload.get("name"),
             postPayload.get("email"),
             postPayload.get("pw"),
@@ -100,7 +100,7 @@ public class CloudPlacesController {
             postPayload.get("photo").getBytes()
     );
     
-    if(userAdded)
+    if(addedUser != null)
       return "login";
     else
       return "[Error] User was not added! A user with the same email already exists!";  

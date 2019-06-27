@@ -5,8 +5,14 @@
  */
 package cloudplaces.webapp.databaseQueries;
 
+import cloudplaces.webapp.CloudPlacesApplication;
+import cloudplaces.webapp.entities.House;
+import cloudplaces.webapp.entities.RecentSearches;
+import cloudplaces.webapp.entities.Review;
 import cloudplaces.webapp.entities.User;
+import cloudplaces.webapp.entities.Wishlist;
 import java.util.ArrayList;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -14,12 +20,23 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Ignore;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  *
  * @author rd
  */
+@RunWith(SpringRunner.class)
+@TestPropertySource (value={"classpath:application.properties"})
+@SpringBootTest(classes = CloudPlacesApplication.class)
 public class UserQueriesTest {
+  
+  @Autowired
+  UserQueries instance;
   
   public UserQueriesTest() {
   }
@@ -34,6 +51,7 @@ public class UserQueriesTest {
   
   @Before
   public void setUp() {
+    
   }
   
   @After
@@ -44,20 +62,20 @@ public class UserQueriesTest {
    * Test of addUser method, of class UserQueries.
    */
   @Test
-  @Ignore
+  
   public void testAddUser() {
     System.out.println("addUser");
-    String name = "";
-    String email = "";
-    String pw = "";
-    String cellphone = "";
-    byte[] photo = null;
-    UserQueries instance = new UserQueries();
-    boolean expResult = false;
-    boolean result = instance.addUser(name, email, pw, cellphone, photo);
-    assertEquals(expResult, result);
-    // TODO review the generated test code and remove the default call to fail.
-    fail("The test case is a prototype.");
+    
+    String name = "name";
+    String email = "email";
+    String pw = "pw";
+    String cellphone = "cellphone";
+    byte[] photo = "photo".getBytes();
+    
+    User u =  new User(name, email, pw, cellphone, photo, new ArrayList<House>() , new ArrayList<Review>() , new ArrayList<Wishlist>(), new ArrayList<RecentSearches>() );
+    User addedUser = instance.addUser(name, email, pw, cellphone, photo);
+    
+    assertEquals(u.getEmail(), addedUser.getEmail());
   }
 
   /**
