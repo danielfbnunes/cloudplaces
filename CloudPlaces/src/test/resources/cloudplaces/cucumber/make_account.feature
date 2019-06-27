@@ -18,7 +18,7 @@ Feature: Register a User on the plataform
 	Scenario: John registers unssuccessfuly
 		Given he is on the login page
 		When he presses the sign up button
-		   And fills the username with "user2"
+		   And fills the username with "user2@ua.pt"
 		   And fills the password with "pw1"
                    And fills the email with "email2@ua.pt"
                    And fills the cellphone with "919999999"
