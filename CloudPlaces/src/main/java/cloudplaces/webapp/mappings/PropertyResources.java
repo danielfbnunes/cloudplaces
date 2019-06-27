@@ -112,11 +112,20 @@ public class PropertyResources {
      * @param id corresponde ao id da propriedade
      */
     @ApiOperation("Edits a property")
-    @PutMapping("api/edit_property/{id}")
-    public boolean editProperty(
-            @PathVariable("id") final long id
-            ){
-        return query.editProperty(id);
+    @PutMapping("api/edit_property")
+    public House editProperty(@RequestBody House house) {
+        return query.editProperty(house.getName(), house.getAddress(), house.getPrice(), house.getN_rooms(), house.getUser().getId(), house.getHab_space(), house.getN_bathrooms(), house.getGarage(), house.getDescription(), house.getProperty_features(), house.getAvailability());
+    }
+    
+    /**
+     * Remove uma propriedade.
+     * 
+     * @param property_id Id da propriedade
+     */
+    @ApiOperation("Deletes a review")
+    @DeleteMapping("api/delete_review")
+    public void deleteProperty(@RequestParam(name = "houseId", required = true) long houseId) {
+        query.removeProperty(houseId);
     }
     
     /**
@@ -152,7 +161,7 @@ public class PropertyResources {
     public boolean editReview(
             @PathVariable("review_id") final long review_id
             ){
-        return query.editProperty(review_id);
+        return query.editReview(review_id);
     }
     
     /**
