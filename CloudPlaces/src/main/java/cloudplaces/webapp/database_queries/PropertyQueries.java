@@ -35,6 +35,16 @@ public class PropertyQueries {
   @Autowired
   private EntityManager em;
 
+  
+  public List<House> getAllProperties(){
+    String query = "SELECT h FROM House h";
+    List<House> houseList = em.createQuery(query).getResultList();
+    if (!houseList.isEmpty()) {
+      return houseList;
+    }
+    return null;
+  }
+          
   public List<House> getProperties(String name, String location, Float minPrice, Float maxPrice, Integer minNRooms, Integer maxNRooms, Integer minHabSpace, Integer maxHabSpace, Integer availability) {
     String baseQuery = "SELECT h FROM House h WHERE ( 1=1";
     if (name != null) {
