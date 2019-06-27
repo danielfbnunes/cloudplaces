@@ -87,6 +87,7 @@ public class GeneralQueries {
                 1,
                 "Situated in Ladywell this room enables you to have both privacy and convince - being only 10 minutes away by train to central London. The short train ride to London Bridge,Waterloo and shortly stopping at Charing Cross which will enable you to roam around Covent Garden and cross the river to Southbank or even venture further by bus or the underground to Oxford Street, Regent Street and all other destinations. Whether you have a short or long stay in London - my place is perfect.",
                 "library_garden_test1_test2_test3_test4",
+                1,
                 photos,
                 new ArrayList<>(), new ArrayList<>(), new ArrayList<>()
         );
@@ -117,6 +118,7 @@ public class GeneralQueries {
                 1,
                 "We offer a single room for one person in our East London terraced house. The house is close to two tube stations that take you into Central London in less than 30 minutes. There are numerous shops, cafes, and takeaways in walking distance. Our house is safe and clean. This space is ideal for anyone visiting London on a budget.",
                 "library_garden_test1_test2_test3_test4",
+                1,
                 photos,
                 new ArrayList<>(), new ArrayList<>(), new ArrayList<>()
         );
