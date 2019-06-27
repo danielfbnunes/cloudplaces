@@ -97,13 +97,13 @@ public class CloudPlacesController {
     
     // Link house attributes to html template
     model.addAttribute("house", tmp);
-    model.addAttribute("features", tmp.getProperty_features().split("_"));
-    
+    model.addAttribute("houseFeatures", tmp.getProperty_features().split("_"));
     //Link user attributes to html template
     model.addAttribute("user", tmp.getUser());
     
     return "single-property.html";
   }
+  
   /**
    * Este método disponibiliza a página com informações sobre o utilizador em questão.
    *
