@@ -35,7 +35,11 @@ public class UserQueries {
     }
     
     public User getUser(long userId){
-        return (User) em.createQuery("SELECT u FROM User u WHERE u.id = " + userId).getResultList().get(0);
+        List<User> userList = em.createQuery("SELECT u FROM User u WHERE u.id = " + userId).getResultList();
+        if(!userList.isEmpty()){
+            return (User) userList.get(0);
+        }
+        return null;
     }
     
     public List<Object> getWishlist(){
