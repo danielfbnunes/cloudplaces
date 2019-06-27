@@ -11,6 +11,7 @@ import cloudplaces.webapp.database_queries.UserQueries;
 
 import cloudplaces.webapp.entities.House;
 import cloudplaces.webapp.entities.User;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +24,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
  * Esta classe é responsável por disponibilizar as chamadas
@@ -94,6 +94,11 @@ public class CloudPlacesController {
     if (!userLoggedIn(request)) {
       return "redirect:/login";
     }
+    
+    //get properties from database
+    List<House> houseList = propertyQueries.getAllProperties();
+    model.addAttribute("houses", houseList);
+
     logger.info("User: " + request.getSession().getAttribute("username"));
     return "index";
   }
