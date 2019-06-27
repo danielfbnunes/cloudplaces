@@ -72,7 +72,7 @@ public class PropertyQueries {
     
     public House addProperty(String name, String location, float price, int n_rooms, long user_id, int hab_space, int n_bathrooms, int garage, String description, String property_features, int availability){
         Date date = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         House h = new House(location, n_rooms, hab_space, price, name, formatter.format(date), userRepo.findById(user_id).get(), n_bathrooms, garage, description, property_features, availability, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
         propertyRepo.save(h);
         return h;

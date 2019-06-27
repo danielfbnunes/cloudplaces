@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 @Entity
 public class HousePhotos {
@@ -15,20 +16,21 @@ public class HousePhotos {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
     private Long photoId;
-    private String photo;
+    @Lob
+    private byte[] photo;
     
     public HousePhotos() {
     }
 
-    public HousePhotos(String photo) {
+    public HousePhotos(byte[] photo) {
         this.photo = photo;
     }
 
-    public String getPhoto() {
+    public byte[] getPhoto() {
         return photo;
     }
 
-    public void setPhoto(String photo) {
+    public void setPhoto(byte[] photo) {
         this.photo = photo;
     }
 }

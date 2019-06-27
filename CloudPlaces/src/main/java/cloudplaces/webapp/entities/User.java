@@ -5,6 +5,7 @@
 package cloudplaces.webapp.entities;
 
 import java.util.List;
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
 /**
@@ -27,8 +29,9 @@ public class User {
     private String name;
     private String email;
     private String pw;
-    private int cellphone;
-    private String photo;
+    private String cellphone;
+    @Lob
+    private byte[] photo;
     
     @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = House.class)
     private List<House> rentals;
@@ -48,7 +51,7 @@ public class User {
     public User(){
     }
 
-    public User(String name, String email, String pw, int cellphone, String photo, List<House> rentals, List<Review> reviews, List<Wishlist> wishes, List<RecentSearches> searches) {
+    public User(String name, String email, String pw, String cellphone, byte[] photo, List<House> rentals, List<Review> reviews, List<Wishlist> wishes, List<RecentSearches> searches) {
         this.name = name;
         this.email = email;
         this.pw = pw;
@@ -88,11 +91,11 @@ public class User {
         this.pw = pw;
     }
 
-    public int getCellphone() {
+    public String getCellphone() {
         return cellphone;
     }
 
-    public void setCellphone(int cellphone) {
+    public void setCellphone(String cellphone) {
         this.cellphone = cellphone;
     }
 
@@ -128,11 +131,11 @@ public class User {
         this.searches = searches;
     }
 
-    public String getPhoto() {
+    public byte[] getPhoto() {
         return photo;
     }
 
-    public void setPhoto(String photo) {
+    public void setPhoto(byte[] photo) {
         this.photo = photo;
     }
    
