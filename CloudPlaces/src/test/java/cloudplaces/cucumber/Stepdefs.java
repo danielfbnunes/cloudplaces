@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import static org.junit.Assert.assertEquals;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -23,7 +24,7 @@ import org.springframework.test.context.TestPropertySource;
 public class Stepdefs {
     private WebDriver driver;
     private final String baseUrl = "http://localhost:8080/";
-    private final boolean acceptNextAlert = true;
+    private boolean acceptNextAlert = true;
     private final StringBuffer verificationErrors = new StringBuffer();
     
     @Autowired
@@ -102,63 +103,118 @@ public class Stepdefs {
     
     @When("he presses the sign up button")
     public void signupAccess() throws InterruptedException{
+        driver.findElement(By.linkText("Sign Up")).click();
+        Thread.sleep(2000);
     }
     
 
     @When("fills the username with {string}")
     public void fillsUsername(String username) {
-
+        driver.findElement(By.id("name")).click();
+        driver.findElement(By.id("name")).clear();
+        driver.findElement(By.id("name")).sendKeys(username);
     }
     
     @When("fills the password with {string}")
     public void fillsPassword(String password) {
-
+        driver.findElement(By.id("password")).click();
+        driver.findElement(By.id("password")).clear();
+        driver.findElement(By.id("password")).sendKeys(password);
     }
  
     @When("fills the email with {string}")
     public void fillsEmail(String email) {
+        driver.findElement(By.id("email")).clear();
+        driver.findElement(By.id("email")).sendKeys(email);
 
     }
     @When("fills the cellphone with {string}")
     public void fillsCellphone(String phone) {
-
+        driver.findElement(By.id("cellphone")).click();
+        driver.findElement(By.id("cellphone")).clear();
+        driver.findElement(By.id("cellphone")).sendKeys("99999999");
     }
     
     @Then("he should see a success message")
     public void checkSuccessMessage() throws InterruptedException {
-
+        driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Photo'])[1]/following::span[1]")).click();
+        Thread.sleep(3000);
     }
     
     @Then("be able to login with email {string}")
     public void fillLoginEmail(String email) {
-
+        driver.findElement(By.id("email")).click();
+        driver.findElement(By.id("email")).clear();
+        driver.findElement(By.id("email")).sendKeys(email);
     }
     
     @Then("password {string}")
     public void fillLoginPassword(String password) {
+        driver.findElement(By.id("password")).click();
+        driver.findElement(By.id("password")).clear();
+        driver.findElement(By.id("password")).sendKeys(password);
     }
     
     @Then("enter")
     public void executeLogin() throws InterruptedException {
+        driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Password'])[1]/following::button[1]")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//div/div/div")).click();
+        try {
+          assertEquals("Cloud Places", driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Home'])[1]/preceding::div[1]")).getText());
+        } catch (Error e) {
+          verificationErrors.append(e.toString());
+        }
         driver.close();
     }
     
     //Create Account Failure
     @Then("he should see an unsuccessful message")
-    public void checkUnsuccessfulMessage() {
+    public void checkUnsuccessfulMessage(){
+        driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Photo'])[1]/following::span[1]")).click();
+        assertEquals("[Error] User was not added! A user with the same email already exists!", closeAlertAndGetItsText());
     }
     
     @Then("can't be able to login using email {string}")
-    public void can_t_be_able_to_login_using_username(String email) {
+    public void can_t_be_able_to_login_using_username(String email) throws InterruptedException {
+        driver.findElement(By.linkText("Cloud Places")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.id("email")).click();
+        driver.findElement(By.id("email")).clear();
+        driver.findElement(By.id("email")).sendKeys(email);
     }
     
     @Then("using password {string}")
     public void passwrodFillAndFailureCheck(String password) {
+        driver.findElement(By.id("password")).clear();
+        driver.findElement(By.id("password")).sendKeys(password);
     }
     
     @Then("log in")
-    public void errorOnLogIn() {
+    public void errorOnLogIn() throws InterruptedException {
+        driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Password'])[1]/following::button[1]")).click();
+        Thread.sleep(2000);
+        try {
+          assertEquals("Password or Email Incorrect", driver.findElement(By.id("error")).getText());
+        } catch (Error e) {
+          verificationErrors.append(e.toString());
+        }
         driver.close();
     }
 
+    
+      private String closeAlertAndGetItsText() {
+        try {
+          Alert alert = driver.switchTo().alert();
+          String alertText = alert.getText();
+          if (acceptNextAlert) {
+            alert.accept();
+          } else {
+            alert.dismiss();
+          }
+          return alertText;
+        } finally {
+          acceptNextAlert = true;
+        }
+    }
 }
