@@ -171,11 +171,18 @@ public class PropertyResources {
      * @return True ou False consoante o resultado.
      */
     @ApiOperation("Edits a review")
-    @PutMapping("api/edit_review/{review_id}")
-    public boolean editReview(
-            @PathVariable("review_id") final long review_id
+    @PutMapping("api/edit_review/{review_id}/{comment}/{quotation}")
+    public Object editReview(
+        @PathVariable("review_id") final long review_id,
+        @PathVariable("comment") final String comment,
+        @PathVariable("quotation") final int quotation
             ){
-        return query.editReview(review_id);
+      Review r = query.editReview(review_id, comment, quotation);
+      if (r != null){
+        return r;
+      }
+      error.put("Error", "Review not found");
+      return error;
     }
     
     /**
