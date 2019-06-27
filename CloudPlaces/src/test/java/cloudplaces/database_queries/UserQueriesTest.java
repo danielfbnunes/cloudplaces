@@ -63,7 +63,6 @@ public class UserQueriesTest {
    * Test of addUser method, of class UserQueries.
    */
   @Test
-  
   public void testAddUser() {
     System.out.println("addUser");
     
@@ -82,6 +81,35 @@ public class UserQueriesTest {
     User addedUser2 = instance.addUser(name, email, pw, cellphone, photo);
     assertEquals(null, addedUser2);
   }
+  
+  
+  
+  /**
+   * Test of authenticateUser method, of class UserQueries.
+   */
+  @Test
+  public void testAuthenticateUser() {
+    System.out.println("authenticateUser");
+
+    String name = "name";
+    String email = "email";
+    String pw = "pw";
+    String cellphone = "cellphone";
+    byte[] photo = "photo".getBytes();
+    
+    User u =  new User(name, email, pw, cellphone, photo, new ArrayList<House>() , new ArrayList<Review>() , new ArrayList<Wishlist>(), new ArrayList<RecentSearches>() );
+    User addedUser = instance.addUser(name, email, pw, cellphone, photo);
+    
+    // log user and check if it has success
+    User loggedUserTestCorrect = instance.authenticateUser(email, pw);
+    assertEquals(u.getEmail(), loggedUserTestCorrect.getEmail());
+    
+    
+    // log user and check if it has success
+    User loggedUserTestIncorrect = instance.authenticateUser(email, "aaaas");
+    assertEquals(null, loggedUserTestIncorrect);
+  }
+
 
   /**
    * Test of getUser method, of class UserQueries.

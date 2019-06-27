@@ -64,7 +64,7 @@ public class CloudPlacesController {
   public String login(@ModelAttribute User user, Model model){
     logger.info("The following is user is trying to login: " + user.getName());
     
-    User u = userQueries.getUser(user.getEmail());
+    User u = userQueries.authenticateUser(user.getEmail(), user.getPw());
     
     if(u == null){
       model.addAttribute("error", true);
