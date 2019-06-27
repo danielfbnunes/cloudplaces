@@ -15,5 +15,4 @@ Feature: Make Login
 		    And he is on the login page.
 		When he fills the username with "user1"
 		    And the password with "pw1"
-		Then he should see a negative feedback message informing about
-		    the failure of the login
+		Then he should see a negative feedback message informing about the failure of the login
