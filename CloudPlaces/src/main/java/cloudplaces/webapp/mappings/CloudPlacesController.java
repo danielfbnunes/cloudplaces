@@ -5,12 +5,20 @@
 package cloudplaces.webapp.mappings;
 
 import cloudplaces.webapp.databaseQueries.PropertyQueries;
+import cloudplaces.webapp.databaseQueries.UserQueries;
 import cloudplaces.webapp.entities.House;
+import cloudplaces.webapp.entities.User;
+import java.util.Map;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Esta classe é responsável por disponibilizar as chamadas
@@ -21,8 +29,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class CloudPlacesController {
   
+  Logger logger = Logger.getLogger(CloudPlacesController.class.getName());
+  
   @Autowired
   PropertyQueries propertyQueries;
+  
+  @Autowired
+  UserQueries userQueries;
   
   /**
    * Este método disponibiliza a página inicial da aplicação web.
@@ -30,7 +43,7 @@ public class CloudPlacesController {
    *
    * @return Retorna a página de inicial da aplicação web.
    */
-  @GetMapping("/getIndex")
+  @GetMapping("/login")
   public String loadIndex(Model model){
     return "index.html";
   }
@@ -61,11 +74,36 @@ public class CloudPlacesController {
    * Este método disponibiliza a página de inscrição na aplicação web.
    *
    *
+   * @return
+   */
+  @GetMapping("/signUp")
+  public String getSignUp(){
+    return "signup.html";
+  }
+  
+  /**
+   * Este método disponibiliza a página de inscrição na aplicação web.
+   *
+   *
    * @return Retorna a página de inscrição na aplicação web.
    */
-  @GetMapping("/getSignUp")
-  public String loadSignUp(Model model){
-    return "signup.html";
+  @PostMapping(path="/signUp",  consumes = "application/json")
+  @ResponseBody
+  public String postSignUp(@RequestBody Map<String,String> postPayload){
+    
+    logger.info("Received the following data: " + postPayload);
+    boolean userAdded = userQueries.addUser(
+            postPayload.get("name"),
+            postPayload.get("email"),
+            postPayload.get("pw"),
+            postPayload.get("cellphone"),
+            postPayload.get("photo").getBytes()
+    );
+    
+    if(userAdded)
+      return "login";
+    else
+      return "[Error] User was not added! A user with the same email already exists!";  
   }
   
   

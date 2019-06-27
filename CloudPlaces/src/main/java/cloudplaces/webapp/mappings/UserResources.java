@@ -32,7 +32,7 @@ public class UserResources {
     
     @ApiOperation("Inserts a user in database")
     @PostMapping("api/add_user/{name}/{email}/{pw}/{cellphone}/{photo}")
-    public User addUser(
+    public boolean addUser(
             @PathVariable("name") final String name,
             @PathVariable("email") final String email,
             @PathVariable("pw") final String pw,
