@@ -125,10 +125,13 @@ public class PropertyResources {
      * 
      * @param property_id Id da propriedade
      */
-    @ApiOperation("Deletes a review")
-    @DeleteMapping("api/delete_review")
-    public void deleteProperty(@RequestParam(name = "houseId", required = true) long houseId) {
-        query.removeProperty(houseId);
+    @ApiOperation("Deletes a property")
+    @DeleteMapping("api/delete_property")
+    public Object deleteProperty(@RequestParam(name = "houseId", required = true) long houseId) {
+        if (query.removeProperty(houseId))
+          return true;
+        error.put("Error", "House to remove not found");
+        return error;
     }
     
     /**

@@ -33,14 +33,18 @@ public class UserResources {
     
     @ApiOperation("Inserts a user in database")
     @PostMapping("api/add_user/{name}/{email}/{pw}/{cellphone}/{photo}")
-    public User addUser(
+    public Object addUser(
             @PathVariable("name") final String name,
             @PathVariable("email") final String email,
             @PathVariable("pw") final String pw,
             @PathVariable("cellphone") final String cellphone,
             @PathVariable("photo") final byte[] photo
             ){
-        return query.addUser(name, email, pw, cellphone, photo);
+        User u = query.addUser(name, email, pw, cellphone, photo);
+        if(u != null)
+            return u;
+        error.put("Error", "User with the given email already in database");
+        return error;
     }
     
     @ApiOperation("Get a user from database")
