@@ -76,10 +76,12 @@ public class PropertyResources {
      */
     @ApiOperation("Returns a property")
     @GetMapping("api/get_property/{id}")
-    public House getProperty(
-            @PathVariable("id") final long id
-            ){
-        return query.getProperty(id);
+    public Object getProperty(@PathVariable("id") final long id){
+      House h = query.getProperty(id);
+      if(h != null)
+            return h;
+        error.put("Error", "No house with the id = " + id);
+        return error;
     }
     
     /**

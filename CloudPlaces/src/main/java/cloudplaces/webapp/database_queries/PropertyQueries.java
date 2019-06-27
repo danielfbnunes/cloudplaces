@@ -80,7 +80,11 @@ public class PropertyQueries {
   }
 
   public House getProperty(long id) {
-    return (House) em.createQuery("SELECT h FROM House h WHERE h.houseId = " + id).getResultList().get(0);
+    List<House> houseList = em.createQuery("SELECT h FROM House h WHERE h.houseId = " + id).getResultList();
+    if (!houseList.isEmpty()) {
+      return houseList.get(0);
+    }
+    return null;
   }
 
   public House addProperty(String name, String location, float price, int nRooms, long userId, int habSpace, int nBathrooms, int garage, String description, String propertyFeatures, int availability) {
