@@ -26,7 +26,6 @@ public class UserQueries {
   
   
   public User addUser(String name, String email, String pw, String cellphone, byte[] photo){
-    System.out.println("HERE!!");
     User u = new User(name, email, pw, cellphone, photo, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
     if(em.createQuery("SELECT u FROM User u WHERE email = \'" + email + "\'"  ).getResultList().isEmpty()){
       userRepo.save(u);

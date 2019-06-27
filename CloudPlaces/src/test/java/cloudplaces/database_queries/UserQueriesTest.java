@@ -77,6 +77,10 @@ public class UserQueriesTest {
     User addedUser = instance.addUser(name, email, pw, cellphone, photo);
     
     assertEquals(u.getEmail(), addedUser.getEmail());
+    
+    // should be null, since the user is already in the database
+    User addedUser2 = instance.addUser(name, email, pw, cellphone, photo);
+    assertEquals(null, addedUser2);
   }
 
   /**
