@@ -153,6 +153,11 @@ public class PropertyQueries {
   }
 
   public boolean deleteReview(long reviewId) {
-    return true;
+    Optional<Review> review = reviewRepo.findById(reviewId);
+    if (review.isPresent()){
+      reviewRepo.deleteById(reviewId);
+      return true;
+    }
+    return false;
   }
 }

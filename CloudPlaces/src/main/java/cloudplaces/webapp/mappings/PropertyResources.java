@@ -186,8 +186,12 @@ public class PropertyResources {
      */
     @ApiOperation("Deletes a review")
     @DeleteMapping("api/delete_review/{review_id}")
-    public boolean deleteReview(
+    public Object deleteReview(
             @PathVariable("review_id") final long review_id){
-        return query.deleteReview(review_id);
+      if(query.deleteReview(review_id)){
+        return true;
+      }
+      error.put("Error", "Review not found");
+      return error;
     }
 }
