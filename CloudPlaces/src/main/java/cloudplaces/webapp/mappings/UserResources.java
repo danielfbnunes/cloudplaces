@@ -7,7 +7,9 @@ import cloudplaces.webapp.database_queries.UserQueries;
 import cloudplaces.webapp.entities.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Api(value = "User Resources", description = "Shows user resources")
 public class UserResources {
+    
+    Map<String, String> error = new HashMap<>();
     
     @Autowired
     UserQueries query;
@@ -41,10 +45,14 @@ public class UserResources {
     
     @ApiOperation("Get a user from database")
     @GetMapping("api/get_user/{user_id}")
-    public User getUser(
+    public Object getUser(
             @PathVariable("user_id") final long user_id
             ){
-        return query.getUser(user_id);
+        User u = query.getUser(user_id);
+        if(u != null)
+            return u;
+        error.put("Error", "User not found");
+        return error;
     }
     
     /**
