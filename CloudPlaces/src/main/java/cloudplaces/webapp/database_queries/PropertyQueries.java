@@ -59,8 +59,11 @@ public class PropertyQueries {
         baseQuery += " AND h.availability <= " + availability;
 
     baseQuery += " )";
-    //System.out.println(baseQuery); TODO Converter para loggers
-    return em.createQuery(baseQuery).getResultList();
+    List<House> houseList = em.createQuery(baseQuery).getResultList();
+    if(!houseList.isEmpty()){
+        return houseList;
+    }
+    return null;
   }
 
   public House getProperty(long id) {
