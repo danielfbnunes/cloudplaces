@@ -148,8 +148,16 @@ public class PropertyQueries {
     return null;
   }
 
-  public boolean editReview(long reviewId) {
-    return true;
+  public Review editReview(long reviewId, String comment, int quotation) {
+    Optional<Review> r = reviewRepo.findById(reviewId);
+    if (r.isPresent()){
+      Review review = r.get();
+      review.setComment(comment);
+      review.setQuotation(quotation);
+      em.merge(review);
+      return review;
+    }
+    return null;
   }
 
   public boolean deleteReview(long reviewId) {
