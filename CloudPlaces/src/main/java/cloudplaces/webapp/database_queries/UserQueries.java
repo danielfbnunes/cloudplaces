@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cloudplaces.webapp.database_queries;
 
 import cloudplaces.webapp.entities.PropertyRepository;
@@ -18,39 +14,44 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author DanielNunes
  */
 public class UserQueries {
-    
-    @Autowired
-    private PropertyRepository propertyRepo;
-    
-    @Autowired
-    private UserRepository userRepo;
-    
-    @Autowired
-    private EntityManager em;
-    
-    public User addUser(String name, String email, String pw, String cellphone, byte[] photo){
-        User u = new User(name, email, pw, cellphone, photo, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
-        userRepo.save(u);
-        return u;
+  
+  @Autowired
+  private PropertyRepository propertyRepo;
+  
+  @Autowired
+  private UserRepository userRepo;
+  
+  @Autowired
+  private EntityManager em;
+  
+  
+  public User addUser(String name, String email, String pw, String cellphone, byte[] photo){
+    System.out.println("HERE!!");
+    User u = new User(name, email, pw, cellphone, photo, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+    if(em.createQuery("SELECT u FROM User u WHERE email = \'" + email + "\'"  ).getResultList().isEmpty()){
+      userRepo.save(u);
+      return u;
     }
-    
-    public User getUser(long userId){
-        List<User> userList = em.createQuery("SELECT u FROM User u WHERE u.id = " + userId).getResultList();
-        if(!userList.isEmpty()){
-            return (User) userList.get(0);
-        }
-        return null;
+    return null;
+  }
+  
+  public User getUser(long userId){
+    List<User> userList = em.createQuery("SELECT u FROM User u WHERE u.id = " + userId).getResultList();
+    if(!userList.isEmpty()){
+      return (User) userList.get(0);
     }
-    
-    public List<Object> getWishlist(){
-        return new ArrayList<>();
-    }
-    
-    public boolean addToWishlist(){
-        return true;
-    }
-    
-    public boolean deleteFromWishlist(){
-        return true;
-    }
+    return null;
+  }
+  
+  public List<Object> getWishlist(){
+    return new ArrayList<>();
+  }
+  
+  public boolean addToWishlist(){
+    return true;
+  }
+  
+  public boolean deleteFromWishlist(){
+    return true;
+  }
 }
