@@ -7,6 +7,8 @@ package cloudplaces.webapp.database_queries;
 
 import cloudplaces.webapp.entities.House;
 import cloudplaces.webapp.entities.PropertyRepository;
+import cloudplaces.webapp.entities.Review;
+import cloudplaces.webapp.entities.ReviewRepository;
 import cloudplaces.webapp.entities.User;
 import cloudplaces.webapp.entities.UserRepository;
 import java.text.SimpleDateFormat;
@@ -15,8 +17,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 
+@Transactional
 public class PropertyQueries {
 
   @Autowired
@@ -24,6 +28,9 @@ public class PropertyQueries {
 
   @Autowired
   private UserRepository userRepo;
+  
+  @Autowired
+  private ReviewRepository reviewRepo;
 
   @Autowired
   private EntityManager em;
@@ -120,8 +127,25 @@ public class PropertyQueries {
     return false;
   }
 
-  public boolean addReview(long userId, long propertyId, String review, String cotation) {
-    return true;
+  public Review addReview(long userId, long propertyId, String review, int quotation) {
+    Optional<User> user = userRepo.findById(userId);
+    Optional<House> house = propertyRepo.findById(propertyId);
+    if (house.isPresent() && user.isPresent()){
+      Review r = new Review(review, quotation);
+      User u = user.get();
+      List<Review> reviewList = u.getReviews();
+      reviewList.add(r);
+      u.setReviews(reviewList);
+      em.merge(u);
+      r = (Review) em.createQuery("SELECT r FROM Review r ORDER BY r.reviewId DESC").setMaxResults(1).getResultList().get(0);
+      House h = house.get();
+      reviewList = h.getReviews();
+      reviewList.add(r);
+      h.setReviews(reviewList);
+      em.merge(h);
+      return r;
+    }
+    return null;
   }
 
   public boolean editReview(long reviewId) {

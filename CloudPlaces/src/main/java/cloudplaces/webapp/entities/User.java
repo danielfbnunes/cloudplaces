@@ -35,15 +35,15 @@ public class User {
     @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = House.class)
     private List<House> rentals;
     
-    @OneToMany
+    @OneToMany( cascade = CascadeType.ALL, targetEntity = Review.class)
     @JoinColumn(name = "user_id")
     private List<Review> reviews;
     
-    @OneToMany
+    @OneToMany( cascade = CascadeType.ALL, targetEntity = Wishlist.class)
     @JoinColumn(name = "user_id")
     private List<Wishlist> wishes;
     
-    @OneToMany
+    @OneToMany( cascade = CascadeType.ALL, targetEntity = RecentSearches.class)
     @JoinColumn(name = "user_id")
     private List<RecentSearches> searches;
     

@@ -41,15 +41,15 @@ public class House {
     @ManyToOne
     private User user;
     
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = Review.class)
     @JoinColumn(name = "house_id")
     private List<Review> reviews;
     
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = Wishlist.class)
     @JoinColumn(name = "house_id")
     private List<Wishlist> wishes;
     
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = RecentSearches.class)
     @JoinColumn(name = "house_id")
     private List<RecentSearches> searches;
     
