@@ -75,7 +75,7 @@ public class Stepdefs {
     @Then("he should be redirected to his homepage")
     public void homepageRedirect() throws InterruptedException{
         driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Password'])[1]/following::button[1]")).click();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         driver.findElement(By.xpath("//div/div/div")).click();
         try {
             assertEquals("Cloud Places", driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Home'])[1]/preceding::div[1]")).getText());
@@ -88,7 +88,7 @@ public class Stepdefs {
     @Then("he should see a negative feedback message informing about the failure of the login")
     public void loginFailure() throws InterruptedException {
         driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Password'])[1]/following::button[1]")).click();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         driver.findElement(By.id("error")).click();
         try {
           assertEquals("Password or Email Incorrect", driver.findElement(By.id("error")).getText());
