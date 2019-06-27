@@ -5,6 +5,7 @@ package cloudplaces.webapp.mappings;
 
 import cloudplaces.webapp.database_queries.PropertyQueries;
 import cloudplaces.webapp.entities.House;
+import cloudplaces.webapp.entities.Review;
 import cloudplaces.webapp.pojo.HousePOJO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -148,14 +149,19 @@ public class PropertyResources {
      * @return 
      */
     @ApiOperation("Adds a review")
-    @PostMapping("api/add_review/{property_id}/{user_id}{review}/{cotation}") 
-    public boolean addReview(
+    @PostMapping("api/add_review/{property_id}/{user_id}/{review}/{quotation}") 
+    public Object addReview(
             @PathVariable("user_id") final long user_id,
             @PathVariable("property_id") final long property_id,
             @PathVariable("review") final String review,
-            @PathVariable("cotation") final String cotation
+            @PathVariable("quotation") final int quotation
             ){
-        return query.addReview(user_id, property_id, review, cotation);
+      Review r = query.addReview(user_id, property_id, review, quotation);
+      if (r != null){
+        return r;
+      }
+      error.put("Error", "House or User in question not found");
+      return error;
     }
     
     /**

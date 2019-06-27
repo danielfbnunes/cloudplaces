@@ -2,10 +2,12 @@
 package cloudplaces.webapp.database_queries;
 
 import cloudplaces.webapp.entities.PropertyRepository;
+import cloudplaces.webapp.entities.Review;
 import cloudplaces.webapp.entities.User;
 import cloudplaces.webapp.entities.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 
