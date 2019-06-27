@@ -4,9 +4,9 @@
 
 package cloudplaces.webapp;
 
-import cloudplaces.webapp.databaseQueries.GeneralQueries;
-import cloudplaces.webapp.databaseQueries.PropertyQueries;
-import cloudplaces.webapp.databaseQueries.UserQueries;
+import cloudplaces.webapp.database_queries.GeneralQueries;
+import cloudplaces.webapp.database_queries.PropertyQueries;
+import cloudplaces.webapp.database_queries.UserQueries;
 import java.util.Collections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

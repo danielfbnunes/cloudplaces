@@ -3,17 +3,11 @@
  */
 package cloudplaces.webapp.mappings;
 
-import cloudplaces.webapp.databaseQueries.PropertyQueries;
+import cloudplaces.webapp.database_queries.PropertyQueries;
 import cloudplaces.webapp.entities.House;
-import cloudplaces.webapp.entities.PropertyRepository;
-import cloudplaces.webapp.entities.UserRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 //Todo create logs when pages are accessed.
 @RestController
-@Api(value = "Property Resources", description = "Shows property resources")
+@Api(value = "Property Resources")
 public class PropertyResources {
     
     @Autowired
@@ -114,7 +108,7 @@ public class PropertyResources {
     @ApiOperation("Edits a property")
     @PutMapping("api/edit_property")
     public House editProperty(@RequestBody House house) {
-        return query.editProperty(house.getName(), house.getAddress(), house.getPrice(), house.getN_rooms(), house.getUser().getId(), house.getHab_space(), house.getN_bathrooms(), house.getGarage(), house.getDescription(), house.getProperty_features(), house.getAvailability());
+        return query.editProperty(house.getName(), house.getAddress(), house.getPrice(), house.getNRooms(), house.getUser().getId(), house.getHabSpace(), house.getNBathrooms(), house.getGarage(), house.getDescription(), house.getPropertyFeatures(), house.getAvailability());
     }
     
     /**

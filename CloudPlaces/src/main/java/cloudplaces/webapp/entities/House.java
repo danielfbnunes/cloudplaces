@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,16 +26,16 @@ public class House {
     @Column(name = "ID")
     private Long houseId;
     private String address;
-    private int n_rooms;
-    private int hab_space;
+    private int nRooms;
+    private int habSpace;
     private float price;
     private String name;
     private String publishDay;
-    private int n_bathrooms;
+    private int nBathrooms;
     private int garage;
     @Lob
     private String description;
-    private String property_features;
+    private String propertyFeatures;
     private int availability;
     
     @ManyToOne
@@ -63,10 +62,10 @@ public class House {
     public House() {
     }
 
-    public House(String address, int n_rooms, int hab_space, float price, String name, String publishDay, User user, int n_bathrooms, int garage, String description, String property_features, int availability, List<HousePhotos> photos, List<Review> reviews, List<Wishlist> wishes, List<RecentSearches> searches) {
+    public House(String address, int nRooms, int habSpace, float price, String name, String publishDay, User user, int nBathrooms, int garage, String description, String propertyFeatures, int availability, List<HousePhotos> photos, List<Review> reviews, List<Wishlist> wishes, List<RecentSearches> searches) {
         this.address = address;
-        this.n_rooms = n_rooms;
-        this.hab_space = hab_space;
+        this.nRooms = nRooms;
+        this.habSpace = habSpace;
         this.price = price;
         this.name = name;
         this.publishDay = publishDay;
@@ -74,10 +73,10 @@ public class House {
         this.reviews = reviews;
         this.wishes = wishes;
         this.searches = searches;
-        this.n_bathrooms = n_bathrooms;
+        this.nBathrooms = nBathrooms;
         this.garage = garage;
         this.description = description;
-        this.property_features = property_features;
+        this.propertyFeatures = propertyFeatures;
         this.photos = photos;
         this.availability = availability;
     }
@@ -102,20 +101,20 @@ public class House {
         this.address = address;
     }
 
-    public int getN_rooms() {
-        return n_rooms;
+    public int getNRooms() {
+        return nRooms;
     }
 
-    public void setN_rooms(int n_rooms) {
-        this.n_rooms = n_rooms;
+    public void setNRooms(int nRooms) {
+        this.nRooms = nRooms;
     }
 
-    public int getHab_space() {
-        return hab_space;
+    public int getHabSpace() {
+        return habSpace;
     }
 
-    public void setHab_space(int hab_space) {
-        this.hab_space = hab_space;
+    public void setHabSpace(int habSpace) {
+        this.habSpace = habSpace;
     }
 
     public float getPrice() {
@@ -182,12 +181,12 @@ public class House {
         this.garage = garage;
     }
 
-    public int getN_bathrooms() {
-        return n_bathrooms;
+    public int getNBathrooms() {
+        return nBathrooms;
     }
 
-    public void setN_bathrooms(int n_bathrooms) {
-        this.n_bathrooms = n_bathrooms;
+    public void setNBathrooms(int nBathrooms) {
+        this.nBathrooms = nBathrooms;
     }
 
     public List<HousePhotos> getPhotos() {
@@ -198,12 +197,12 @@ public class House {
         this.photos = photos;
     }
 
-    public String getProperty_features() {
-        return property_features;
+    public String getPropertyFeatures() {
+        return propertyFeatures;
     }
 
-    public void setProperty_features(String property_features) {
-        this.property_features = property_features;
+    public void setPropertyFeatures(String propertyFeatures) {
+        this.propertyFeatures = propertyFeatures;
     }
   
     public int getAvailability() {

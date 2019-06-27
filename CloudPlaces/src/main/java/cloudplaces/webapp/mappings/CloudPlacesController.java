@@ -4,7 +4,7 @@
 
 package cloudplaces.webapp.mappings;
 
-import cloudplaces.webapp.databaseQueries.PropertyQueries;
+import cloudplaces.webapp.database_queries.PropertyQueries;
 import cloudplaces.webapp.entities.House;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -91,11 +91,11 @@ public class CloudPlacesController {
           @RequestParam(name="id", required=true) final long id,
           Model model
   ){
-    House tmp = (House) propertyQueries.getProperty(id);
+    House tmp = propertyQueries.getProperty(id);
     
     // Link house attributes to html template
     model.addAttribute("house", tmp);
-    model.addAttribute("houseFeatures", tmp.getProperty_features().split("_"));
+    model.addAttribute("houseFeatures", tmp.getPropertyFeatures().split("_"));
     //Link user attributes to html template
     model.addAttribute("user", tmp.getUser());
     
