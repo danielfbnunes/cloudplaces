@@ -56,7 +56,7 @@ public class Stepdefs {
         
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         driver.get(baseUrl+"login");
-        Thread.sleep(1000);
+        Thread.sleep(2000);
     }
     
     @When("he fills the email with {string}")
