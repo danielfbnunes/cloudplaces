@@ -19,6 +19,7 @@ public class Wishlist {
     private Long whishListId;
 
     public Wishlist() {
+        //Method is empty because JPA needs an empty constructor
     }
 
     public Long getWhishListId() {

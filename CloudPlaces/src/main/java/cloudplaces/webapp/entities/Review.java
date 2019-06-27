@@ -44,5 +44,12 @@ public class Review {
     public void setComment(String comment) {
         this.comment = comment;
     }
-    
+
+    public int getQuotation() {
+        return quotation;
+    }
+
+    public void setQuotation(int quotation) {
+        this.quotation = quotation;
+    }
 }

@@ -20,6 +20,7 @@ public class RecentSearches {
     private Long searchId;
 
     public RecentSearches() {
+        //Method is empty because JPA needs an empty constructor
     }
 
     public Long getSearchId() {

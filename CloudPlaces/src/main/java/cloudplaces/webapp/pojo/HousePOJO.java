@@ -1,29 +1,20 @@
 /**
  * Projeto Open source
  */
-package cloudplaces.webapp.entities;
+package cloudplaces.webapp.pojo;
 
+import cloudplaces.webapp.entities.HousePhotos;
+import cloudplaces.webapp.entities.RecentSearches;
+import cloudplaces.webapp.entities.Review;
+import cloudplaces.webapp.entities.User;
+import cloudplaces.webapp.entities.Wishlist;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 /**
  * House é a classe que representa a entidade casa na base de dados.
  * 
  */
-@Entity
-public class House {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
+public class HousePOJO {
     private Long houseId;
     private String address;
     private int nRooms;
@@ -33,36 +24,24 @@ public class House {
     private String publishDay;
     private int nBathrooms;
     private int garage;
-    @Lob
     private String description;
     private String propertyFeatures;
     private int availability;
     
-    @ManyToOne
     private User user;
-    
-    @OneToMany
-    @JoinColumn(name = "house_id")
+
     private List<Review> reviews;
-    
-    @OneToMany
-    @JoinColumn(name = "house_id")
+
     private List<Wishlist> wishes;
     
-    @OneToMany
-    @JoinColumn(name = "house_id")
     private List<RecentSearches> searches;
     
-    @Lob
-    @OneToMany(cascade = CascadeType.ALL, targetEntity = HousePhotos.class)
-    @JoinColumn(name = "house_id")
     private List<HousePhotos> photos;
     
-    
-    public House() {
+    public HousePOJO() {
     }
 
-    public House(String address, int nRooms, int habSpace, float price, String name, String publishDay, User user, int nBathrooms, int garage, String description, String propertyFeatures, int availability, List<HousePhotos> photos, List<Review> reviews, List<Wishlist> wishes, List<RecentSearches> searches) {
+    public HousePOJO(String address, int nRooms, int habSpace, float price, String name, String publishDay, User user, int nBathrooms, int garage, String description, String propertyFeatures, int availability, List<HousePhotos> photos, List<Review> reviews, List<Wishlist> wishes, List<RecentSearches> searches) {
         this.address = address;
         this.nRooms = nRooms;
         this.habSpace = habSpace;

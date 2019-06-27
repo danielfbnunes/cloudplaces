@@ -1,14 +1,11 @@
-/*
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
-*/
-package cloudplaces.webapp.databaseQueries;
+
+package cloudplaces.webapp.database_queries;
 
 import cloudplaces.webapp.entities.PropertyRepository;
 import cloudplaces.webapp.entities.User;
 import cloudplaces.webapp.entities.UserRepository;
 import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -27,6 +24,7 @@ public class UserQueries {
   @Autowired
   private EntityManager em;
   
+  
   public User addUser(String name, String email, String pw, String cellphone, byte[] photo){
     System.out.println("HERE!!");
     User u = new User(name, email, pw, cellphone, photo, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
@@ -37,11 +35,15 @@ public class UserQueries {
     return null;
   }
   
-  public User getUser(long user_id){
-    return (User) em.createQuery("SELECT u FROM User u WHERE u.id = " + user_id).getResultList().get(0);
+  public User getUser(long userId){
+    List<User> userList = em.createQuery("SELECT u FROM User u WHERE u.id = " + userId).getResultList();
+    if(!userList.isEmpty()){
+      return (User) userList.get(0);
+    }
+    return null;
   }
   
-  public ArrayList<Object> getWishlist(){
+  public List<Object> getWishlist(){
     return new ArrayList<>();
   }
   

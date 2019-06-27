@@ -4,8 +4,11 @@
 
 package cloudplaces.webapp.mappings;
 
-import cloudplaces.webapp.databaseQueries.PropertyQueries;
-import cloudplaces.webapp.databaseQueries.UserQueries;
+
+
+import cloudplaces.webapp.database_queries.PropertyQueries;
+import cloudplaces.webapp.database_queries.UserQueries;
+
 import cloudplaces.webapp.entities.House;
 import cloudplaces.webapp.entities.User;
 import java.util.Map;
@@ -129,13 +132,22 @@ public class CloudPlacesController {
           @RequestParam(name="id", required=true) final long id,
           Model model
   ){
-    House tmp = (House) propertyQueries.getProperty(id);
+    House tmp = propertyQueries.getProperty(id);
     
     // Link house attributes to html template
     model.addAttribute("house", tmp);
-    model.addAttribute("houseFeatures", tmp.getProperty_features().split("_"));
+    model.addAttribute("houseFeatures", tmp.getPropertyFeatures().split("_"));
     //Link user attributes to html template
     model.addAttribute("user", tmp.getUser());
+    
+    //convert byte images do b64
+    model.addAttribute("userImage" ,new String(tmp.getUser().getPhoto()));
+    
+    String[] houseImages = new String[tmp.getPhotos().size()];
+    for (int i=0; i<tmp.getPhotos().size(); i++)
+      houseImages[i] = new String(tmp.getPhotos().get(0).getPhoto());
+    
+    model.addAttribute("houseImages" ,houseImages);
     
     return "single-property.html";
   }

@@ -3,17 +3,14 @@
  */
 package cloudplaces.webapp.mappings;
 
-import cloudplaces.webapp.databaseQueries.PropertyQueries;
+import cloudplaces.webapp.database_queries.PropertyQueries;
 import cloudplaces.webapp.entities.House;
-import cloudplaces.webapp.entities.PropertyRepository;
-import cloudplaces.webapp.entities.UserRepository;
+import cloudplaces.webapp.pojo.HousePOJO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
-import javax.persistence.EntityManager;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,9 +28,11 @@ import org.springframework.web.bind.annotation.RestController;
  */
 //Todo create logs when pages are accessed.
 @RestController
-@Api(value = "Property Resources", description = "Shows property resources")
+@Api(value = "Property Resources")
 public class PropertyResources {
     
+    Map<String, String> error = new HashMap<>();
+
     @Autowired
     PropertyQueries query;
     
@@ -51,7 +50,7 @@ public class PropertyResources {
     @ApiOperation("Returns a list of properties")
     @GetMapping("api/get_properties")
     @ResponseBody
-    public List<House> getProperties(
+    public Object getProperties(
             @RequestParam(required = false) final String name,
             @RequestParam(required = false) final String location,
             @RequestParam(required = false) final Float min_price,
@@ -62,7 +61,11 @@ public class PropertyResources {
             @RequestParam(required = false) final Integer max_hab_space,
             @RequestParam(required = false) final Integer availability
             ){
-        return query.getProperties(name, location, min_price, max_price, min_n_rooms, max_n_rooms, min_hab_space, max_hab_space, availability);
+        List<House> h = query.getProperties(name, location, min_price, max_price, min_n_rooms, max_n_rooms, min_hab_space, max_hab_space, availability);
+        if(h != null)
+            return h;
+        error.put("Error", "No houses found");
+        return error;
     }    
     
     /**
@@ -113,8 +116,8 @@ public class PropertyResources {
      */
     @ApiOperation("Edits a property")
     @PutMapping("api/edit_property")
-    public House editProperty(@RequestBody House house) {
-        return query.editProperty(house.getName(), house.getAddress(), house.getPrice(), house.getN_rooms(), house.getUser().getId(), house.getHab_space(), house.getN_bathrooms(), house.getGarage(), house.getDescription(), house.getProperty_features(), house.getAvailability());
+    public House editProperty(@RequestBody HousePOJO house) {
+        return query.editProperty(house.getName(), house.getAddress(), house.getPrice(), house.getNRooms(), house.getUser().getId(), house.getHabSpace(), house.getNBathrooms(), house.getGarage(), house.getDescription(), house.getPropertyFeatures(), house.getAvailability());
     }
     
     /**

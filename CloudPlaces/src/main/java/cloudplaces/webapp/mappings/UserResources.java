@@ -3,14 +3,13 @@
  */
 package cloudplaces.webapp.mappings;
 
-import cloudplaces.webapp.databaseQueries.UserQueries;
-import cloudplaces.webapp.entities.House;
+import cloudplaces.webapp.database_queries.UserQueries;
 import cloudplaces.webapp.entities.User;
-import cloudplaces.webapp.entities.UserRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import java.util.ArrayList;
-import javax.persistence.EntityManager;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Api(value = "User Resources", description = "Shows user resources")
 public class UserResources {
+    
+    Map<String, String> error = new HashMap<>();
     
     @Autowired
     UserQueries query;
@@ -44,10 +45,14 @@ public class UserResources {
     
     @ApiOperation("Get a user from database")
     @GetMapping("api/get_user/{user_id}")
-    public User getUser(
+    public Object getUser(
             @PathVariable("user_id") final long user_id
             ){
-        return query.getUser(user_id);
+        User u = query.getUser(user_id);
+        if(u != null)
+            return u;
+        error.put("Error", "User not found");
+        return error;
     }
     
     /**
@@ -58,7 +63,7 @@ public class UserResources {
      */
     @ApiOperation("Returns a list of properties")
     @GetMapping("api/get_wishlist/{user_id}")
-    public ArrayList<Object> getWishlist(
+    public List<Object> getWishlist(
             @PathVariable("user_id") final long user_id
             ){
         return query.getWishlist();
