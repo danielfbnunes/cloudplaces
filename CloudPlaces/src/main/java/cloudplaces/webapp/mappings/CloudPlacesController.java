@@ -44,11 +44,34 @@ public class CloudPlacesController {
    * Este método disponibiliza a página inicial da aplicação web.
    *
    *
-   * @return Retorna a página de inicial da aplicação web.
+   * @return página de login
    */
   @GetMapping("/login")
-  public String loadIndex(Model model){
-    return "index.html";
+  public String login(Model model){
+    model.addAttribute("user", new User());
+    model.addAttribute("error", false);
+    return "login.html";
+  }
+  
+  
+  /**
+   * Este método disponibiliza a página inicial da aplicação web.
+   *
+   *
+   * @return Retorna a página de inicial da aplicação web.
+   */
+  @PostMapping("/login")
+  public String login(@ModelAttribute User user, Model model){
+    logger.info("The following is user is trying to login: " + user.getName());
+    
+    User u = userQueries.getUser(user.getEmail());
+    
+    if(u == null){
+      model.addAttribute("error", true);
+      return "login.html";
+    }
+    else
+      return "redirect:/";
   }
   
   /**
@@ -57,9 +80,9 @@ public class CloudPlacesController {
    *
    * @return Retorna a página de inicial de um utilizador que tenha realizado o login.
    */
-  @GetMapping("/getHomepage")
-  public String loadHomepage(Model model){
-    return "homepage.html";
+  @GetMapping("/")
+  public String propertiesPage(Model model){
+    return "index.html";
   }
   
   /**
