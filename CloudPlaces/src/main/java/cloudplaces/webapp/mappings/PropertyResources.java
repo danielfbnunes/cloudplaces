@@ -5,6 +5,7 @@ package cloudplaces.webapp.mappings;
 
 import cloudplaces.webapp.database_queries.PropertyQueries;
 import cloudplaces.webapp.entities.House;
+import cloudplaces.webapp.pojo.HousePOJO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
@@ -107,7 +108,7 @@ public class PropertyResources {
      */
     @ApiOperation("Edits a property")
     @PutMapping("api/edit_property")
-    public House editProperty(@RequestBody House house) {
+    public House editProperty(@RequestBody HousePOJO house) {
         return query.editProperty(house.getName(), house.getAddress(), house.getPrice(), house.getNRooms(), house.getUser().getId(), house.getHabSpace(), house.getNBathrooms(), house.getGarage(), house.getDescription(), house.getPropertyFeatures(), house.getAvailability());
     }
     
