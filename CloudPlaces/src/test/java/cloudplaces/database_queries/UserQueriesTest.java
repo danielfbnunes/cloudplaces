@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cloudplaces.webapp.databaseQueries;
+package cloudplaces.database_queries;
 
 import cloudplaces.webapp.CloudPlacesApplication;
+import cloudplaces.webapp.database_queries.UserQueries;
 import cloudplaces.webapp.entities.House;
 import cloudplaces.webapp.entities.RecentSearches;
 import cloudplaces.webapp.entities.Review;
@@ -103,7 +104,7 @@ public class UserQueriesTest {
     System.out.println("getWishlist");
     UserQueries instance = new UserQueries();
     ArrayList<Object> expResult = null;
-    ArrayList<Object> result = instance.getWishlist();
+    List<Object> result = instance.getWishlist();
     assertEquals(expResult, result);
     // TODO review the generated test code and remove the default call to fail.
     fail("The test case is a prototype.");
