@@ -1,6 +1,6 @@
-/**
- * Projeto Open source
- */
+ /**
+  * Projeto Open source
+  */
 
 package cloudplaces.webapp.mappings;
 
@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
  * Esta classe é responsável por disponibilizar as chamadas
@@ -30,15 +31,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 //Todo create logs when pages are accessed.
 @Controller
+@SessionAttributes("currentUser")
 public class CloudPlacesController {
+  
+  // Every time the controller starts, the user will be null
+  @ModelAttribute("currentUser")
+  public User currentUser() {
+    return null;
+  }
   
   Logger logger = Logger.getLogger(CloudPlacesController.class.getName());
   
   @Autowired
-  PropertyQueries propertyQueries;
+          PropertyQueries propertyQueries;
   
   @Autowired
-  UserQueries userQueries;
+          UserQueries userQueries;
   
   /**
    * Este método disponibiliza a página inicial da aplicação web.
@@ -47,7 +55,13 @@ public class CloudPlacesController {
    * @return página de login
    */
   @GetMapping("/login")
-  public String login(Model model){
+  public String login(Model model, @ModelAttribute("currentUser") User currentUser){
+    
+    //check if user is logged in
+    if (userLoggedIn(currentUser)) {
+      return "index";
+    }
+    
     model.addAttribute("user", new User());
     model.addAttribute("error", false);
     return "login.html";
@@ -61,17 +75,24 @@ public class CloudPlacesController {
    * @return Retorna a página de inicial da aplicação web.
    */
   @PostMapping("/login")
-  public String login(@ModelAttribute User user, Model model){
+  public String login(@ModelAttribute User user, Model model, @ModelAttribute("currentUser") User currentUser){
     logger.info("The following is user is trying to login: " + user.getName());
     
+    //check if user is logged in
+    if (userLoggedIn(currentUser)) {
+      return "index";
+    }
+
     User u = userQueries.authenticateUser(user.getEmail(), user.getPw());
-    
+
     if(u == null){
       model.addAttribute("error", true);
       return "login.html";
     }
-    else
+    else{
+      currentUser = u;
       return "redirect:/";
+    }
   }
   
   /**
@@ -81,8 +102,12 @@ public class CloudPlacesController {
    * @return Retorna a página de inicial de um utilizador que tenha realizado o login.
    */
   @GetMapping("/")
-  public String propertiesPage(Model model){
-    return "index.html";
+  public String propertiesPage(Model model, @ModelAttribute("currentUser") User currentUser){
+    //check if user is logged in
+    if (userLoggedIn(currentUser)) {
+      return "redirect:/";
+    }
+    return "redirect:/login";
   }
   
   /**
@@ -129,7 +154,7 @@ public class CloudPlacesController {
     if(addedUser != null)
       return "login";
     else
-      return "[Error] User was not added! A user with the same email already exists!";  
+      return "[Error] User was not added! A user with the same email already exists!";
   }
   
   
@@ -153,8 +178,14 @@ public class CloudPlacesController {
   @GetMapping("/getProperty")
   public String loadProperty(
           @RequestParam(name="id", required=true) final long id,
+          @ModelAttribute("currentUser") User currentUser,
           Model model
   ){
+    //check if user is logged in
+    if (!userLoggedIn(currentUser)) {
+      return "redirect:/login";
+    }
+    
     House tmp = propertyQueries.getProperty(id);
     
     // Link house attributes to html template
@@ -184,5 +215,29 @@ public class CloudPlacesController {
   @GetMapping("/getProfile")
   public String loadProfile(Model model){
     return "profile.html";
+  }
+  
+  
+   /**
+   * Este método apaga a user session
+   *
+   *
+   * @return página de login
+   */
+  @GetMapping("/logout")
+  public String logout(@ModelAttribute("currentUser") User currentUser){
+    currentUser = null;
+    return "redirect:/login";
+  }
+  
+  
+  /**
+   * Este método verifica se o user está logado
+   *
+   *
+   * @return
+   */
+  public boolean userLoggedIn(User user){
+    return user != null;
   }
 }
