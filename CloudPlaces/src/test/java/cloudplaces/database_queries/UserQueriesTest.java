@@ -70,7 +70,7 @@ public class UserQueriesTest {
     String email = "email";
     String pw = "pw";
     String cellphone = "cellphone";
-    byte[] photo = "photo".getBytes();
+    String photo = "photo";
     
     User u =  new User(name, email, pw, cellphone, photo, new ArrayList<House>() , new ArrayList<Review>() , new ArrayList<Wishlist>(), new ArrayList<RecentSearches>() );
     User addedUser = instance.addUser(name, email, pw, cellphone, photo);
@@ -95,7 +95,7 @@ public class UserQueriesTest {
     String email = "email";
     String pw = "pw";
     String cellphone = "cellphone";
-    byte[] photo = "photo".getBytes();
+    String photo = "photo";
     
     User u =  new User(name, email, pw, cellphone, photo, new ArrayList<House>() , new ArrayList<Review>() , new ArrayList<Wishlist>(), new ArrayList<RecentSearches>() );
     User addedUser = instance.addUser(name, email, pw, cellphone, photo);

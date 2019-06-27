@@ -27,7 +27,7 @@ public class UserQueries {
   private EntityManager em;
   
   
-  public User addUser(String name, String email, String pw, String cellphone, byte[] photo){
+  public User addUser(String name, String email, String pw, String cellphone, String photo){
     User u = new User(name, email, pw, cellphone, photo, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
     if(em.createQuery("SELECT u FROM User u WHERE email = \'" + email + "\'"  ).getResultList().isEmpty()){
       userRepo.save(u);

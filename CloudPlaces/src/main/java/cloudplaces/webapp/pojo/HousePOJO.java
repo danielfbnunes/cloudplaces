@@ -3,7 +3,6 @@
  */
 package cloudplaces.webapp.pojo;
 
-import cloudplaces.webapp.entities.HousePhotos;
 import cloudplaces.webapp.entities.RecentSearches;
 import cloudplaces.webapp.entities.Review;
 import cloudplaces.webapp.entities.User;
@@ -36,12 +35,12 @@ public class HousePOJO {
     
     private List<RecentSearches> searches;
     
-    private List<HousePhotos> photos;
+    private List<String> photos;
     
     public HousePOJO() {
     }
 
-    public HousePOJO(String address, int nRooms, int habSpace, float price, String name, String publishDay, User user, int nBathrooms, int garage, String description, String propertyFeatures, int availability, List<HousePhotos> photos, List<Review> reviews, List<Wishlist> wishes, List<RecentSearches> searches) {
+    public HousePOJO(String address, int nRooms, int habSpace, float price, String name, String publishDay, User user, int nBathrooms, int garage, String description, String propertyFeatures, int availability, List<String> photos, List<Review> reviews, List<Wishlist> wishes, List<RecentSearches> searches) {
         this.address = address;
         this.nRooms = nRooms;
         this.habSpace = habSpace;
@@ -168,11 +167,11 @@ public class HousePOJO {
         this.nBathrooms = nBathrooms;
     }
 
-    public List<HousePhotos> getPhotos() {
+    public List<String> getPhotos() {
         return photos;
     }
 
-    public void setPhotos(List<HousePhotos> photos) {
+    public void setPhotos(List<String> photos) {
         this.photos = photos;
     }
 
