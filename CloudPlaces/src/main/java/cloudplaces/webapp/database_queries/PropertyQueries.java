@@ -17,7 +17,8 @@ import java.util.Optional;
 import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class PropertyQueries {  
+public class PropertyQueries {
+
   @Autowired
   private PropertyRepository propertyRepo;
 
@@ -29,39 +30,51 @@ public class PropertyQueries {
 
   public List<House> getProperties(String name, String location, Float minPrice, Float maxPrice, Integer minNRooms, Integer maxNRooms, Integer minHabSpace, Integer maxHabSpace, Integer availability) {
     String baseQuery = "SELECT h FROM House h WHERE ( 1=1";
-    if (name != null)
-        baseQuery += " AND h.name LIKE '%" + name + "%'";
-    if (location != null)
-        baseQuery += " AND h.address LIKE '%" + location + "%'";
+    if (name != null) {
+      baseQuery += " AND h.name LIKE '%" + name + "%'";
+    }
+    if (location != null) {
+      baseQuery += " AND h.address LIKE '%" + location + "%'";
+    }
 
-    if (minPrice != null && maxPrice != null)
-        baseQuery += " AND h.price >= " + minPrice + " AND h.price <= " + maxPrice;
-    if (minPrice != null && maxPrice == null)
-        baseQuery += " AND h.price >= " + minPrice;
-    if (minPrice == null && maxPrice != null)
-        baseQuery += " AND h.price <= " + maxPrice;
+    if (minPrice != null && maxPrice != null) {
+      baseQuery += " AND h.price >= " + minPrice + " AND h.price <= " + maxPrice;
+    }
+    if (minPrice != null && maxPrice == null) {
+      baseQuery += " AND h.price >= " + minPrice;
+    }
+    if (minPrice == null && maxPrice != null) {
+      baseQuery += " AND h.price <= " + maxPrice;
+    }
 
-    if (minHabSpace != null && maxHabSpace != null)
-        baseQuery += " AND h.hab_space >= " + minHabSpace + " AND h.hab_space <= " + maxHabSpace;
-    if (minHabSpace != null && maxHabSpace == null)
-        baseQuery += " AND h.hab_space >= " + minHabSpace;
-    if (minHabSpace == null && maxHabSpace != null)
-        baseQuery += " AND h.hab_space <= " + maxHabSpace;
+    if (minHabSpace != null && maxHabSpace != null) {
+      baseQuery += " AND h.hab_space >= " + minHabSpace + " AND h.hab_space <= " + maxHabSpace;
+    }
+    if (minHabSpace != null && maxHabSpace == null) {
+      baseQuery += " AND h.hab_space >= " + minHabSpace;
+    }
+    if (minHabSpace == null && maxHabSpace != null) {
+      baseQuery += " AND h.hab_space <= " + maxHabSpace;
+    }
 
-    if (minNRooms != null && maxNRooms != null)
-        baseQuery += " AND h.n_rooms >= " + minNRooms + " AND h.n_rooms <= " + maxNRooms;
-    if (minNRooms != null && maxHabSpace == null)
-        baseQuery += " AND h.n_rooms >= " + minNRooms;
-    if (minNRooms == null && maxHabSpace != null)
-        baseQuery += " AND h.n_rooms <= " + maxNRooms;
+    if (minNRooms != null && maxNRooms != null) {
+      baseQuery += " AND h.n_rooms >= " + minNRooms + " AND h.n_rooms <= " + maxNRooms;
+    }
+    if (minNRooms != null && maxHabSpace == null) {
+      baseQuery += " AND h.n_rooms >= " + minNRooms;
+    }
+    if (minNRooms == null && maxHabSpace != null) {
+      baseQuery += " AND h.n_rooms <= " + maxNRooms;
+    }
 
-    if (availability != null)
-        baseQuery += " AND h.availability <= " + availability;
+    if (availability != null) {
+      baseQuery += " AND h.availability <= " + availability;
+    }
 
     baseQuery += " )";
     List<House> houseList = em.createQuery(baseQuery).getResultList();
-    if(!houseList.isEmpty()){
-        return houseList;
+    if (!houseList.isEmpty()) {
+      return houseList;
     }
     return null;
   }
@@ -74,10 +87,10 @@ public class PropertyQueries {
     Date date = new Date();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
     Optional<User> user = userRepo.findById(userId);
-    if (user.isPresent()){
-        House h = new House(location, nRooms, habSpace, price, name, formatter.format(date), user.get(), nBathrooms, garage, description, propertyFeatures, availability, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
-        propertyRepo.save(h);
-        return h;
+    if (user.isPresent()) {
+      House h = new House(location, nRooms, habSpace, price, name, formatter.format(date), user.get(), nBathrooms, garage, description, propertyFeatures, availability, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+      propertyRepo.save(h);
+      return h;
     }
     return null;
   }
@@ -86,16 +99,21 @@ public class PropertyQueries {
     Date date = new Date();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
     Optional<User> user = userRepo.findById(userId);
-    if (user.isPresent()){
-        House h = new House(location, nRooms, habSpace, price, name, formatter.format(date), user.get(), nBathrooms, garage, description, propertyFeatures, availability, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
-        propertyRepo.save(h);
-        return h;
+    if (user.isPresent()) {
+      House h = new House(location, nRooms, habSpace, price, name, formatter.format(date), user.get(), nBathrooms, garage, description, propertyFeatures, availability, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+      propertyRepo.save(h);
+      return h;
     }
     return null;
   }
-  
-  public void removeProperty(long houseId) {
-    propertyRepo.deleteById(houseId);
+
+  public boolean removeProperty(long houseId) {
+    Optional<House> house = propertyRepo.findById(houseId);
+    if (house.isPresent()){
+      propertyRepo.deleteById(houseId);
+      return true;
+    }
+    return false;
   }
 
   public boolean addReview(long userId, long propertyId, String review, String cotation) {
