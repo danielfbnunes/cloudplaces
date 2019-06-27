@@ -63,7 +63,6 @@ public class Stepdefs {
         } catch (Error e) {
             verificationErrors.append(e.toString());
         }
-        driver.quit();
     }
     
     //Login Test Failure 
@@ -77,7 +76,6 @@ public class Stepdefs {
         } catch (Error e) {
           verificationErrors.append(e.toString());
         }
-        driver.quit();
     }
     
     //Create an Account With Success
@@ -128,7 +126,6 @@ public class Stepdefs {
     
     @Then("enter")
     public void executeLogin() throws InterruptedException {
-        driver.quit();
     }
     
     //Create Account Failure
@@ -146,7 +143,6 @@ public class Stepdefs {
     
     @Then("log in")
     public void errorOnLogIn() {
-        driver.quit();
     }
 
 }
