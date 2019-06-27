@@ -36,8 +36,8 @@ public class UserResources {
             @PathVariable("name") final String name,
             @PathVariable("email") final String email,
             @PathVariable("pw") final String pw,
-            @PathVariable("cellphone") final int cellphone,
-            @PathVariable("photo") final String photo
+            @PathVariable("cellphone") final String cellphone,
+            @PathVariable("photo") final byte[] photo
             ){
         return query.addUser(name, email, pw, cellphone, photo);
     }

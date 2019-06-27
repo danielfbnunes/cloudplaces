@@ -4,12 +4,15 @@
 package cloudplaces.webapp.entities;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -26,13 +29,15 @@ public class House {
     private String address;
     private int n_rooms;
     private int hab_space;
-    private double price;
+    private float price;
     private String name;
     private String publishDay;
     private int n_bathrooms;
     private int garage;
+    @Lob
     private String description;
     private String property_features;
+    private int availability;
     
     @ManyToOne
     private User user;
@@ -49,7 +54,8 @@ public class House {
     @JoinColumn(name = "house_id")
     private List<RecentSearches> searches;
     
-    @OneToMany
+    @Lob
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = HousePhotos.class)
     @JoinColumn(name = "house_id")
     private List<HousePhotos> photos;
     
@@ -57,7 +63,7 @@ public class House {
     public House() {
     }
 
-    public House(String address, int n_rooms, int hab_space, double price, String name, String publishDay, User user, int n_bathrooms, int garage, String description, String property_features, List<HousePhotos> photos, List<Review> reviews, List<Wishlist> wishes, List<RecentSearches> searches) {
+    public House(String address, int n_rooms, int hab_space, float price, String name, String publishDay, User user, int n_bathrooms, int garage, String description, String property_features, int availability, List<HousePhotos> photos, List<Review> reviews, List<Wishlist> wishes, List<RecentSearches> searches) {
         this.address = address;
         this.n_rooms = n_rooms;
         this.hab_space = hab_space;
@@ -73,6 +79,7 @@ public class House {
         this.description = description;
         this.property_features = property_features;
         this.photos = photos;
+        this.availability = availability;
     }
 
     public User getUser() {
@@ -111,11 +118,11 @@ public class House {
         this.hab_space = hab_space;
     }
 
-    public double getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
@@ -199,5 +206,12 @@ public class House {
         this.property_features = property_features;
     }
   
+    public int getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(int availability) {
+        this.availability = availability;
+    }
     
 }

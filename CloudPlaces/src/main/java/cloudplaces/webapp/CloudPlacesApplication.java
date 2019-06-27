@@ -4,6 +4,7 @@
 
 package cloudplaces.webapp;
 
+import cloudplaces.webapp.databaseQueries.GeneralQueries;
 import cloudplaces.webapp.databaseQueries.PropertyQueries;
 import cloudplaces.webapp.databaseQueries.UserQueries;
 import java.util.Collections;
@@ -41,6 +42,11 @@ public class CloudPlacesApplication{
     @Bean
     public UserQueries getUserQuery(){
         return new UserQueries();
+    }
+    
+    @Bean
+    public GeneralQueries getGeneralQueries(){
+        return new GeneralQueries();
     }
 }
 

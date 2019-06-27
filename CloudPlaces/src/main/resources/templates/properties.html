@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Homes Template">
+    <meta name="keywords" content="Homes, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cloud Places - My Properties</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i"
+        rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/flaticon.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+        $.get('getHeader', function(data) {
+            var h = document.getElementsByClassName("header-section");
+            h[0].innerHTML = data;
+        }, 'text');
+    </script>
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+    <!-- Header Section Begin -->
+    <header class="header-section">
+    </header>
+    <!-- Header Section End -->
+    <!-- Hero Section Begin -->
+    <section class="hero-section set-bg search-result" data-setbg="img/bg.jpg">
+        <div class="container hero-text text-white">
+            <h2></h2>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+    <div class="container">
+        <a class="site-btn btn-line col-lg-5 col-md-5 col-sm-5" data-toggle="modal" href="#addProperty" onclick="addAd(45678)">Add Property</a>
+    </div>
+    <!-- Hotel Room Section Begin -->
+    <section class="hotel-rooms spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-md-6">
+                    <div class="room-items">
+                        <div class="room-img set-bg" data-setbg="img/rooms/1.jpg">
+                            <a href="#" class="room-content">
+                                <i class="flaticon-heart"></i>
+                            </a>
+                        </div>
+                        <div class="room-text">
+                            <div class="room-details">
+                                <div class="room-title">
+                                    <h5>Country Style House with beautiful garden and terrace</h5>
+                                </div>
+                            </div>
+                            <a href="./single-property.html" class="site-btn btn-line col-lg-12 col-md-12 col-sm-12">View Property</a>
+                            <a class="site-btn btn-line col-lg-5 col-md-5 col-sm-5" data-toggle="modal" href="#editProperty" onclick="editAd(45678)">Edit</a>
+                            <a class="site-btn btn-line col-lg-5 col-md-5 col-sm-5">Remove</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="addProperty" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">New Property</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/createAd" method="post">
+                            <fieldset>
+                                <legend>Property information:</legend>
+                                Property Name:<br>
+                                <input type="text" name="name"><br>
+                                Property Address:<br>
+                                <input type="text" name="address"><br>
+                                Property Price:<br>
+                                <input type="number" name="price"><br>
+                                Number of Rooms:<br>
+                                <input type="number" name="n_rooms"><br>
+                                User ID:<br>
+                                <input id="userId" disabled="disabled" type="text" name="userId"><br>
+                                Habitation Space:<br>
+                                <input type="text" name="hab_space"><br>
+                                Number of Bathrooms:<br>
+                                <input type="text" name="n_bathrooms"><br>
+                                Property Garage:<br>
+                                <input type="text" name="garage"><br>
+                                Property Description:<br>
+                                <input type="text" name="description"><br>
+                                Property Features:<br>
+                                <input type="text" name="property_features"><br>
+                                Property Availability:<br>
+                                <input type="text" name="availability"><br><br>
+                                <input type="submit" value="Submit">
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="editProperty" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">New Property</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/editAd" method="put">
+                            <fieldset>
+                                <legend>Property information:</legend>
+                                Property Name:<br>
+                                <input type="text" name="name"><br>
+                                Property Address:<br>
+                                <input type="text" name="address"><br>
+                                Property Price:<br>
+                                <input type="number" name="price"><br>
+                                Number of Rooms:<br>
+                                <input type="number" name="n_rooms"><br>
+                                User ID:<br>
+                                <input id="userId2" disabled="disabled" type="text" name="userId"><br>
+                                Habitation Space:<br>
+                                <input type="text" name="hab_space"><br>
+                                Number of Bathrooms:<br>
+                                <input type="text" name="n_bathrooms"><br>
+                                Property Garage:<br>
+                                <input type="text" name="garage"><br>
+                                Property Description:<br>
+                                <input type="text" name="description"><br>
+                                Property Features:<br>
+                                <input type="text" name="property_features"><br>
+                                Property Availability:<br>
+                                <input type="text" name="availability"><br><br>
+                                <input type="submit" value="Submit">
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hotel Room Section End -->
+    <!-- Footer Section Begin -->
+    <footer class="footer-section p-40">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center sp-60">
+                    <img src="img/only-logo.png" alt="">
+                </div>
+            </div>
+            <div class="row p-37">
+                <div class="col-lg-4">
+                    <div class="about-footer">
+                        <h5>About Homes</h5>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eleifend tristique venenatis.
+                            Maecenas a rutrum tellus nam vel semper nibh.</p>
+                        <div class="footer-social">
+                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-dribbble"></i></a>
+                            <a href="#"><i class="fa fa-behance"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="footer-blog">
+                        <h5>Latest Blog Posts</h5>
+
+                        <div class="single-blog">
+                            <div class="lt-side">
+                                <img src="img/footer-blog-1.jpg" alt="">
+                            </div>
+                            <div class="rt-side">
+                                <h6>How to find the perfect area for<br> your next house.</h6>
+                                <div class="blog-time">
+                                    <i class="flaticon-clock"></i>
+                                    <span>5 min</span>
+                                </div>
+                                <a href="#" class="read-more">
+                                    <i class="flaticon-right-arrow-1"></i>
+                                    <span>Read More</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="single-blog">
+                            <div class="lt-side">
+                                <img src="img/footer-blog-2.jpg" alt="">
+                            </div>
+                            <div class="rt-side">
+                                <h6>How to find the perfect area for<br> your next house.</h6>
+                                <div class="blog-time">
+                                    <i class="flaticon-clock"></i>
+                                    <span>5 min</span>
+                                </div>
+                                <a href="#" class="read-more">
+                                    <i class="flaticon-right-arrow-1"></i>
+                                    <span>Read More</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="footer-address">
+                        <h5>Get In Touch</h5>
+                        <ul>
+                            <li><i class="flaticon-placeholder"></i><span>132 Liberty Streetelit, Plano, Texas</span>
+                            </li>
+                            <li><i class="flaticon-envelope"></i><span>hello@home.com</span></li>
+                            <li><i class="flaticon-smartphone"></i><span>214-805-4428</span></li>
+                        </ul>
+                        <p>Monday – Friday: 9 am – 5 pm</p>
+                        <p>Saturday: 9 am – 1pm</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row p-20">
+                <div class="col-lg-12 text-center">
+                    <div class="copyright">
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <script type="text/javascript">
+        function addAd(userId) {
+            document.getElementById("userId").value = userId;
+        }
+
+        function editAd(userId) {
+            document.getElementById("userId2").value = userId;
+        }
+    </script>
+
+    <!-- Js Plugins -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

@@ -54,12 +54,15 @@ public class PropertyResources {
     public List<House> getProperties(
             @RequestParam(required = false) final String name,
             @RequestParam(required = false) final String location,
-            @RequestParam(required = false) final Float radius,
             @RequestParam(required = false) final Float min_price,
             @RequestParam(required = false) final Float max_price,
-            @RequestParam(required = false) final Integer n_rooms
+            @RequestParam(required = false) final Integer min_n_rooms,
+            @RequestParam(required = false) final Integer max_n_rooms,
+            @RequestParam(required = false) final Integer min_hab_space,
+            @RequestParam(required = false) final Integer max_hab_space,
+            @RequestParam(required = false) final Integer availability
             ){
-        return query.getProperties(name, location, radius, min_price, max_price, n_rooms);
+        return query.getProperties(name, location, min_price, max_price, min_n_rooms, max_n_rooms, min_hab_space, max_hab_space, availability);
     }    
     
     /**
@@ -86,7 +89,7 @@ public class PropertyResources {
      * @return True ou False mediante o successo ou não da adição da propriedade
      */
     @ApiOperation("Adds a property")
-    @PostMapping("api/add_property/{name}/{location}/{price}/{n_rooms}/{user_id}/{hab_space}/{n_bathrooms}/{garage}/{description}/{property_features}")
+    @PostMapping("api/add_property/{name}/{location}/{price}/{n_rooms}/{user_id}/{hab_space}/{n_bathrooms}/{garage}/{description}/{property_features}/{availability}")
     public House addProperty(
             @PathVariable("name") final String name,
             @PathVariable("location") final String location,
@@ -97,9 +100,10 @@ public class PropertyResources {
             @PathVariable("n_bathrooms") final int n_bathrooms,
             @PathVariable("garage") final int garage,
             @PathVariable("description") final String description,
-            @PathVariable("property_features") final String property_features
+            @PathVariable("property_features") final String property_features,
+            @PathVariable("availability") final int availability
             ){
-        return query.addProperty(name, location, price, n_rooms, user_id, hab_space, n_bathrooms, garage, description, property_features);
+        return query.addProperty(name, location, price, n_rooms, user_id, hab_space, n_bathrooms, garage, description, property_features, availability);
     }
     
     /**
@@ -108,11 +112,20 @@ public class PropertyResources {
      * @param id corresponde ao id da propriedade
      */
     @ApiOperation("Edits a property")
-    @PutMapping("api/edit_property/{id}")
-    public boolean editProperty(
-            @PathVariable("id") final long id
-            ){
-        return query.editProperty(id);
+    @PutMapping("api/edit_property")
+    public House editProperty(@RequestBody House house) {
+        return query.editProperty(house.getName(), house.getAddress(), house.getPrice(), house.getN_rooms(), house.getUser().getId(), house.getHab_space(), house.getN_bathrooms(), house.getGarage(), house.getDescription(), house.getProperty_features(), house.getAvailability());
+    }
+    
+    /**
+     * Remove uma propriedade.
+     * 
+     * @param property_id Id da propriedade
+     */
+    @ApiOperation("Deletes a review")
+    @DeleteMapping("api/delete_review")
+    public void deleteProperty(@RequestParam(name = "houseId", required = true) long houseId) {
+        query.removeProperty(houseId);
     }
     
     /**
@@ -148,7 +161,7 @@ public class PropertyResources {
     public boolean editReview(
             @PathVariable("review_id") final long review_id
             ){
-        return query.editProperty(review_id);
+        return query.editReview(review_id);
     }
     
     /**
