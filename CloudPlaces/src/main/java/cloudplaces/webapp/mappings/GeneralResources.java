@@ -5,7 +5,7 @@
  */
 package cloudplaces.webapp.mappings;
 
-import cloudplaces.webapp.databaseQueries.GeneralQueries;
+import cloudplaces.webapp.database_queries.GeneralQueries;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@Api(value = "General Resources", description = "Shows general resources")
+@Api(value = "General Resources")
 public class GeneralResources {
     
     @Autowired

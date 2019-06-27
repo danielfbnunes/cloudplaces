@@ -3,14 +3,11 @@
  */
 package cloudplaces.webapp.mappings;
 
-import cloudplaces.webapp.databaseQueries.UserQueries;
-import cloudplaces.webapp.entities.House;
+import cloudplaces.webapp.database_queries.UserQueries;
 import cloudplaces.webapp.entities.User;
-import cloudplaces.webapp.entities.UserRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import java.util.ArrayList;
-import javax.persistence.EntityManager;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,7 +55,7 @@ public class UserResources {
      */
     @ApiOperation("Returns a list of properties")
     @GetMapping("api/get_wishlist/{user_id}")
-    public ArrayList<Object> getWishlist(
+    public List<Object> getWishlist(
             @PathVariable("user_id") final long user_id
             ){
         return query.getWishlist();

@@ -30,9 +30,9 @@ public class Stepdefs {
         else System.out.println("Using computer’s defaul GUI");
 
         GeckoDriverService service = new GeckoDriverService.Builder()
-        .usingAnyFreePort()
-        .withEnvironment(environment)
-        .build();;
+                .usingAnyFreePort()
+                .withEnvironment(environment)
+                .build();;
 
         driver = new FirefoxDriver(service);
         
