@@ -120,34 +120,5 @@ public class CloudPlacesController {
   public String loadMyProperties(Model model) {
     return "properties.html";
   }
-
-  /**
-   * Método responsável por adicionar uma nova casa na base de dados, de forma a criar um novo anúncio.
-   * 
-   * @param house -> Nova casa a ser criada do tipo House.
-   */
-  @PostMapping(path = "/createAd")
-  public void createAd(@RequestBody House house) {
-    propertyQueries.addProperty(house.getName(), house.getAddress(), house.getPrice(), house.getN_rooms(), house.getUser().getId(), house.getHab_space(), house.getN_bathrooms(), house.getGarage(), house.getDescription(), house.getProperty_features(), house.getAvailability());
-  }
-
-  /**
-   * Método responsável por permitir editar uma propriedade que já exista.
-   * 
-   * @param house -> Nova casa a ser criada do tipo House.
-   */
-  @PutMapping(path = "/editAd")
-  public void editAd(@RequestBody House house) {
-    propertyQueries.editProperty(house.getName(), house.getAddress(), house.getPrice(), house.getN_rooms(), house.getUser().getId(), house.getHab_space(), house.getN_bathrooms(), house.getGarage(), house.getDescription(), house.getProperty_features(), house.getAvailability());
-  }
-
-  /**
-   * Método responsável por remover um propriedade que já exista.
-   * 
-   * @param houseId -> Id da casa que pretendemos remover.
-   */
-  @DeleteMapping(path = "/removeAd")
-  public void removeAd(@RequestParam(name = "houseId", required = true) long houseId) {
-    propertyQueries.removeProperty(houseId);
-  }
+  
 }
