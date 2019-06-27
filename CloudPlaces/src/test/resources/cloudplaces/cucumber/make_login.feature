@@ -5,14 +5,14 @@ Feature: Make Login
 
 	Scenario: John logs in successfully
 		Given John as an account
-		    And he is on the login page.
-		When he fills the username with "user1"
-   		    And the password with "password1"
+		    And he is on the login page
+		When he fills the email with "user1@ua.pt"
+   		    And the password with "password"
 		Then he should be redirected to his homepage
 
 	Scenario: John incorrectly fills one field
 		Given John as an account
-		    And he is on the login page.
-		When he fills the username with "user1"
+		    And he is on the login page
+		When he fills the email with "user1@ua.pt"
 		    And the password with "pw1"
 		Then he should see a negative feedback message informing about the failure of the login
