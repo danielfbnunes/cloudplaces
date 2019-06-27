@@ -7,11 +7,13 @@ package cloudplaces.webapp.database_queries;
 
 import cloudplaces.webapp.entities.House;
 import cloudplaces.webapp.entities.PropertyRepository;
+import cloudplaces.webapp.entities.User;
 import cloudplaces.webapp.entities.UserRepository;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -68,17 +70,25 @@ public class PropertyQueries {
   public House addProperty(String name, String location, float price, int nRooms, long userId, int habSpace, int nBathrooms, int garage, String description, String propertyFeatures, int availability) {
     Date date = new Date();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-    House h = new House(location, nRooms, habSpace, price, name, formatter.format(date), userRepo.findById(userId).get(), nBathrooms, garage, description, propertyFeatures, availability, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
-    propertyRepo.save(h);
-    return h;
+    Optional<User> user = userRepo.findById(userId);
+    if (user.isPresent()){
+        House h = new House(location, nRooms, habSpace, price, name, formatter.format(date), user.get(), nBathrooms, garage, description, propertyFeatures, availability, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        propertyRepo.save(h);
+        return h;
+    }
+    return null;
   }
 
   public House editProperty(String name, String location, float price, int nRooms, long userId, int habSpace, int nBathrooms, int garage, String description, String propertyFeatures, int availability) {
     Date date = new Date();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-    House h = new House(location, nRooms, habSpace, price, name, formatter.format(date), userRepo.findById(userId).get(), nBathrooms, garage, description, propertyFeatures, availability, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
-    propertyRepo.save(h);
-    return h;
+    Optional<User> user = userRepo.findById(userId);
+    if (user.isPresent()){
+        House h = new House(location, nRooms, habSpace, price, name, formatter.format(date), user.get(), nBathrooms, garage, description, propertyFeatures, availability, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        propertyRepo.save(h);
+        return h;
+    }
+    return null;
   }
   
   public void removeProperty(long houseId) {
