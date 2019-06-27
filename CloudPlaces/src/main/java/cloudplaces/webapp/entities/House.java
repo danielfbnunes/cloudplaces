@@ -4,12 +4,15 @@
 package cloudplaces.webapp.entities;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -31,6 +34,7 @@ public class House {
     private String publishDay;
     private int n_bathrooms;
     private int garage;
+    @Lob
     private String description;
     private String property_features;
     
@@ -49,7 +53,8 @@ public class House {
     @JoinColumn(name = "house_id")
     private List<RecentSearches> searches;
     
-    @OneToMany
+    @Lob
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = HousePhotos.class)
     @JoinColumn(name = "house_id")
     private List<HousePhotos> photos;
     

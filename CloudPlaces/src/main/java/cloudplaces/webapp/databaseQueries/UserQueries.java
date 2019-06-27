@@ -27,7 +27,7 @@ public class UserQueries {
     @Autowired
     private EntityManager em;
     
-    public User addUser(String name, String email, String pw, int cellphone, String photo){
+    public User addUser(String name, String email, String pw, String cellphone, byte[] photo){
         User u = new User(name, email, pw, cellphone, photo, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
         userRepo.save(u);
         return u;
