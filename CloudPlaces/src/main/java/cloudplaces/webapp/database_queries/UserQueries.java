@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cloudplaces.webapp.databaseQueries;
+package cloudplaces.webapp.database_queries;
 
 import cloudplaces.webapp.entities.PropertyRepository;
 import cloudplaces.webapp.entities.User;
 import cloudplaces.webapp.entities.UserRepository;
 import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -33,11 +34,11 @@ public class UserQueries {
         return u;
     }
     
-    public User getUser(long user_id){
-        return (User) em.createQuery("SELECT u FROM User u WHERE u.id = " + user_id).getResultList().get(0);
+    public User getUser(long userId){
+        return (User) em.createQuery("SELECT u FROM User u WHERE u.id = " + userId).getResultList().get(0);
     }
     
-    public ArrayList<Object> getWishlist(){
+    public List<Object> getWishlist(){
         return new ArrayList<>();
     }
     
