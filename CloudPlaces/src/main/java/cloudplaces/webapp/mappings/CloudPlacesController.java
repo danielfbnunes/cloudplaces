@@ -136,7 +136,7 @@ public class CloudPlacesController {
             postPayload.get("email"),
             postPayload.get("pw"),
             postPayload.get("cellphone"),
-            postPayload.get("photo").getBytes()
+            postPayload.get("photo")
     );
     
     if(addedUser != null)

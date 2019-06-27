@@ -30,7 +30,7 @@ public class User {
     private String pw;
     private String cellphone;
     @Lob
-    private byte[] photo;
+    private String photo;
     
     @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = House.class)
     private List<House> rentals;
@@ -50,7 +50,7 @@ public class User {
     public User(){
     }
 
-    public User(String name, String email, String pw, String cellphone, byte[] photo, List<House> rentals, List<Review> reviews, List<Wishlist> wishes, List<RecentSearches> searches) {
+    public User(String name, String email, String pw, String cellphone, String photo, List<House> rentals, List<Review> reviews, List<Wishlist> wishes, List<RecentSearches> searches) {
         this.name = name;
         this.email = email;
         this.pw = pw;
@@ -130,11 +130,11 @@ public class User {
         this.searches = searches;
     }
 
-    public byte[] getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(byte[] photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
    
