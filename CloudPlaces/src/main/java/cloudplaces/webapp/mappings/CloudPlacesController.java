@@ -13,6 +13,7 @@ import cloudplaces.webapp.entities.House;
 import cloudplaces.webapp.entities.User;
 import java.util.Map;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,22 +32,14 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 //Todo create logs when pages are accessed.
 @Controller
-@SessionAttributes("currentUser")
 public class CloudPlacesController {
-  
-  // Every time the controller starts, the user will be null
-  @ModelAttribute("currentUser")
-  public User currentUser() {
-    return null;
-  }
-  
   Logger logger = Logger.getLogger(CloudPlacesController.class.getName());
   
   @Autowired
-          PropertyQueries propertyQueries;
+  PropertyQueries propertyQueries;
   
   @Autowired
-          UserQueries userQueries;
+  UserQueries userQueries;
   
   /**
    * Este método disponibiliza a página inicial da aplicação web.
@@ -55,13 +48,7 @@ public class CloudPlacesController {
    * @return página de login
    */
   @GetMapping("/login")
-  public String login(Model model, @ModelAttribute("currentUser") User currentUser){
-    
-    //check if user is logged in
-    if (userLoggedIn(currentUser)) {
-      return "index";
-    }
-    
+  public String login(Model model, HttpServletRequest request){    
     model.addAttribute("user", new User());
     model.addAttribute("error", false);
     return "login.html";
@@ -75,22 +62,22 @@ public class CloudPlacesController {
    * @return Retorna a página de inicial da aplicação web.
    */
   @PostMapping("/login")
-  public String login(@ModelAttribute User user, Model model, @ModelAttribute("currentUser") User currentUser){
+  public String login(@ModelAttribute User user, Model model, HttpServletRequest request){
     logger.info("The following is user is trying to login: " + user.getName());
     
     //check if user is logged in
-    if (userLoggedIn(currentUser)) {
-      return "index";
+    if (userLoggedIn(request)) {
+      return "redirect:/";
     }
-
+    
     User u = userQueries.authenticateUser(user.getEmail(), user.getPw());
-
     if(u == null){
       model.addAttribute("error", true);
       return "login.html";
     }
     else{
-      currentUser = u;
+      //save login
+      request.getSession().setAttribute("username", u.getEmail());
       return "redirect:/";
     }
   }
@@ -102,12 +89,13 @@ public class CloudPlacesController {
    * @return Retorna a página de inicial de um utilizador que tenha realizado o login.
    */
   @GetMapping("/")
-  public String propertiesPage(Model model, @ModelAttribute("currentUser") User currentUser){
+  public String propertiesPage(Model model,  HttpServletRequest request){ 
     //check if user is logged in
-    if (userLoggedIn(currentUser)) {
-      return "redirect:/";
+    if (!userLoggedIn(request)) {
+      return "redirect:/login";
     }
-    return "redirect:/login";
+    logger.info("User: " + request.getSession().getAttribute("username"));
+    return "index";
   }
   
   /**
@@ -178,11 +166,11 @@ public class CloudPlacesController {
   @GetMapping("/getProperty")
   public String loadProperty(
           @RequestParam(name="id", required=true) final long id,
-          @ModelAttribute("currentUser") User currentUser,
+          HttpServletRequest request,
           Model model
   ){
     //check if user is logged in
-    if (!userLoggedIn(currentUser)) {
+    if (!userLoggedIn(request)) {
       return "redirect:/login";
     }
     
@@ -225,8 +213,8 @@ public class CloudPlacesController {
    * @return página de login
    */
   @GetMapping("/logout")
-  public String logout(@ModelAttribute("currentUser") User currentUser){
-    currentUser = null;
+  public String logout(HttpServletRequest request){
+    request.getSession().setAttribute("username","");
     return "redirect:/login";
   }
   
@@ -237,7 +225,9 @@ public class CloudPlacesController {
    *
    * @return
    */
-  public boolean userLoggedIn(User user){
-    return user != null;
+  public boolean userLoggedIn(HttpServletRequest request){
+    boolean unlogged = request.getSession().getAttribute("username")==null || request.getSession().getAttribute("username").equals("");
+    logger.info("Is user logged in?  "+ !unlogged);
+    return !unlogged;
   }
 }
