@@ -4,9 +4,9 @@ def COLOR_MAP = ['SUCCESS': 'good', 'FAILURE': 'danger', 'UNSTABLE': 'danger', '
 
 def remote = [:]
     remote.name = 'tqs'
-    remote.host = '13.94.238.109'
+    remote.host = '192.168.160.45'
     remote.user = 'tqs'
-    remote.password = 'TqsDeployment2019.'
+    remote.password = 'gofo.zuva.17'
     remote.allowAnyHosts = true
 
 
@@ -96,7 +96,7 @@ pipeline {
                 sshCommand remote: remote, command: "docker build -t cloudplaces ./deploy", sudo:true
 
                 //run docker with deployment image as a deamon
-                sshCommand remote: remote, command: "docker run -d -p 8080:8080 --name cloudplaces -t cloudplaces ", sudo:true
+                sshCommand remote: remote, command: "docker run -d -p 80:8080 --name cloudplaces -t cloudplaces ", sudo:true
 
 
 
