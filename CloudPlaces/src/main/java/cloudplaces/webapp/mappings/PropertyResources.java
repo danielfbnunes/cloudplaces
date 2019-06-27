@@ -8,7 +8,9 @@ import cloudplaces.webapp.entities.House;
 import cloudplaces.webapp.pojo.HousePOJO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +31,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(value = "Property Resources")
 public class PropertyResources {
     
+    Map<String, String> error = new HashMap<>();
+
     @Autowired
     PropertyQueries query;
     
@@ -46,7 +50,7 @@ public class PropertyResources {
     @ApiOperation("Returns a list of properties")
     @GetMapping("api/get_properties")
     @ResponseBody
-    public List<House> getProperties(
+    public Object getProperties(
             @RequestParam(required = false) final String name,
             @RequestParam(required = false) final String location,
             @RequestParam(required = false) final Float min_price,
@@ -57,7 +61,11 @@ public class PropertyResources {
             @RequestParam(required = false) final Integer max_hab_space,
             @RequestParam(required = false) final Integer availability
             ){
-        return query.getProperties(name, location, min_price, max_price, min_n_rooms, max_n_rooms, min_hab_space, max_hab_space, availability);
+        List<House> h = query.getProperties(name, location, min_price, max_price, min_n_rooms, max_n_rooms, min_hab_space, max_hab_space, availability);
+        if(h != null)
+            return h;
+        error.put("Error", "No houses found");
+        return error;
     }    
     
     /**
