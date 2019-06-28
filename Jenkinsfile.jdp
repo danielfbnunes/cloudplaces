@@ -17,12 +17,12 @@ pipeline {
         maven 'mvn'
     }
     stages {
-
-        stage('Install') {
+        stage('Slack - Build Started') {
+            //Send message to Slack informing that the Build is Starting
+            slackSend (message: "*Build Started* - ${env.JOB_NAME} *#${env.BUILD_NUMBER}* (<${env.BUILD_URL}|Open Build Logs>)")
+        }
+        stage('Install + Sonar Analysis') {
             steps {
-                //Send message to Slack informing that the Build is Starting
-                slackSend (message: "*Build Started* - ${env.JOB_NAME} *#${env.BUILD_NUMBER}* (<${env.BUILD_URL}|Open Build Logs>)")
-
                 //Create a display to emulate a GUI
                 sh '''
                     Xvfb :99 -ac &
@@ -39,13 +39,6 @@ pipeline {
                     }
                 }
             }
-            //post {
-            //    always {
-            //        junit '**/target/*-reports/TEST-*.xml'
-            //            step([$class: 'CoberturaPublisher', coberturaReportFile: 'CloudPlaces/target/site/cobertura/coverage.xml'])
-            //
-            //    }
-            //}
         }
 
         stage("SonarQube Quality Gate") {
