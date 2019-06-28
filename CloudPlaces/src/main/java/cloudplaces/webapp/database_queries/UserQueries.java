@@ -43,7 +43,7 @@ public class UserQueries {
   public User authenticateUser(String email, String pw){
     List<User> userList = em.createQuery("SELECT u FROM User u WHERE u.email = \'" + email + "\' AND u.pw = \'" + pw + "\'" ).getResultList();
     if(!userList.isEmpty()){
-      return (User) userList.get(0);
+      return userList.get(0);
     }
     return null;
   }
@@ -51,15 +51,15 @@ public class UserQueries {
   public User getUser(String email){
     List<User> userList = em.createQuery("SELECT u FROM User u WHERE u.email = '" + email + "'" ).getResultList();
     if(!userList.isEmpty()){
-      return (User) userList.get(0);
+      return userList.get(0);
     }
     return null;
   }
   
-  public List<House> getWishlist(String user_email){
-    Optional<User> user = userRepo.findById(user_email);
+  public List<House> getWishlist(String userEmail){
+    Optional<User> user = userRepo.findById(userEmail);
     if (user.isPresent()){
-      List<Wishlist> wishList = em.createQuery("select u.wishes from User u WHERE u.email = " + user_email).getResultList();
+      List<Wishlist> wishList = em.createQuery("select u.wishes from User u WHERE u.email = " + userEmail).getResultList();
       List<House> houses = new ArrayList<>();
       List<House> houseWishes = em.createQuery("select h from House h").getResultList();
       for (Wishlist w : wishList){
@@ -73,11 +73,11 @@ public class UserQueries {
       }
       return houses;
     }
-    return null;
+    return new ArrayList<>();
   }
   
-  public Wishlist addToWishlist(String user_email, long propertyId){
-    Optional<User> user = userRepo.findById(user_email);
+  public Wishlist addToWishlist(String userEmail, long propertyId){
+    Optional<User> user = userRepo.findById(userEmail);
     Optional<House> house = propertyRepo.findById(propertyId);
     if (house.isPresent() && user.isPresent()){
       Wishlist w = new Wishlist();

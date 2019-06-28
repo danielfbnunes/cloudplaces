@@ -38,6 +38,8 @@ public class PropertyResources {
     @Autowired
     PropertyQueries query;
     
+    private final String errorMessage = "Error";
+    
     /**
      * Retorna uma lista de propriedades de acordo com os parâmetros definidos.
      * 
@@ -64,9 +66,9 @@ public class PropertyResources {
             @RequestParam(required = false) final Integer availability
             ){
         List<House> h = query.getProperties(name, location, min_price, max_price, min_n_rooms, max_n_rooms, min_hab_space, max_hab_space, availability);
-        if(h != null)
+        if(!h.isEmpty())
             return h;
-        error.put("Error", "No houses found");
+        error.put(errorMessage, "No houses found");
         return error;
     }    
     
@@ -82,7 +84,7 @@ public class PropertyResources {
       House h = query.getProperty(id);
       if(h != null)
             return h;
-        error.put("Error", "No house with the id = " + id);
+        error.put(errorMessage, "No house with the id = " + id);
         return error;
     }
     
@@ -98,7 +100,7 @@ public class PropertyResources {
     @ApiOperation("Adds a property")
     @PostMapping("api/add_property/{name}/{location}/{price}/{n_rooms}/{user_email}/{hab_space}/{n_bathrooms}/{garage}/{description}/{property_features}/{availability}")
     public House addProperty(@RequestBody HousePOJO house){
-        return query.addProperty(house.getName(), house.getAddress(), house.getPrice(), house.getNRooms(), house.getUser().getEmail(), house.getHabSpace(), house.getNBathrooms(), house.getGarage(), house.getDescription(), house.getPropertyFeatures(), house.getAvailability(), house.getPhotos(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        return query.addProperty(house.getName(), house.getAddress(), house.getPrice(), house.getNRooms(), house.getUser().getEmail(), house.getHabSpace(), house.getNBathrooms(), house.getGarage(), house.getDescription(), house.getPropertyFeatures(), house.getAvailability()/*, house.getPhotos(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()*/);
     }
     
     /**
@@ -109,7 +111,7 @@ public class PropertyResources {
     @ApiOperation("Edits a property")
     @PutMapping("api/edit_property")
     public House editProperty(@RequestBody HousePOJO house) {
-        return query.editProperty(house.getName(), house.getAddress(), house.getPrice(), house.getNRooms(), house.getUser().getEmail(), house.getHabSpace(), house.getNBathrooms(), house.getGarage(), house.getDescription(), house.getPropertyFeatures(), house.getAvailability(), house.getPhotos(), house.getWishes(), house.getReviews(), house.getSearches());
+        return query.editProperty(house.getName(), house.getAddress(), house.getPrice(), house.getNRooms(), house.getUser().getEmail(), house.getHabSpace(), house.getNBathrooms(), house.getGarage(), house.getDescription(), house.getPropertyFeatures(), house.getAvailability()/*, house.getPhotos(), house.getWishes(), house.getReviews(), house.getSearches()*/);
     }
     
     /**
@@ -122,7 +124,7 @@ public class PropertyResources {
     public Object deleteProperty(@RequestParam(name = "houseId", required = true) long houseId) {
         if (query.removeProperty(houseId))
           return true;
-        error.put("Error", "House to remove not found");
+        error.put(errorMessage, "House to remove not found");
         return error;
     }
     
@@ -149,7 +151,7 @@ public class PropertyResources {
       if (r != null){
         return r;
       }
-      error.put("Error", "House or User in question not found");
+      error.put(errorMessage, "House or User in question not found");
       return error;
     }
     
@@ -170,7 +172,7 @@ public class PropertyResources {
       if (r != null){
         return r;
       }
-      error.put("Error", "Review not found");
+      error.put(errorMessage, "Review not found");
       return error;
     }
     
@@ -187,7 +189,7 @@ public class PropertyResources {
       if(query.deleteReview(review_id)){
         return true;
       }
-      error.put("Error", "Review not found");
+      error.put(errorMessage, "Review not found");
       return error;
     }
 }

@@ -12,7 +12,6 @@ import cloudplaces.webapp.database_queries.UserQueries;
 import cloudplaces.webapp.entities.House;
 import cloudplaces.webapp.entities.User;
 import cloudplaces.webapp.pojo.HousePOJO;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -37,7 +36,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 //Todo create logs when pages are accessed.
 @Controller
 public class CloudPlacesController {
-  Logger logger = Logger.getLogger(CloudPlacesController.class.getName());
+  static final Logger logger = Logger.getLogger(CloudPlacesController.class.getName());
   
   @Autowired
   PropertyQueries propertyQueries;
@@ -45,7 +44,8 @@ public class CloudPlacesController {
   @Autowired
   UserQueries userQueries;
   
-  
+  private final String username = "username";
+  private final String redirect = "redirect:/login";
   
   /**
    * Este método disponibiliza a página inicial da aplicação web.
@@ -83,7 +83,7 @@ public class CloudPlacesController {
     }
     else{
       //save login
-      request.getSession().setAttribute("username", u.getEmail());
+      request.getSession().setAttribute(username, u.getEmail());
       return "redirect:/";
     }
   }
@@ -96,15 +96,15 @@ public class CloudPlacesController {
   public String propertiesPage(Model model,  HttpServletRequest request){ 
     //check if user is logged in
     if (!userLoggedIn(request)) {
-      return "redirect:/login";
+      return redirect;
     }
     
     //get properties from database
     List<House> houseList = propertyQueries.getAllProperties();
-    model.addAttribute("has_elements" , houseList!=null);
+    model.addAttribute("has_elements" , !houseList.isEmpty());
     model.addAttribute("houses", houseList);
 
-    logger.info("User: " + request.getSession().getAttribute("username"));
+    logger.info("User: " + request.getSession().getAttribute(username));
     return "index";
   }
   
@@ -140,7 +140,7 @@ public class CloudPlacesController {
             null, 
             null
     );
-    model.addAttribute("has_elements" , houseList!=null);
+    model.addAttribute("has_elements" , !houseList.isEmpty());
     model.addAttribute("houses", houseList);
     model.addAttribute("user", new User());
     logger.info("houseList: " + houseList);
@@ -222,7 +222,7 @@ public class CloudPlacesController {
   ){
     //check if user is logged in
     if (!userLoggedIn(request)) {
-      return "redirect:/login";
+      return redirect;
     }
     
     House tmp = propertyQueries.getProperty(id);
@@ -234,11 +234,11 @@ public class CloudPlacesController {
     model.addAttribute("user", tmp.getUser());
     
     //convert byte images do b64
-    model.addAttribute("userImage" ,new String(tmp.getUser().getPhoto()));
+    model.addAttribute("userImage" , tmp.getUser().getPhoto());
     
     String[] houseImages = new String[tmp.getPhotos().size()];
     for (int i=0; i<tmp.getPhotos().size(); i++)
-      houseImages[i] = new String(tmp.getPhotos().get(0).getPhoto());
+      houseImages[i] = tmp.getPhotos().get(0).getPhoto();
     
     model.addAttribute("houseImages" , houseImages);
     
@@ -290,7 +290,7 @@ public class CloudPlacesController {
    */
   @PostMapping(path = "/addProperty", consumes = "application/json", produces = "application/json")
   public String addProperty(@RequestBody HousePOJO property, Model model) {
-    propertyQueries.addProperty(property.getName(), property.getAddress(), property.getPrice(), property.getNRooms(), property.getUser().getEmail(), property.getHabSpace(), property.getNBathrooms(), property.getGarage(), property.getDescription(), property.getPropertyFeatures(), property.getAvailability(), property.getPhotos(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+    propertyQueries.addProperty(property.getName(), property.getAddress(), property.getPrice(), property.getNRooms(), property.getUser().getEmail(), property.getHabSpace(), property.getNBathrooms(), property.getGarage(), property.getDescription(), property.getPropertyFeatures(), property.getAvailability()/*, property.getPhotos(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()*/);
     
     return "list-property.html";
   }
@@ -303,7 +303,7 @@ public class CloudPlacesController {
    */
   @PutMapping(path = "/editProperty", consumes = "application/json", produces = "application/json")
   public String editProperty(@RequestBody HousePOJO property, Model model) {
-    propertyQueries.editProperty(property.getName(), property.getAddress(), property.getPrice(), property.getNRooms(), property.getUser().getEmail(), property.getHabSpace(), property.getNBathrooms(), property.getGarage(), property.getDescription(), property.getPropertyFeatures(), property.getAvailability(), property.getPhotos(), property.getWishes(), property.getReviews(), property.getSearches());
+    propertyQueries.editProperty(property.getName(), property.getAddress(), property.getPrice(), property.getNRooms(), property.getUser().getEmail(), property.getHabSpace(), property.getNBathrooms(), property.getGarage(), property.getDescription(), property.getPropertyFeatures(), property.getAvailability()/*, property.getPhotos(), property.getWishes(), property.getReviews(), property.getSearches()*/);
     
     return "properties.html";
   }
@@ -327,8 +327,8 @@ public class CloudPlacesController {
    */
   @GetMapping("/logout")
   public String logout(HttpServletRequest request){
-    request.getSession().setAttribute("username","");
-    return "redirect:/login";
+    request.getSession().setAttribute(username,"");
+    return redirect;
   }
   
   
@@ -339,7 +339,7 @@ public class CloudPlacesController {
    * @return
    */
   public boolean userLoggedIn(HttpServletRequest request){
-    boolean unlogged = request.getSession().getAttribute("username")==null || request.getSession().getAttribute("username").equals("");
+    boolean unlogged = request.getSession().getAttribute(username)==null || request.getSession().getAttribute(username).equals("");
     logger.info("Is user logged in?  "+ !unlogged);
     return !unlogged;
   }
