@@ -27,7 +27,7 @@ public class Stepdefs {
     private final String baseUrl = "http://localhost:8080/";
     private boolean acceptNextAlert = true;
     private final StringBuffer verificationErrors = new StringBuffer();
-    private final long waitingTimer = 4000;
+    private final long waitingTimer = 5000;
     
     @Autowired
     UserQueries uq;
@@ -59,7 +59,7 @@ public class Stepdefs {
 
         driver = new FirefoxDriver(service);
         
-        driver.manage().timeouts().implicitlyWait(180, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(240, TimeUnit.SECONDS);
         System.out.println("A pedir Login");
         driver.get(baseUrl+"login");
         System.out.println("Recebeu Login");
