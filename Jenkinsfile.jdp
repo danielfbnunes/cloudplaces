@@ -48,7 +48,7 @@ pipeline {
             steps {
                 //Create a display to emulate a GUI
                 sh '''
-                    sleep 67
+                    sleep 51
                 '''
             }
         }
