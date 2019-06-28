@@ -28,12 +28,16 @@ pipeline {
                     Xvfb :99 -ac &
                     export DISPLAY=:99
                 '''
-
-                // Maven Install
-                sh '''
-                    cd CloudPlaces
-                    mvn -U clean install cobertura:cobertura -Dcobertura.report.format=xml
-                '''
+                
+                withSonarQubeEnv('mySonar') {
+                    withMaven(maven:'mvn') {
+                        // Maven Install
+                        sh '''
+                            cd CloudPlaces
+                            mvn -U clean package sonar:sonar cobertura:cobertura -Dcobertura.report.format=xml
+                        '''
+                    }
+                }
             }
             //post {
             //    always {
@@ -42,20 +46,6 @@ pipeline {
             //
             //    }
             //}
-        }
-
-        stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv('mySonar') {
-                    // Optionally use a Maven environment you've configured already
-                    withMaven(maven:'mvn') {
-                        sh '''
-			                cd CloudPlaces/
-			                mvn clean package sonar:sonar
-			            '''
-                    }
-                }
-            }
         }
 
         stage("SonarQube Quality Gate") {
