@@ -62,9 +62,9 @@ pipeline {
                     cd CloudPlaces
                     mvn -N io.takari:maven:wrapper
                     ./mvnw clean install -DskipTests
-                    nohup ./mvnw spring-boot:run -Dserver.port=8989 &
+                    nohup ./mvnw spring-boot:run &
                     
-                    while ! httping -qc1 http://localhost:8989 ; do sleep 1 ; done
+                    while ! httping -qc1 http://0.0.0.0:8080 ; do sleep 1 ; done
                 '''
                     
                 //Run jmeter tests
@@ -74,7 +74,7 @@ pipeline {
                 '''
                 
                 step([$class: 'ArtifactArchiver', artifacts: 'RESTAPIJMeter.jtl'])
-                sh "pid=\$(lsof -i:8989 -t); kill -TERM \$pid || kill -KILL \$pid"
+                sh "pid=\$(lsof -i:8080 -t); kill -TERM \$pid || kill -KILL \$pid"
             }
         }
 
