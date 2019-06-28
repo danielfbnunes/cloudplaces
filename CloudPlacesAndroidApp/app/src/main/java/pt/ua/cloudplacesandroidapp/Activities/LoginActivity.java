@@ -1,21 +1,21 @@
 package pt.ua.cloudplacesandroidapp.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 
+import pt.ua.cloudplacesandroidapp.API.CommunicationWithAPI;
+import pt.ua.cloudplacesandroidapp.ApiClient;
 import pt.ua.cloudplacesandroidapp.R;
 
 public class LoginActivity extends AppCompatActivity {
+
+    CommunicationWithAPI apiInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +40,22 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(new Intent(LoginActivity.this, Register.class));
             }
         });
+
+        apiInterface = ApiClient.getClient().create(CommunicationWithAPI.class);
+        /*
+        Call<List<House>> call = apiInterface.getProperties();
+        call.enqueue(new Callback<List<House>>() {
+            @Override
+            public void onResponse(Call<List<House>> call, Response<List<House>> response) {
+                System.out.println(response.body().toString());
+            }
+
+            @Override
+            public void onFailure(Call<List<House>> call, Throwable t) {
+
+            }
+        });
+        */
     }
 
     /**

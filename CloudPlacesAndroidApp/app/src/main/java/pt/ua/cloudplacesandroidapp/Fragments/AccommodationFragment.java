@@ -16,13 +16,14 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 
+import pt.ua.cloudplacesandroidapp.API.House;
 import pt.ua.cloudplacesandroidapp.R;
 
 
 public class AccommodationFragment extends Fragment {
 
     private String name;
-    private String accomodation;
+    private House accomodation;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -62,10 +63,10 @@ public class AccommodationFragment extends Fragment {
     }
 
 
-    public AccommodationFragment initializeData(String accomodation){
+    public AccommodationFragment initializeData(House accomodation){
 
         this.accomodation = accomodation;
-        this.name = accomodation;
+        this.name = accomodation.getName();
         //TODO: add more info about the current accommodation
         //this.bio=p.getBio();
         return this;
