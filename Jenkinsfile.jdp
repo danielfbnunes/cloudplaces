@@ -58,6 +58,7 @@ pipeline {
             steps {
                 sh'''
                     cd jmeter
+                    mvn -N io.takari:maven:wrapper
                     ./mvnw clean install -DskipTests
                     nohup ./mvnw spring-boot:run -Dserver.port=8989 &
                     
