@@ -8,6 +8,7 @@ import cloudplaces.webapp.entities.UserRepository;
 import cloudplaces.webapp.entities.Wishlist;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
@@ -64,7 +65,7 @@ public class UserQueries {
       for (Wishlist w : wishList){
         for (House h : houseWishes){
           for (Wishlist w2 : h.getWishes()){
-            if (w.getWhishListId() == w2.getWhishListId()){
+            if (Objects.equals(w.getWhishListId(), w2.getWhishListId())){
               houses.add(h);
             }
           }

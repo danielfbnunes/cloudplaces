@@ -25,4 +25,9 @@ public class Wishlist {
     public Long getWhishListId() {
         return whishListId;
     }
+
+    public void setWhishListId(Long whishListId) {
+        this.whishListId = whishListId;
+    }
+    
 }
