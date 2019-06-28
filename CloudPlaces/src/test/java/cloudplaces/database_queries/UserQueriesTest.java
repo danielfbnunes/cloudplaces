@@ -56,7 +56,7 @@ public class UserQueriesTest {
   
   @Before
   public void setUp() {
-      generalQueries.reloadDatabase();
+      generalQueries.reloadTestDatabase();
   }
   
   @After

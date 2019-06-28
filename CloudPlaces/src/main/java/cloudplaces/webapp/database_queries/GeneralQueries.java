@@ -24,7 +24,10 @@ public class GeneralQueries {
     @Autowired
     private EntityManager em;
     
-
+    public void reloadTestDatabase(){
+        propertyRepo.deleteAll();
+        userRepo.deleteAll();
+    }
     
     public void reloadDatabase(){
         propertyRepo.deleteAll();
