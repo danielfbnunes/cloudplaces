@@ -1,4 +1,4 @@
-package cloudplaces.cucumber;
+package cloudplaces.webapp;
 
 import cloudplaces.webapp.CloudPlacesApplication;
 import cloudplaces.webapp.database_queries.GeneralQueries;
