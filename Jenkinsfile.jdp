@@ -23,36 +23,6 @@ pipeline {
                 slackSend (message: "*Build Started* - ${env.JOB_NAME} *#${env.BUILD_NUMBER}* (<${env.BUILD_URL}|Open Build Logs>)")
             }
         }
-        stage('Install + SonarQube Analysis') {
-            steps {
-                //Create a display to emulate a GUI
-                sh '''
-                    Xvfb :99 -ac &
-                    export DISPLAY=:99
-                '''
-                
-                withSonarQubeEnv('mySonar') {
-                    withMaven(maven:'mvn') {
-                        // Maven Install
-                        sh '''
-                            cd CloudPlaces
-                            mvn clean install sonar:sonar
-                        '''
-                    }
-                }
-            }
-        }
-
-        stage("SonarQube Quality Gate") {
-            steps {
-                timeout(time: 5, unit: 'MINUTES') {
-                    // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
-                    // true = set pipeline to UNSTABLE, false = don't
-                    // Requires SonarQube Scanner for Jenkins 2.7+
-                    waitForQualityGate abortPipeline: true
-                }
-            }
-        }
         
         stage("JMeter Analysis") {
             steps {
