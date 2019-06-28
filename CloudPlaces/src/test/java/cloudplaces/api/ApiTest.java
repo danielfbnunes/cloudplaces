@@ -159,37 +159,41 @@ public class ApiTest {
     }
     
     @Test
+    @Ignore
     /**
      * Test of api call api/edit_review/, of class PropertyResources.
      */
     public void addReviewTest(){
-        //fail("Query mal implementada");
+        fail("Query mal implementada");
     }
     
     @Test
+    @Ignore
     /**
      * Test of api call api/edit_property/, of class PropertyResources.
      */
     public void editPropertyTest(){
-        //fail("Query mal implementada");
+        fail("Query mal implementada");
     }
     
     @Test
+    @Ignore
     /**
      * Test of api call api/edit_property/, of class PropertyResources.
      */
     public void removePropertyTest(){
-        //fail("Query mal implementada");
+        fail("Query mal implementada");
     }
     
     //UserResources Test
     
     @Test
+    @Ignore
     /**
      * Test of api call api/add_user/, of class UserResources.
      */
     public void addUserTest(){
-        //fail("Query mal implementada");
+        fail("Query mal implementada");
     }
     
     @Test
@@ -209,19 +213,21 @@ public class ApiTest {
     }
     
     @Test
+    @Ignore
     /**
      * Test of api call api/add_to_wishlsit/{user_email}, of class UserResources.
      */
     public void addToWishListTest(){
-        //fail("Query mal implementada");
+        fail("Query mal implementada");
     }
     
     @Test
+    @Ignore
     /**
      * Test of api call api/delete_from_wishlsit/{user_email}, of class UserResources.
      */
     public void deleteFromWishListTest(){
-        //fail("Query mal implementada");
+        fail("Query mal implementada");
     }
     
     

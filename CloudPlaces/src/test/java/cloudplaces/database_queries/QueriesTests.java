@@ -5,6 +5,7 @@ import cloudplaces.webapp.database_queries.GeneralQueries;
 import cloudplaces.webapp.database_queries.PropertyQueries;
 import cloudplaces.webapp.database_queries.UserQueries;
 import cloudplaces.webapp.entities.House;
+
 import cloudplaces.webapp.entities.User;
 import cloudplaces.webapp.entities.Wishlist;
 import java.util.ArrayList;
@@ -232,16 +233,18 @@ public class QueriesTests {
      * Test getProperties method, of class PropertyQueries.
      */
     @Test
+    @Ignore
     public void testGetPropertiesByNRooms(){
-        //fail("Query Mal Implementada");
+        fail("Query Mal Implementada");
     }
     
     /**
      * Test getProperties method, of class PropertyQueries.
      */
     @Test
+    @Ignore
     public void testGetPropertiesByAvailability(){
-        //fail("Query Mal Implementada");
+        fail("Query Mal Implementada");
     }
     
     /**
@@ -256,16 +259,18 @@ public class QueriesTests {
      * Test addProperty method, of class PropertyQueries.
      */
     @Test
+    @Ignore
     public void testAddProperty(){
-        //fail("Query Mal Implementada");
+        fail("Query Mal Implementada");
     }
     
     /**
      * Test editProperty method, of class PropertyQueries.
      */
     @Test
+    @Ignore
     public void testEditProperty(){
-        //fail("Query Mal Implementada");
+        fail("Query Mal Implementada");
     }
     
     /**
