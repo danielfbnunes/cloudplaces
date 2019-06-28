@@ -85,7 +85,7 @@ public class Stepdefs {
         Thread.sleep(waitingTimer);
         driver.findElement(By.xpath("//div/div/div")).click();
         try {
-            assertEquals("Cloud Places", driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Home'])[1]/preceding::div[1]")).getText());
+            assertEquals("Cloud Places", driver.findElement(By.linkText("Cloud Places")).getText());
         } catch (Error e) {
             verificationErrors.append(e.toString());
         }
@@ -168,9 +168,9 @@ public class Stepdefs {
         Thread.sleep(waitingTimer);
         driver.findElement(By.xpath("//div/div/div")).click();
         try {
-          assertEquals("Cloud Places", driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Home'])[1]/preceding::div[1]")).getText());
+            assertEquals("Cloud Places", driver.findElement(By.linkText("Cloud Places")).getText());
         } catch (Error e) {
-          verificationErrors.append(e.toString());
+            verificationErrors.append(e.toString());
         }
         driver.close();
     }
