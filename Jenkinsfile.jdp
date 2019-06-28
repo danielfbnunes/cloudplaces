@@ -43,7 +43,7 @@ pipeline {
                     jmeter -Jjmeter.save.saveservice.output_format=xml  -n -t RESTAPI.jmx -l RESTAPI.jtl
                 '''
                 
-                step([$class: 'ArtifactArchiver', artifacts: 'RESTAPIJMeter.jtl'])
+                step([$class: 'ArtifactArchiver', artifacts: 'RESTAPI.jtl'])
                 sh "pid=\$(lsof -i:8080 -t); kill -TERM \$pid || kill -KILL \$pid"
             }
         }
