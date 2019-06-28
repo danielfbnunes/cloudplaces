@@ -44,7 +44,7 @@ pipeline {
                 '''
                 
                 step([$class: 'ArtifactArchiver', artifacts: 'jmeter/RESTAPI.jtl'])
-                sh "pid=\$(lsof -i:8080 -t); kill -TERM \$pid || kill -KILL \$pid"
+                
             }
         }
 
