@@ -11,6 +11,8 @@ import cloudplaces.webapp.database_queries.UserQueries;
 
 import cloudplaces.webapp.entities.House;
 import cloudplaces.webapp.entities.User;
+import cloudplaces.webapp.pojo.HousePOJO;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -18,9 +20,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -208,6 +212,67 @@ public class CloudPlacesController {
   @GetMapping("/getProfile")
   public String loadProfile(Model model){
     return "profile.html";
+  }
+  
+  /**
+   * 
+   * @param model
+   * @return 
+   */
+  @GetMapping("/getMyProperties")
+  public String loadMyProperties(Model model) {
+    return "properties.html";
+  }
+  
+  /**
+   * 
+   * @param email
+   * @param model
+   * @return 
+   */
+  @GetMapping("/listProperty")
+  public String loadListProperty(
+          @RequestParam(name="email", required=true) final String email,
+          Model model
+  ){
+    model.addAttribute("userEmail", email);
+    return "list-property.html";
+  }
+  
+  /**
+   * 
+   * @param property
+   * @param model
+   * @return 
+   */
+  @PostMapping(path = "/addProperty", consumes = "application/json", produces = "application/json")
+  public String addProperty(@RequestBody HousePOJO property, Model model) {
+    propertyQueries.addProperty(property.getName(), property.getAddress(), property.getPrice(), property.getNRooms(), property.getUser().getId(), property.getHabSpace(), property.getNBathrooms(), property.getGarage(), property.getDescription(), property.getPropertyFeatures(), property.getAvailability(), property.getPhotos(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+    
+    return "list-property.html";
+  }
+  
+  /**
+   * 
+   * @param property
+   * @param model
+   * @return 
+   */
+  @PutMapping(path = "/editProperty", consumes = "application/json", produces = "application/json")
+  public String editProperty(@RequestBody HousePOJO property, Model model) {
+    propertyQueries.editProperty(property.getName(), property.getAddress(), property.getPrice(), property.getNRooms(), property.getUser().getId(), property.getHabSpace(), property.getNBathrooms(), property.getGarage(), property.getDescription(), property.getPropertyFeatures(), property.getAvailability(), property.getPhotos(), property.getWishes(), property.getReviews(), property.getSearches());
+    
+    return "properties.html";
+  }
+  
+  /**
+   * 
+   * @param id
+   * @param model
+   */
+  @DeleteMapping("/removeProperty")
+  public void removeProperty(@RequestParam(name="id", required=true) final long id, Model model) {
+    propertyQueries.removeProperty(id);
   }
   
   

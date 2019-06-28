@@ -43,21 +43,21 @@
             }
         }
 
-        function editProperty() {
-            var userEmail = document.getElementById("userEmail").textContent;
+        function addProperty() {
+            var usercEmail = document.getElementById("userEmail").textContent;
 
             $.get("/api/get_user/" + userEmail, function(data, status) {
-                var property = JSON.stringify({ user: data, name: document.forms["editProperty"]["name"].value, address: document.forms["editProperty"]["address"].value, price: document.forms["editProperty"]["price"].value, n_rooms: document.forms["editProperty"]["n_rooms"].value, hab_space: document.forms["editProperty"]["hab_space"].value, n_bathrooms: document.forms["editProperty"]["n_bathrooms"].value, garage: document.forms["editProperty"]["garage"].value, description: document.forms["editProperty"]["description"].value, property_features: document.forms["editProperty"]["property_features"].value, availability: document.forms["editProperty"]["availability"].value, photos: photosBase64 });
+                var property = JSON.stringify({ user: data, name: document.forms["newProperty"]["name"].value, address: document.forms["newProperty"]["address"].value, price: document.forms["newProperty"]["price"].value, n_rooms: document.forms["newProperty"]["n_rooms"].value, hab_space: document.forms["newProperty"]["hab_space"].value, n_bathrooms: document.forms["newProperty"]["n_bathrooms"].value, garage: document.forms["newProperty"]["garage"].value, description: document.forms["newProperty"]["description"].value, property_features: document.forms["newProperty"]["property_features"].value, availability: document.forms["newProperty"]["availability"].value, photos: photosBase64 });
 
                 $.ajax({
-                    url: '/editProperty',
-                    type: 'PUT',
+                    url: '/addProperty',
+                    type: 'POST',
                     data: property,
                     processData: false,
                     contentType: 'application/json'
                 })
 
-                document.getElementById("editProperty").reset();
+                document.getElementById("newProperty").reset();
             })
         }
     </script>
@@ -81,106 +81,68 @@
     <!-- Hero Section End -->
     <!-- Hotel Room Section Begin -->
     <section class="hotel-rooms spad">
-        <h5 id="userEmail" th:text="${userEmail}"></h5>
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 col-md-4 col-md-6">
-                    <div class="room-items">
-                        <div class="room-img set-bg" data-setbg="img/rooms/1.jpg">
-                            <a href="#" class="room-content">
-                                <i class="flaticon-heart"></i>
-                            </a>
+                <div class="col-lg-12 col-md-12 col-md-12">
+                    <h5 id="userEmail" th:text="${userEmail}"></h5>
+                    <form id="newProperty" name="newProperty">
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3">
+                                <label for="name">Property Name</label>
+                                <input type="text" class="form-control" id="name" placeholder="Property Name" required>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="address">Property Address</label>
+                                <input type="text" class="form-control" id="address" placeholder="Property Address" required>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="price">Price</label>
+                                <input type="number" min=0 class="form-control" id="price" placeholder="Price" required>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="n_rooms">Number of Rooms</label>
+                                <input type="number" min=0 class="form-control" id="n_rooms" placeholder="Number of Rooms" required>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="hab_space">Habitation Space</label>
+                                <input type="number" min=0 class="form-control" id="hab_space" placeholder="Habitation Space" required>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="n_bathrooms">Number of Bathrooms</label>
+                                <input type="number" min=0 class="form-control" id="n_bathrooms" placeholder="Number of Bathrooms" required>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="garage">Garage</label>
+                                <input type="number" min=0 class="form-control" id="garage" placeholder="Garage" required>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="description">Description</label>
+                                <input type="text" class="form-control" id="description" placeholder="Description" required>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="property_features">Property Features</label>
+                                <input type="text" class="form-control" id="property_features" placeholder="Property Features" required>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="availability">Availability</label>
+                                <input type="number" min=0 max=1 class="form-control" id="availability" placeholder="Availability" required>
+                            </div>
                         </div>
-                        <div class="room-text">
-                            <div class="room-details">
-                                <div class="room-title">
-                                    <h5>Country Style House with beautiful garden and terrace</h5>
-                                </div>
-                            </div>
-                            
-                            <a class="site-btn btn-line col-lg-4 col-md-4 col-sm-4">Remove</a>
-                            <a id="editButton" class="site-btn btn-line col-lg-4 col-md-4 col-sm-4" data-toggle="modal" href="#editProperty">Edit</a>
-                            <a href="./single-property.html" class="site-btn btn-line col-lg-12 col-md-12 col-sm-12">View Property</a>
+                        <div class="form-group">Photos
+                            <input type="file" class="form-control-file" id="photo1" onchange="readURL(this)">
+                            <input type="file" class="form-control-file" id="photo2" onchange="readURL(this)">
+                            <input type="file" class="form-control-file" id="photo3" onchange="readURL(this)">
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal -->
-        <div class="modal fade" id="editProperty" role="dialog">
-            <div class="modal-dialog modal-lg" role="document">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Edit Property</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="editProperty" name="editProperty">
-                            <div class="form-row">
-                                <div class="col-md-12 mb-3">
-                                    <label for="name">Property Name</label>
-                                    <input type="text" class="form-control" id="name" placeholder="Property Name" required>
-                                </div>
-                                <div class="col-md-12 mb-3">
-                                    <label for="address">Property Address</label>
-                                    <input type="text" class="form-control" id="address" placeholder="Property Address" required>
-                                </div>
-                                <div class="col-md-12 mb-3">
-                                    <label for="price">Price</label>
-                                    <input type="number" min=0 class="form-control" id="price" placeholder="Price" required>
-                                </div>
-                                <div class="col-md-12 mb-3">
-                                    <label for="n_rooms">Number of Rooms</label>
-                                    <input type="number" min=0 class="form-control" id="n_rooms" placeholder="Number of Rooms" required>
-                                </div>
-                                <div class="col-md-12 mb-3">
-                                    <label for="hab_space">Habitation Space</label>
-                                    <input type="number" min=0 class="form-control" id="hab_space" placeholder="Habitation Space" required>
-                                </div>
-                                <div class="col-md-12 mb-3">
-                                    <label for="n_bathrooms">Number of Bathrooms</label>
-                                    <input type="number" min=0 class="form-control" id="n_bathrooms" placeholder="Number of Bathrooms" required>
-                                </div>
-                                <div class="col-md-12 mb-3">
-                                    <label for="garage">Garage</label>
-                                    <input type="number" min=0 class="form-control" id="garage" placeholder="Garage" required>
-                                </div>
-                                <div class="col-md-12 mb-3">
-                                    <label for="description">Description</label>
-                                    <input type="text" class="form-control" id="description" placeholder="Description" required>
-                                </div>
-                                <div class="col-md-12 mb-3">
-                                    <label for="property_features">Property Features</label>
-                                    <input type="text" class="form-control" id="property_features" placeholder="Property Features" required>
-                                </div>
-                                <div class="col-md-12 mb-3">
-                                    <label for="availability">Availability</label>
-                                    <input type="number" min=0 max=1 class="form-control" id="availability" placeholder="Availability" required>
-                                </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+                                <label class="form-check-label" for="invalidCheck2">
+                                    Agree to terms and conditions
+                                </label>
                             </div>
-                            <div class="form-group">Photos
-                                <input type="file" class="form-control-file" id="photo1" onchange="readURL(this)">
-                                <input type="file" class="form-control-file" id="photo2" onchange="readURL(this)">
-                                <input type="file" class="form-control-file" id="photo3" onchange="readURL(this)">
-                            </div>
-                            <div class="form-group">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
-                                    <label class="form-check-label" for="invalidCheck2">
-                                        Agree to terms and conditions
-                                    </label>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" onclick="editProperty()">Submit</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
+                        </div>
+                    </form>
+                    <button class="btn btn-primary" onclick="addProperty()">Submit</button>
                 </div>
             </div>
         </div>

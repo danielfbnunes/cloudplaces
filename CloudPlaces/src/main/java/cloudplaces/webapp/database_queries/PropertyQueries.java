@@ -6,11 +6,14 @@
 package cloudplaces.webapp.database_queries;
 
 import cloudplaces.webapp.entities.House;
+import cloudplaces.webapp.entities.HousePhotos;
 import cloudplaces.webapp.entities.PropertyRepository;
+import cloudplaces.webapp.entities.RecentSearches;
 import cloudplaces.webapp.entities.Review;
 import cloudplaces.webapp.entities.ReviewRepository;
 import cloudplaces.webapp.entities.User;
 import cloudplaces.webapp.entities.UserRepository;
+import cloudplaces.webapp.entities.Wishlist;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -104,7 +107,7 @@ public class PropertyQueries {
     return null;
   }
 
-  public House addProperty(String name, String location, float price, int nRooms, long userId, int habSpace, int nBathrooms, int garage, String description, String propertyFeatures, int availability) {
+  public House addProperty(String name, String location, float price, int nRooms, long userId, int habSpace, int nBathrooms, int garage, String description, String propertyFeatures, int availability, List<HousePhotos> photos, List<Wishlist> whishlist, List<Review> reviews, List<RecentSearches> previousSearches) {
     Date date = new Date();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
     Optional<User> user = userRepo.findById(userId);
@@ -116,7 +119,7 @@ public class PropertyQueries {
     return null;
   }
 
-  public House editProperty(String name, String location, float price, int nRooms, long userId, int habSpace, int nBathrooms, int garage, String description, String propertyFeatures, int availability) {
+  public House editProperty(String name, String location, float price, int nRooms, long userId, int habSpace, int nBathrooms, int garage, String description, String propertyFeatures, int availability, List<HousePhotos> photos, List<Wishlist> whishlist, List<Review> reviews, List<RecentSearches> previousSearches) {
     Date date = new Date();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
     Optional<User> user = userRepo.findById(userId);
