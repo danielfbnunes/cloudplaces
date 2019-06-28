@@ -34,7 +34,7 @@ pipeline {
                         // Maven Install
                         sh '''
                             cd CloudPlaces
-                            mvn -U clean package sonar:sonar cobertura:cobertura -Dcobertura.report.format=xml
+                            mvn clean package sonar:sonar
                         '''
                     }
                 }
