@@ -40,7 +40,7 @@ pipeline {
                 //Run jmeter tests
                 sh '''
                     cd jmeter
-                    jmeter -Jjmeter.save.saveservice.output_format=xml  -n -t src/main/resources/RESTAPI.jmx -l src/main/resources/RESTAPIJMeter.jtl
+                    jmeter -Jjmeter.save.saveservice.output_format=xml  -n -t RESTAPI.jmx -l RESTAPI.jtl
                 '''
                 
                 step([$class: 'ArtifactArchiver', artifacts: 'RESTAPIJMeter.jtl'])
