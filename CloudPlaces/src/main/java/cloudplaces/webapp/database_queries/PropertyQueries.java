@@ -111,7 +111,7 @@ public class PropertyQueries {
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
     Optional<User> user = userRepo.findById(user_email);
     if (user.isPresent()) {
-      House h = new House(location, nRooms, habSpace, price, name, formatter.format(date), user.get(), nBathrooms, garage, description, propertyFeatures, availability, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+      House h = new House(location, nRooms, habSpace, price, name, formatter.format(date), user.get(), nBathrooms, garage, description, propertyFeatures, availability, photos, new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
       propertyRepo.save(h);
       return h;
     }

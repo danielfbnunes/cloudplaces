@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <script src="js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript">
-        $.get('getHeader', function(data) {
+        $.get('html/header.html', function(data) {
             var h = document.getElementsByClassName("header-section");
             h[0].innerHTML = data;
         }, 'text');
@@ -43,7 +43,7 @@
     <!-- Hero Section Begin -->
     <section class="hero-section set-bg search-result" data-setbg="img/bg.jpg">
         <div class="container hero-text text-white">
-            <h2>Profile</h2>
+            <h2></h2>
         </div>
     </section>
     <!-- Hero Section End -->

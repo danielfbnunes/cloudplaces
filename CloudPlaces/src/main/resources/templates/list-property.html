@@ -44,7 +44,7 @@
         }
 
         function addProperty() {
-            var usercEmail = document.getElementById("userEmail").textContent;
+            var userEmail = document.getElementById("userEmail").innerHTML;
 
             $.get("/api/get_user/" + userEmail, function(data, status) {
                 var property = JSON.stringify({ user: data, name: document.forms["newProperty"]["name"].value, address: document.forms["newProperty"]["address"].value, price: document.forms["newProperty"]["price"].value, n_rooms: document.forms["newProperty"]["n_rooms"].value, hab_space: document.forms["newProperty"]["hab_space"].value, n_bathrooms: document.forms["newProperty"]["n_bathrooms"].value, garage: document.forms["newProperty"]["garage"].value, description: document.forms["newProperty"]["description"].value, property_features: document.forms["newProperty"]["property_features"].value, availability: document.forms["newProperty"]["availability"].value, photos: photosBase64 });
@@ -57,6 +57,7 @@
                     contentType: 'application/json'
                 })
 
+                photosBase64 = new Array();
                 document.getElementById("newProperty").reset();
             })
         }

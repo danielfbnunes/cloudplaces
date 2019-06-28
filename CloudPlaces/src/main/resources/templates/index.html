@@ -52,7 +52,7 @@
         <div class="container ">
             <div class="row">
                 <div class="col-lg-12">
-                    <form class="filter-form" style="margin-top:100px; background-color:rgba(148, 124, 176, 0.5)">
+                    <form class="filter-form">
                         <div class="location">
                             <p>Location</p>
                             <select class="filter-location">
@@ -117,7 +117,7 @@
                 <th:block th:each="i: ${#numbers.sequence(0, #lists.size(houses) - 1)}">
                     <div class="col-lg-4 col-md-4 col-md-6">
                         <div class="room-items">
-                            <div th:attr="data-setbg=${houses[i].photos[0].photo}" class="room-img set-bg" data-setbg="img/rooms/6.jpg">
+                            <div class="room-img set-bg" data-setbg="img/rooms/6.jpg">
                                 <a href="#" class="room-content">
                                     <i class="flaticon-heart"></i>
                                 </a>
@@ -163,7 +163,7 @@
                             </div>
                         </div>
                     </div>
-            </th:block>
+                </th:block>
             </div>
         </div>
     </section>
