@@ -83,8 +83,9 @@ public class AllAccommodations extends Fragment{
                 //Update all the information
                 accommodations = new ArrayList<>();
 
-                //TODO: remove this step. Only for testing
-                for (House h : houses) accommodations.add(h);
+                for (House h : houses){
+                    accommodations.add(h);
+                }
 
                 accommodationAdapter.setData(accommodations);
                 accommodationAdapter.notifyDataSetChanged();
