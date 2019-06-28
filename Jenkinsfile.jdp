@@ -36,7 +36,7 @@ pipeline {
                         // Maven Install
                         sh '''
                             cd CloudPlaces
-                            mvn clean package sonar:sonar
+                            mvn clean install sonar:sonar
                         '''
                     }
                 }
@@ -57,11 +57,6 @@ pipeline {
         stage('Deploy to Production') {
             steps {
                 input 'Do you approve the deployment?'
-
-                //sh '''
-                //  cd CloudPlaces
-                //  mvn install
-                //'''
 
                 //Send jar with dependencies
                 sshPut remote: remote, from: 'CloudPlaces/target/cloudplaces-1.0-SNAPSHOT.jar', into: './deploy'
