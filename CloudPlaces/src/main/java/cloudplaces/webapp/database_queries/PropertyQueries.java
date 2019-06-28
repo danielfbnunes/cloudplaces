@@ -38,7 +38,6 @@ public class PropertyQueries {
   @Autowired
   private EntityManager em;
 
-  
   public List<House> getAllProperties(){
     String query = "SELECT h FROM House h";
     List<House> houseList = em.createQuery(query).getResultList();
@@ -47,7 +46,7 @@ public class PropertyQueries {
     }
     return null;
   }
-          
+  
   public List<House> getProperties(String name, String location, Float minPrice, Float maxPrice, Integer minNRooms, Integer maxNRooms, Integer minHabSpace, Integer maxHabSpace, Integer availability) {
     String baseQuery = "SELECT h FROM House h WHERE ( 1=1";
     if (name != null) {
@@ -68,23 +67,23 @@ public class PropertyQueries {
     }
 
     if (minHabSpace != null && maxHabSpace != null) {
-      baseQuery += " AND h.habSpace >= " + minHabSpace + " AND h.habSpace <= " + maxHabSpace;
+      baseQuery += " AND h.hab_space >= " + minHabSpace + " AND h.hab_space <= " + maxHabSpace;
     }
     if (minHabSpace != null && maxHabSpace == null) {
-      baseQuery += " AND h.habSpace >= " + minHabSpace;
+      baseQuery += " AND h.hab_space >= " + minHabSpace;
     }
     if (minHabSpace == null && maxHabSpace != null) {
-      baseQuery += " AND h.habSpace <= " + maxHabSpace;
+      baseQuery += " AND h.hab_space <= " + maxHabSpace;
     }
 
     if (minNRooms != null && maxNRooms != null) {
-      baseQuery += " AND h.nRooms >= " + minNRooms + " AND h.nRooms <= " + maxNRooms;
+      baseQuery += " AND h.n_rooms >= " + minNRooms + " AND h.n_rooms <= " + maxNRooms;
     }
     if (minNRooms != null && maxHabSpace == null) {
-      baseQuery += " AND h.nRooms >= " + minNRooms;
+      baseQuery += " AND h.n_rooms >= " + minNRooms;
     }
     if (minNRooms == null && maxHabSpace != null) {
-      baseQuery += " AND h.nRooms <= " + maxNRooms;
+      baseQuery += " AND h.n_rooms <= " + maxNRooms;
     }
 
     if (availability != null) {
@@ -107,10 +106,10 @@ public class PropertyQueries {
     return null;
   }
 
-  public House addProperty(String name, String location, float price, int nRooms, long userId, int habSpace, int nBathrooms, int garage, String description, String propertyFeatures, int availability, List<HousePhotos> photos, List<Wishlist> whishlist, List<Review> reviews, List<RecentSearches> previousSearches) {
+  public House addProperty(String name, String location, float price, int nRooms, String user_email, int habSpace, int nBathrooms, int garage, String description, String propertyFeatures, int availability, List<HousePhotos> photos, List<Wishlist> whishlist, List<Review> reviews, List<RecentSearches> previousSearches) {
     Date date = new Date();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-    Optional<User> user = userRepo.findById(userId);
+    Optional<User> user = userRepo.findById(user_email);
     if (user.isPresent()) {
       House h = new House(location, nRooms, habSpace, price, name, formatter.format(date), user.get(), nBathrooms, garage, description, propertyFeatures, availability, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
       propertyRepo.save(h);
@@ -119,10 +118,10 @@ public class PropertyQueries {
     return null;
   }
 
-  public House editProperty(String name, String location, float price, int nRooms, long userId, int habSpace, int nBathrooms, int garage, String description, String propertyFeatures, int availability, List<HousePhotos> photos, List<Wishlist> whishlist, List<Review> reviews, List<RecentSearches> previousSearches) {
+  public House editProperty(String name, String location, float price, int nRooms, String email, int habSpace, int nBathrooms, int garage, String description, String propertyFeatures, int availability, List<HousePhotos> photos, List<Wishlist> whishlist, List<Review> reviews, List<RecentSearches> previousSearches) {
     Date date = new Date();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-    Optional<User> user = userRepo.findById(userId);
+    Optional<User> user = userRepo.findById(email);
     if (user.isPresent()) {
       House h = new House(location, nRooms, habSpace, price, name, formatter.format(date), user.get(), nBathrooms, garage, description, propertyFeatures, availability, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
       propertyRepo.save(h);
@@ -140,8 +139,8 @@ public class PropertyQueries {
     return false;
   }
 
-  public Review addReview(long userId, long propertyId, String review, int quotation) {
-    Optional<User> user = userRepo.findById(userId);
+  public Review addReview(String userEmail, long propertyId, String review, int quotation) {
+    Optional<User> user = userRepo.findById(userEmail);
     Optional<House> house = propertyRepo.findById(propertyId);
     if (house.isPresent() && user.isPresent()){
       Review r = new Review(review, quotation);

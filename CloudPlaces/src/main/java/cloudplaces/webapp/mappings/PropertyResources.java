@@ -96,9 +96,9 @@ public class PropertyResources {
      * @return True ou False mediante o successo ou não da adição da propriedade
      */
     @ApiOperation("Adds a property")
-    @PostMapping("api/add_property/{name}/{location}/{price}/{n_rooms}/{user_id}/{hab_space}/{n_bathrooms}/{garage}/{description}/{property_features}/{availability}")
+    @PostMapping("api/add_property/{name}/{location}/{price}/{n_rooms}/{user_email}/{hab_space}/{n_bathrooms}/{garage}/{description}/{property_features}/{availability}")
     public House addProperty(@RequestBody HousePOJO house){
-        return query.addProperty(house.getName(), house.getAddress(), house.getPrice(), house.getNRooms(), house.getUser().getId(), house.getHabSpace(), house.getNBathrooms(), house.getGarage(), house.getDescription(), house.getPropertyFeatures(), house.getAvailability(), house.getPhotos(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        return query.addProperty(house.getName(), house.getAddress(), house.getPrice(), house.getNRooms(), house.getUser().getEmail(), house.getHabSpace(), house.getNBathrooms(), house.getGarage(), house.getDescription(), house.getPropertyFeatures(), house.getAvailability(), house.getPhotos(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
     }
     
     /**
@@ -109,7 +109,7 @@ public class PropertyResources {
     @ApiOperation("Edits a property")
     @PutMapping("api/edit_property")
     public House editProperty(@RequestBody HousePOJO house) {
-        return query.editProperty(house.getName(), house.getAddress(), house.getPrice(), house.getNRooms(), house.getUser().getId(), house.getHabSpace(), house.getNBathrooms(), house.getGarage(), house.getDescription(), house.getPropertyFeatures(), house.getAvailability(), house.getPhotos(), house.getWishes(), house.getReviews(), house.getSearches());
+        return query.editProperty(house.getName(), house.getAddress(), house.getPrice(), house.getNRooms(), house.getUser().getEmail(), house.getHabSpace(), house.getNBathrooms(), house.getGarage(), house.getDescription(), house.getPropertyFeatures(), house.getAvailability(), house.getPhotos(), house.getWishes(), house.getReviews(), house.getSearches());
     }
     
     /**
@@ -138,14 +138,14 @@ public class PropertyResources {
      * @return 
      */
     @ApiOperation("Adds a review")
-    @PostMapping("api/add_review/{property_id}/{user_id}/{review}/{quotation}") 
+    @PostMapping("api/add_review/{property_id}/{user_email}/{review}/{quotation}") 
     public Object addReview(
-            @PathVariable("user_id") final long user_id,
+            @PathVariable("user_id") final String user_email,
             @PathVariable("property_id") final long property_id,
             @PathVariable("review") final String review,
             @PathVariable("quotation") final int quotation
             ){
-      Review r = query.addReview(user_id, property_id, review, quotation);
+      Review r = query.addReview(user_email, property_id, review, quotation);
       if (r != null){
         return r;
       }
