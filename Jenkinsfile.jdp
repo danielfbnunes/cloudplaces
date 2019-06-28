@@ -17,13 +17,13 @@ pipeline {
         maven 'mvn'
     }
     stages {
-        stage('Slack - Build Started') {
+        stage('Slack - Build Started Feedback') {
             steps {
                 //Send message to Slack informing that the Build is Starting
                 slackSend (message: "*Build Started* - ${env.JOB_NAME} *#${env.BUILD_NUMBER}* (<${env.BUILD_URL}|Open Build Logs>)")
             }
         }
-        stage('Install + Sonar Analysis') {
+        stage('Install + SonarQube Analysis') {
             steps {
                 //Create a display to emulate a GUI
                 sh '''
