@@ -35,7 +35,7 @@ public class UserResources {
     
     private final String errorMessage = "Error";
     
-    @ApiOperation("Inserts a user in database")
+    @ApiOperation("Inserts a user in database")//TODO Fix api call
     @PostMapping("api/add_user/{name}/{email}/{pw}/{cellphone}/{photo}")
     public Object addUser(
             @PathVariable("name") final String name,
@@ -90,7 +90,7 @@ public class UserResources {
      * @return True of False de acordo com o successo da query.
      */
     @ApiOperation("Inserts a property into a wishlist")
-    @PostMapping("api/add_to_wishlist/{user_email}/{property_id}")
+    @PostMapping("api/add_to_wishlist/{user_email}/{property_id}")//TODO Fix api call
     public Object addToWishlist(
             @PathVariable("user_id") final String user_email,
             @PathVariable("property_id") final long property_id
@@ -111,7 +111,7 @@ public class UserResources {
     * @return True ou false de acordo com o sucesso da query.
     */
     @ApiOperation("Deletes a property from a wishlist")
-    @DeleteMapping("api/delete_from_wishlist/{user_id}/{property_id}")
+    @DeleteMapping("api/delete_from_wishlist/{user_id}/{property_id}")//TODO Fix api call
     public boolean deleteFromWishlist(
             @PathVariable("user_id") final long user_id,
             @PathVariable("property_id") final long property_id

@@ -6,14 +6,11 @@
 package cloudplaces.webapp.database_queries;
 
 import cloudplaces.webapp.entities.House;
-import cloudplaces.webapp.entities.HousePhotos;
 import cloudplaces.webapp.entities.PropertyRepository;
-import cloudplaces.webapp.entities.RecentSearches;
 import cloudplaces.webapp.entities.Review;
 import cloudplaces.webapp.entities.ReviewRepository;
 import cloudplaces.webapp.entities.User;
 import cloudplaces.webapp.entities.UserRepository;
-import cloudplaces.webapp.entities.Wishlist;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -76,7 +73,7 @@ public class PropertyQueries {
       baseQuery += " AND h.hab_space <= " + maxHabSpace;
     }
 
-    if (minNRooms != null && maxNRooms != null) {
+    if (minNRooms != null && maxNRooms != null) { //TODO Verificar estas comparações
       baseQuery += " AND h.n_rooms >= " + minNRooms + " AND h.n_rooms <= " + maxNRooms;
     }
     if (minNRooms != null && maxHabSpace == null) {
@@ -98,7 +95,9 @@ public class PropertyQueries {
     return new ArrayList<>();
   }
 
+  //ToDo Fix this method no longer uses houseId
   public House getProperty(long id) {
+    //TODO ADicionar a chamada assim -- propertyRepo.findById(id) --- É melhor
     List<House> houseList = em.createQuery("SELECT h FROM House h WHERE h.houseId = " + id).getResultList();
     if (!houseList.isEmpty()) {
       return houseList.get(0);
