@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * Esta classe é responsável por disponibilizar as chamadas
@@ -34,6 +35,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 
 //Todo create logs when pages are accessed.
+@ApiIgnore
 @Controller
 public class CloudPlacesController {
   static final Logger logger = Logger.getLogger(CloudPlacesController.class.getName());
@@ -117,9 +119,7 @@ public class CloudPlacesController {
   @ResponseBody
   public List<House> propertiesPagePost(Model model,  HttpServletRequest request, @RequestBody Map<String,String> postPayload){ 
     //check if user is logged in  
-    
-    logger.info("propertiesPagePost: " + postPayload);
-    
+        
     String name = postPayload.get("name");
     if(name.equals("")){
       name=null;
@@ -143,7 +143,6 @@ public class CloudPlacesController {
     model.addAttribute("has_elements" , !houseList.isEmpty());
     model.addAttribute("houses", houseList);
     model.addAttribute("user", new User());
-    logger.info("houseList: " + houseList);
 
     return houseList;
   }
@@ -181,7 +180,6 @@ public class CloudPlacesController {
   @ResponseBody
   public String postSignUp(@RequestBody Map<String,String> postPayload){
     
-    logger.info("Received the following data: " + postPayload);
     User addedUser = userQueries.addUser(
             postPayload.get("name"),
             postPayload.get("email"),
