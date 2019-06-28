@@ -20,6 +20,7 @@ function postSearch() {
         url: "/",
         contentType: "application/json",
         success: function (response) {
+            console.log(response);
             document.getElementById("housesRow").innerHTML = "";
             response.forEach(element => {
                 document.getElementById("housesRow").innerHTML +=
@@ -74,14 +75,8 @@ function postSearch() {
                     '    </div>';
             });
 
-
+            // For testing Purposes
             console.log(response);
-            console.log(response[0]["photos"][0]["photo"]);
-
-
-
-
-
         },
         data: JSON.stringify(postData)
     });
