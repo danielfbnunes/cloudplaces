@@ -25,13 +25,15 @@ import org.springframework.web.bind.annotation.RestController;
  */
 //Todo create logs when pages are accessed.
 @RestController
-@Api(value = "User Resources", description = "Shows user resources")
+@Api(value = "User Resources")
 public class UserResources {
     
     Map<String, String> error = new HashMap<>();
     
     @Autowired
     UserQueries query;
+    
+    private final String errorMessage = "Error";
     
     @ApiOperation("Inserts a user in database")
     @PostMapping("api/add_user/{name}/{email}/{pw}/{cellphone}/{photo}")
@@ -45,7 +47,7 @@ public class UserResources {
         User u = query.addUser(name, email, pw, cellphone, photo);
         if(u != null)
             return u;
-        error.put("Error", "User with the given email already in database");
+        error.put(errorMessage, "User with the given email already in database");
         return error;
     }
     
@@ -57,7 +59,7 @@ public class UserResources {
         User u = query.getUser(email);
         if(u != null)
             return u;
-        error.put("Error", "User not found");
+        error.put(errorMessage, "User not found");
         return error;
     }
     
@@ -73,10 +75,10 @@ public class UserResources {
             @PathVariable("user_email") final String user_email
             ){
       List<House> h = query.getWishlist(user_email);
-      if (h != null){
+      if (!h.isEmpty()){
         return h;
       }
-      error.put("Error", "User not found with wishlist");
+      error.put(errorMessage, "User not found with wishlist");
       return error;
     }
     
@@ -97,7 +99,7 @@ public class UserResources {
       if (w != null){
         return w;
       }
-      error.put("Error", "House or User in question not found");
+      error.put(errorMessage, "House or User in question not found");
       return error;
     }
     

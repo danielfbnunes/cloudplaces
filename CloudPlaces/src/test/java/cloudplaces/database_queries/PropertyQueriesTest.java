@@ -57,7 +57,7 @@ public class PropertyQueriesTest {
   public void setUp() {
     generalQueries.reloadTestDatabase();
     userQueries.addUser("Joao", "joao@ua.pt", "password", "987654321", "photo");
-    propertyQueries.addProperty("House 1", "Aveiro", 100, 2, "joao@ua.pt", 50, 1, 2, "Nice house", "garden;garage", 1, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+    propertyQueries.addProperty("House 1", "Aveiro", 100, 2, "joao@ua.pt", 50, 1, 2, "Nice house", "garden;garage", 1/*, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()*/);
   }
   
   @After
@@ -83,13 +83,13 @@ public class PropertyQueriesTest {
   @Test
   public void testGetPropertiesByName(){
     //'House 2' shouldn't be found, so the expected value is null.
-    Object expected = null;
+    List<House> expectedList = new ArrayList<>();
     List<House> houses = propertyQueries.getProperties("House 2", null, null, null, null, null, null, null, null);
-    assertEquals(expected, houses);
+    assertEquals(expectedList, houses);
     
     //'House 1' should be found, it was already added.
-    expected = "House 1";
+    String expectedName = "House 1";
     houses = propertyQueries.getProperties("House", null, null, null, null, null, null, null, null);
-    assertEquals(expected, houses.get(0).getName());
+    assertEquals(expectedName, houses.get(0).getName());
   }
 }
