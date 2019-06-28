@@ -1,6 +1,5 @@
 package cloudplaces.webapp;
 
-import cloudplaces.webapp.CloudPlacesApplication;
 import cloudplaces.webapp.database_queries.GeneralQueries;
 import cloudplaces.webapp.database_queries.UserQueries;
 import cucumber.api.java.en.Given;
@@ -60,9 +59,7 @@ public class Stepdefs {
         driver = new FirefoxDriver(service);
         
         driver.manage().timeouts().implicitlyWait(240, TimeUnit.SECONDS);
-        System.out.println("A pedir Login");
         driver.get(baseUrl+"login");
-        System.out.println("Recebeu Login");
         Thread.sleep(waitingTimer);
     }
     

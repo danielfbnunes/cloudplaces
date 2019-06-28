@@ -9,7 +9,6 @@ import cloudplaces.webapp.entities.Review;
 import cloudplaces.webapp.pojo.HousePOJO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -139,7 +138,7 @@ public class PropertyResources {
      * 
      * @return 
      */
-    @ApiOperation("Adds a review")
+    @ApiOperation("Adds a review")//TODO Fix api call
     @PostMapping("api/add_review/{property_id}/{user_email}/{review}/{quotation}") 
     public Object addReview(
             @PathVariable("user_id") final String user_email,
@@ -161,7 +160,7 @@ public class PropertyResources {
      * @param review_id Id da review
      * @return True ou False consoante o resultado.
      */
-    @ApiOperation("Edits a review")
+    @ApiOperation("Edits a review")//TODO Fix api call
     @PutMapping("api/edit_review/{review_id}/{comment}/{quotation}")
     public Object editReview(
         @PathVariable("review_id") final long review_id,
@@ -182,7 +181,7 @@ public class PropertyResources {
      * @param review_id Id da review
      * @return True ou False consoante o resultado.
      */
-    @ApiOperation("Deletes a review")
+    @ApiOperation("Deletes a review")//TODO Fix api call
     @DeleteMapping("api/delete_review/{review_id}")
     public Object deleteReview(
             @PathVariable("review_id") final long review_id){

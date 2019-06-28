@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Api(value = "General Resources")
+//Todo create logs when pages are accessed.
 public class GeneralResources {
     
     @Autowired
