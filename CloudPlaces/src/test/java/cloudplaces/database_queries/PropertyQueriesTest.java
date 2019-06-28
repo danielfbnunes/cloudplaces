@@ -8,7 +8,9 @@ package cloudplaces.database_queries;
 import cloudplaces.webapp.CloudPlacesApplication;
 import cloudplaces.webapp.database_queries.GeneralQueries;
 import cloudplaces.webapp.database_queries.PropertyQueries;
+import cloudplaces.webapp.database_queries.UserQueries;
 import cloudplaces.webapp.entities.House;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -32,6 +34,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class PropertyQueriesTest {
   
   @Autowired
+  UserQueries userQueries;
+  
+  @Autowired
   PropertyQueries propertyQueries;
     
   @Autowired
@@ -50,7 +55,9 @@ public class PropertyQueriesTest {
   
   @Before
   public void setUp() {
-      generalQueries.reloadTestDatabase();
+    generalQueries.reloadTestDatabase();
+    userQueries.addUser("Joao", "joao@ua.pt", "password", "987654321", "photo");
+    propertyQueries.addProperty("House 1", "Aveiro", 100, 2, "joao@ua.pt", 50, 1, 2, "Nice house", "garden;garage", 1, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
   }
   
   @After
@@ -64,8 +71,25 @@ public class PropertyQueriesTest {
   public void testGetAllProperties() {
     List<House> houses = propertyQueries.getAllProperties();
     
-    // expected null because there no houses after reload test database
-    List<House> expected = null;
+    // expected 1 because there only one house (added on setUp method)
+    int expected = 1;
+    assertEquals(expected, houses.size());
+  }
+  
+  /**
+   * Test getProperties method, of class PropertyQueries.
+   * Here, name parameter is the one that is tested.
+   */
+  @Test
+  public void testGetPropertiesByName(){
+    //'House 2' shouldn't be found, so the expected value is null.
+    Object expected = null;
+    List<House> houses = propertyQueries.getProperties("House 2", null, null, null, null, null, null, null, null);
     assertEquals(expected, houses);
+    
+    //'House 1' should be found, it was already added.
+    expected = "House 1";
+    houses = propertyQueries.getProperties("House", null, null, null, null, null, null, null, null);
+    assertEquals(expected, houses.get(0).getName());
   }
 }
