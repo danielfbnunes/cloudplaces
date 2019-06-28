@@ -18,8 +18,10 @@ pipeline {
     }
     stages {
         stage('Slack - Build Started') {
-            //Send message to Slack informing that the Build is Starting
-            slackSend (message: "*Build Started* - ${env.JOB_NAME} *#${env.BUILD_NUMBER}* (<${env.BUILD_URL}|Open Build Logs>)")
+            steps {
+                //Send message to Slack informing that the Build is Starting
+                slackSend (message: "*Build Started* - ${env.JOB_NAME} *#${env.BUILD_NUMBER}* (<${env.BUILD_URL}|Open Build Logs>)")
+            }
         }
         stage('Install + Sonar Analysis') {
             steps {
@@ -52,7 +54,7 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+        stage('Deploy to Production') {
             steps {
                 input 'Do you approve the deployment?'
 
