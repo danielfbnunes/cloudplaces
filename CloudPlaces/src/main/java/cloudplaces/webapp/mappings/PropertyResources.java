@@ -9,6 +9,7 @@ import cloudplaces.webapp.entities.Review;
 import cloudplaces.webapp.pojo.HousePOJO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -96,20 +97,8 @@ public class PropertyResources {
      */
     @ApiOperation("Adds a property")
     @PostMapping("api/add_property/{name}/{location}/{price}/{n_rooms}/{user_id}/{hab_space}/{n_bathrooms}/{garage}/{description}/{property_features}/{availability}")
-    public House addProperty(
-            @PathVariable("name") final String name,
-            @PathVariable("location") final String location,
-            @PathVariable("price") final float price,
-            @PathVariable("n_rooms") final int n_rooms,
-            @PathVariable("user_id") final long user_id,
-            @PathVariable("hab_space") final int hab_space,
-            @PathVariable("n_bathrooms") final int n_bathrooms,
-            @PathVariable("garage") final int garage,
-            @PathVariable("description") final String description,
-            @PathVariable("property_features") final String property_features,
-            @PathVariable("availability") final int availability
-            ){
-        return query.addProperty(name, location, price, n_rooms, user_id, hab_space, n_bathrooms, garage, description, property_features, availability);
+    public House addProperty(@RequestBody HousePOJO house){
+        return query.addProperty(house.getName(), house.getAddress(), house.getPrice(), house.getNRooms(), house.getUser().getId(), house.getHabSpace(), house.getNBathrooms(), house.getGarage(), house.getDescription(), house.getPropertyFeatures(), house.getAvailability(), house.getPhotos(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
     }
     
     /**
@@ -120,7 +109,7 @@ public class PropertyResources {
     @ApiOperation("Edits a property")
     @PutMapping("api/edit_property")
     public House editProperty(@RequestBody HousePOJO house) {
-        return query.editProperty(house.getName(), house.getAddress(), house.getPrice(), house.getNRooms(), house.getUser().getId(), house.getHabSpace(), house.getNBathrooms(), house.getGarage(), house.getDescription(), house.getPropertyFeatures(), house.getAvailability());
+        return query.editProperty(house.getName(), house.getAddress(), house.getPrice(), house.getNRooms(), house.getUser().getId(), house.getHabSpace(), house.getNBathrooms(), house.getGarage(), house.getDescription(), house.getPropertyFeatures(), house.getAvailability(), house.getPhotos(), house.getWishes(), house.getReviews(), house.getSearches());
     }
     
     /**
