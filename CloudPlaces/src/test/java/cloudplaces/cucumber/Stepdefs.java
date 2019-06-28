@@ -60,7 +60,9 @@ public class Stepdefs {
         driver = new FirefoxDriver(service);
         
         driver.manage().timeouts().implicitlyWait(180, TimeUnit.SECONDS);
+        System.out.println("A pedir Login");
         driver.get(baseUrl+"login");
+        System.out.println("Recebeu Login");
         Thread.sleep(waitingTimer);
     }
     
