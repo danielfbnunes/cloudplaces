@@ -290,7 +290,7 @@ public class CloudPlacesController {
    */
   @PostMapping(path = "/addProperty", consumes = "application/json", produces = "application/json")
   public String addProperty(@RequestBody HousePOJO property, Model model) {
-    propertyQueries.addProperty(property.getName(), property.getAddress(), property.getPrice(), property.getNRooms(), property.getUser().getId(), property.getHabSpace(), property.getNBathrooms(), property.getGarage(), property.getDescription(), property.getPropertyFeatures(), property.getAvailability(), property.getPhotos(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+    propertyQueries.addProperty(property.getName(), property.getAddress(), property.getPrice(), property.getNRooms(), property.getUser().getEmail(), property.getHabSpace(), property.getNBathrooms(), property.getGarage(), property.getDescription(), property.getPropertyFeatures(), property.getAvailability(), property.getPhotos(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
     
     return "list-property.html";
   }
@@ -303,7 +303,7 @@ public class CloudPlacesController {
    */
   @PutMapping(path = "/editProperty", consumes = "application/json", produces = "application/json")
   public String editProperty(@RequestBody HousePOJO property, Model model) {
-    propertyQueries.editProperty(property.getName(), property.getAddress(), property.getPrice(), property.getNRooms(), property.getUser().getId(), property.getHabSpace(), property.getNBathrooms(), property.getGarage(), property.getDescription(), property.getPropertyFeatures(), property.getAvailability(), property.getPhotos(), property.getWishes(), property.getReviews(), property.getSearches());
+    propertyQueries.editProperty(property.getName(), property.getAddress(), property.getPrice(), property.getNRooms(), property.getUser().getEmail(), property.getHabSpace(), property.getNBathrooms(), property.getGarage(), property.getDescription(), property.getPropertyFeatures(), property.getAvailability(), property.getPhotos(), property.getWishes(), property.getReviews(), property.getSearches());
     
     return "properties.html";
   }

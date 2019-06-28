@@ -6,6 +6,7 @@
 package cloudplaces.database_queries;
 
 import cloudplaces.webapp.CloudPlacesApplication;
+import cloudplaces.webapp.database_queries.GeneralQueries;
 import cloudplaces.webapp.database_queries.UserQueries;
 import cloudplaces.webapp.entities.House;
 import cloudplaces.webapp.entities.RecentSearches;
@@ -39,6 +40,9 @@ public class UserQueriesTest {
   @Autowired
   UserQueries instance;
   
+  @Autowired
+  GeneralQueries generalQueries;
+  
   public UserQueriesTest() {
   }
   
@@ -52,7 +56,7 @@ public class UserQueriesTest {
   
   @Before
   public void setUp() {
-    
+      generalQueries.reloadDatabase();
   }
   
   @After
@@ -65,7 +69,6 @@ public class UserQueriesTest {
   @Test
   public void testAddUser() {
     System.out.println("addUser");
-    
     String name = "name";
     String email = "email";
     String pw = "pw";
@@ -99,7 +102,6 @@ public class UserQueriesTest {
     
     User u =  new User(name, email, pw, cellphone, photo, new ArrayList<House>() , new ArrayList<Review>() , new ArrayList<Wishlist>(), new ArrayList<RecentSearches>() );
     User addedUser = instance.addUser(name, email, pw, cellphone, photo);
-    
     // log user and check if it has success
     User loggedUserTestCorrect = instance.authenticateUser(email, pw);
     assertEquals(u.getEmail(), loggedUserTestCorrect.getEmail());
@@ -115,16 +117,26 @@ public class UserQueriesTest {
    * Test of getUser method, of class UserQueries.
    */
   @Test
-  @Ignore
   public void testGetUser() {
     System.out.println("getUser");
-    long user_id = 0L;
-    UserQueries instance = new UserQueries();
-    User expResult = null;
-    User result = instance.getUser(user_id);
-    assertEquals(expResult, result);
-    // TODO review the generated test code and remove the default call to fail.
-    fail("The test case is a prototype.");
+    
+    String email = "test@ua.pt";
+    User expectedResult = null;
+    
+    // try to get inexistent user
+    User result = instance.getUser(email);
+    
+    assertEquals(expectedResult, result);
+
+    String name = "name";
+    String pw = "pw";
+    String cellphone = "cellphone";
+    String photo = "photo";
+    
+    User newUser = instance.addUser(name, email, pw, cellphone, photo);
+
+    assertEquals(newUser.getEmail(), email);
+
   }
 
   /**
@@ -134,9 +146,9 @@ public class UserQueriesTest {
   @Ignore
   public void testGetWishlist() {
     System.out.println("getWishlist");
-    UserQueries instance = new UserQueries();
+    
     ArrayList<Object> expResult = null;
-    List<Object> result = instance.getWishlist();
+    List<House> result = instance.getWishlist("test@ua.pt");
     assertEquals(expResult, result);
     // TODO review the generated test code and remove the default call to fail.
     fail("The test case is a prototype.");
@@ -151,7 +163,7 @@ public class UserQueriesTest {
     System.out.println("addToWishlist");
     UserQueries instance = new UserQueries();
     boolean expResult = false;
-    boolean result = instance.addToWishlist();
+    Wishlist result = instance.addToWishlist("test@ua.pt", 0L);
     assertEquals(expResult, result);
     // TODO review the generated test code and remove the default call to fail.
     fail("The test case is a prototype.");

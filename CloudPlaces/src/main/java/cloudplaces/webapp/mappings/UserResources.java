@@ -4,7 +4,9 @@
 package cloudplaces.webapp.mappings;
 
 import cloudplaces.webapp.database_queries.UserQueries;
+import cloudplaces.webapp.entities.House;
 import cloudplaces.webapp.entities.User;
+import cloudplaces.webapp.entities.Wishlist;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.util.HashMap;
@@ -48,11 +50,11 @@ public class UserResources {
     }
     
     @ApiOperation("Get a user from database")
-    @GetMapping("api/get_user/{user_id}")
+    @GetMapping("api/get_user/{email}")
     public Object getUser(
-            @PathVariable("user_id") final long user_id
+            @PathVariable("email") final String email
             ){
-        User u = query.getUser(user_id);
+        User u = query.getUser(email);
         if(u != null)
             return u;
         error.put("Error", "User not found");
@@ -66,11 +68,16 @@ public class UserResources {
      * @return Lista de Casas
      */
     @ApiOperation("Returns a list of properties")
-    @GetMapping("api/get_wishlist/{user_id}")
-    public List<Object> getWishlist(
-            @PathVariable("user_id") final long user_id
+    @GetMapping("api/get_wishlist/{user_email}")
+    public Object getWishlist(
+            @PathVariable("user_email") final String user_email
             ){
-        return query.getWishlist();
+      List<House> h = query.getWishlist(user_email);
+      if (h != null){
+        return h;
+      }
+      error.put("Error", "User not found with wishlist");
+      return error;
     }
     
     /**
@@ -81,12 +88,17 @@ public class UserResources {
      * @return True of False de acordo com o successo da query.
      */
     @ApiOperation("Inserts a property into a wishlist")
-    @PostMapping("api/add_to_wishlist/{user_id}/{property_id}")
-    public boolean addToWishlist(
-            @PathVariable("user_id") final long user_id,
+    @PostMapping("api/add_to_wishlist/{user_email}/{property_id}")
+    public Object addToWishlist(
+            @PathVariable("user_id") final String user_email,
             @PathVariable("property_id") final long property_id
             ){
-        return query.addToWishlist();
+      Wishlist w = query.addToWishlist(user_email, property_id);
+      if (w != null){
+        return w;
+      }
+      error.put("Error", "House or User in question not found");
+      return error;
     }
     
    /**

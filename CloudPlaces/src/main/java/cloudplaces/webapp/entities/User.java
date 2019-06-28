@@ -5,7 +5,9 @@
 package cloudplaces.webapp.entities;
 
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -23,10 +25,9 @@ import javax.persistence.OneToMany;
 public class User {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String name;
+    @Column(length = 128)
     private String email;
+    private String name;
     private String pw;
     private String cellphone;
     @Lob
@@ -36,15 +37,15 @@ public class User {
     private List<House> rentals;
     
     @OneToMany( cascade = CascadeType.ALL, targetEntity = Review.class)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_email")
     private List<Review> reviews;
     
     @OneToMany( cascade = CascadeType.ALL, targetEntity = Wishlist.class)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_email")
     private List<Wishlist> wishes;
     
     @OneToMany( cascade = CascadeType.ALL, targetEntity = RecentSearches.class)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_email")
     private List<RecentSearches> searches;
     
     public User(){
@@ -60,10 +61,6 @@ public class User {
         this.wishes = wishes;
         this.searches = searches;
         this.photo = photo;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getName() {
@@ -137,5 +134,5 @@ public class User {
     public void setPhoto(String photo) {
         this.photo = photo;
     }
-   
+    
 }
