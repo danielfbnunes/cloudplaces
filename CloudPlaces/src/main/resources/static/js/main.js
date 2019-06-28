@@ -68,15 +68,32 @@
     -----------------------------------*/
     $("#slider-range").slider({
         range: true,
-        min: 50,
-        max: 300,
+        min: 100,
+        max: 500,
         step: 50,
         value: 50,
-        values: [50, 300],
+        values: [100, 500],
         slide: function (event, ui) {
-            $('#slider-range .slider-left').text(ui.values[0] + 'k');
-            $('#slider-range .slider-right').text(ui.values[1] + 'k');
+            $('#slider-range .slider-left').text(ui.values[0] + '$');
+            $('#slider-range .slider-right').text(ui.values[1] + '$');
         }
     });
+
+    /*--------------------------------
+        Price Slider
+    -----------------------------------*/
+
+    $("#slider-range-bedrooms").slider({
+        range: true,
+        min: 1,
+        max: 6,
+        step: 1,
+        value: 50,
+        values: [1, 6],
+        slide: function (event, ui) {
+            $('#slider-range-bedrooms .slider-left').text(" " + ui.values[0] + " ");
+            $('#slider-range-bedrooms .slider-right').text(" " + ui.values[1] + " ");
+        }
+    }); 
 
 })(jQuery);
