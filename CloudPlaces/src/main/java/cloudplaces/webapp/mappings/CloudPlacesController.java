@@ -45,6 +45,8 @@ public class CloudPlacesController {
   @Autowired
   UserQueries userQueries;
   
+  
+  
   /**
    * Este método disponibiliza a página inicial da aplicação web.
    *
@@ -88,8 +90,6 @@ public class CloudPlacesController {
   
   /**
    * Este método disponibiliza a página inicial de um utlizador que tenha realizado o login.
-   *
-   *
    * @return Retorna a página de inicial de um utilizador que tenha realizado o login.
    */
   @GetMapping("/")
@@ -101,11 +101,53 @@ public class CloudPlacesController {
     
     //get properties from database
     List<House> houseList = propertyQueries.getAllProperties();
+    model.addAttribute("has_elements" , houseList!=null);
     model.addAttribute("houses", houseList);
 
     logger.info("User: " + request.getSession().getAttribute("username"));
     return "index";
   }
+  
+  
+  /**
+   * Este método disponibiliza a página inicial de um utlizador que tenha realizado o login.
+   * @return Retorna a página de inicial de um utilizador que tenha realizado o login.
+   */
+  @PostMapping(path="/",  consumes = "application/json")
+  @ResponseBody
+  public List<House> propertiesPagePost(Model model,  HttpServletRequest request, @RequestBody Map<String,String> postPayload){ 
+    //check if user is logged in  
+    
+    logger.info("propertiesPagePost: " + postPayload);
+    
+    String name = postPayload.get("name");
+    if(name.equals("")){
+      name=null;
+    }
+    
+     String location = postPayload.get("location");
+    if(location.equals("")){
+      location=null;
+    }
+    List<House> houseList = propertyQueries.getProperties(
+            name,
+            location,
+            Float.parseFloat(postPayload.get("min_price").replaceAll(" ", "")), 
+            Float.parseFloat(postPayload.get("max_price").replaceAll(" ", "")), 
+            Integer.parseInt(postPayload.get("min_rooms").replaceAll(" ", "")), 
+            Integer.parseInt(postPayload.get("max_rooms").replaceAll(" ", "")), 
+            null, 
+            null, 
+            null
+    );
+    model.addAttribute("has_elements" , houseList!=null);
+    model.addAttribute("houses", houseList);
+    model.addAttribute("user", new User());
+    logger.info("houseList: " + houseList);
+
+    return houseList;
+  }
+  
   
   /**
    * Este método disponibiliza a página com informações sobre a aplicação web.
@@ -198,7 +240,8 @@ public class CloudPlacesController {
     for (int i=0; i<tmp.getPhotos().size(); i++)
       houseImages[i] = new String(tmp.getPhotos().get(0).getPhoto());
     
-    model.addAttribute("houseImages" ,houseImages);
+    model.addAttribute("houseImages" , houseImages);
+    
     
     return "single-property.html";
   }

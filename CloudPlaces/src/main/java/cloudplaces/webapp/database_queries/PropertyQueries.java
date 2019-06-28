@@ -68,23 +68,23 @@ public class PropertyQueries {
     }
 
     if (minHabSpace != null && maxHabSpace != null) {
-      baseQuery += " AND h.hab_space >= " + minHabSpace + " AND h.hab_space <= " + maxHabSpace;
+      baseQuery += " AND h.habSpace >= " + minHabSpace + " AND h.habSpace <= " + maxHabSpace;
     }
     if (minHabSpace != null && maxHabSpace == null) {
-      baseQuery += " AND h.hab_space >= " + minHabSpace;
+      baseQuery += " AND h.habSpace >= " + minHabSpace;
     }
     if (minHabSpace == null && maxHabSpace != null) {
-      baseQuery += " AND h.hab_space <= " + maxHabSpace;
+      baseQuery += " AND h.habSpace <= " + maxHabSpace;
     }
 
     if (minNRooms != null && maxNRooms != null) {
-      baseQuery += " AND h.n_rooms >= " + minNRooms + " AND h.n_rooms <= " + maxNRooms;
+      baseQuery += " AND h.nRooms >= " + minNRooms + " AND h.nRooms <= " + maxNRooms;
     }
     if (minNRooms != null && maxHabSpace == null) {
-      baseQuery += " AND h.n_rooms >= " + minNRooms;
+      baseQuery += " AND h.nRooms >= " + minNRooms;
     }
     if (minNRooms == null && maxHabSpace != null) {
-      baseQuery += " AND h.n_rooms <= " + maxNRooms;
+      baseQuery += " AND h.nRooms <= " + maxNRooms;
     }
 
     if (availability != null) {
