@@ -22,6 +22,13 @@
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+        $.get('html/header.html', function(data) {
+            var h = document.getElementsByClassName("header-section");
+            h[0].innerHTML = data;
+        }, 'text');
+    </script>
 </head>
 
 <body>
@@ -31,22 +38,6 @@
     </div>
     <!-- Header Section Begin -->
     <header class="header-section">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="logo">
-                        Cloud Places
-                    </div>
-                    <ul class="main-menu">
-                        <li><a href="./getHomepage">Home</a></li>
-                        <li><a href="./getWishlist">WishList</a></li>
-                        <li><a href="./getProfile">Profile</a></li>
-                        <li><a href="./getIndex">Logout</a></li>
-                    </ul>
-                    <div id="mobile-menu-wrap"></div>
-                </div>
-            </div>
-        </div>
     </header>
     <!-- Header Section End -->
     <!-- Hero Section Begin -->
@@ -268,7 +259,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <!-- Footer Section End -->
 
     <!-- Js Plugins -->
-    <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.nice-select.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
