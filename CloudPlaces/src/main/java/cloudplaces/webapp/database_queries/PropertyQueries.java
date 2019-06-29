@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cloudplaces.webapp.database_queries;
 
 import cloudplaces.webapp.entities.House;
@@ -92,9 +87,11 @@ public class PropertyQueries {
 
     baseQuery += " )";
     List<House> houseList = em.createQuery(baseQuery).getResultList();
+    
     if (!houseList.isEmpty()) {
       return houseList;
     }
+    
     return new ArrayList<>();
   }
 
@@ -106,7 +103,7 @@ public class PropertyQueries {
     return null;
   }
 
-  public House addProperty(String name, String location, float price, int nRooms, String userEmail, int habSpace, int nBathrooms, int garage, String description, String propertyFeatures, int availability/*, List<HousePhotos> photos, List<Wishlist> whishlist, List<Review> reviews, List<RecentSearches> previousSearches*/) {
+  public House addProperty(String name, String location, float price, int nRooms, String userEmail, int habSpace, int nBathrooms, int garage, String description, String propertyFeatures, int availability, List<HousePhotos> photos) {
     Date date = new Date();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
     Optional<User> user = userRepo.findById(userEmail);
