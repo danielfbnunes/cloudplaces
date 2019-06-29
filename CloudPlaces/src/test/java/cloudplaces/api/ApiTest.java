@@ -46,7 +46,7 @@ public class ApiTest {
     @Autowired
     private UserRepository userRepo;
     
-    private final static String baseUrl = "localhost:8080/api/";
+    private final static String sRBaseUrl = "localhost:8080/api/";
     
     
     @Before
