@@ -13,11 +13,17 @@ import androidx.test.runner.AndroidJUnit4;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import pt.ua.cloudplacesandroidapp.API.CommunicationWithAPI;
+import pt.ua.cloudplacesandroidapp.ApiClient;
 import pt.ua.cloudplacesandroidapp.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -34,13 +40,25 @@ import static org.hamcrest.Matchers.is;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class LoginActivityTest {
+public class testSearchHouseByName {
 
     @Rule
     public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
 
+    @Before
+    public void setUp(){
+        CommunicationWithAPI apiInterface = ApiClient.getClient().create(CommunicationWithAPI.class);
+        Call<Void> call = apiInterface.reloadDatabase();
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {}
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {}
+        });
+    }
+
     @Test
-    public void loginActivityTest() {
+    public void testSearchHouseByName() {
         ViewInteraction appCompatAutoCompleteTextView = onView(
                 allOf(withId(R.id.email),
                         childAtPosition(

@@ -14,12 +14,18 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 
+import pt.ua.cloudplacesandroidapp.AppConstants;
 import pt.ua.cloudplacesandroidapp.Fragments.AllAccommodations;
 import pt.ua.cloudplacesandroidapp.Fragments.Settings;
 import pt.ua.cloudplacesandroidapp.R;
@@ -47,6 +53,16 @@ public class Welcome extends AppCompatActivity implements NavigationView.OnNavig
         Fragment f = new AllAccommodations();
         ft.replace(R.id.content_frame, f);
         ft.commit();
+
+        View headerView = navigationView.getHeaderView(0);
+        TextView t1 = (TextView) headerView.findViewById(R.id.username_menu);
+        TextView t2 = (TextView) headerView.findViewById(R.id.email_menu);
+        ImageView i1 = (ImageView) headerView.findViewById(R.id.photo_menu);
+        t1.setText(AppConstants.CURRENT_PERSON.getName());
+        t2.setText(AppConstants.CURRENT_PERSON.getEmail());
+        String base64Image = AppConstants.CURRENT_PERSON.getPhoto().split(",")[1];
+        byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT);
+        Glide.with(this).asBitmap().load(decodedString).into(i1);
     }
 
     @Override
