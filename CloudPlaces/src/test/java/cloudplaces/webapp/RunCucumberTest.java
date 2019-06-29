@@ -1,4 +1,4 @@
-package cloudplaces.cucumber;
+package cloudplaces.webapp;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;

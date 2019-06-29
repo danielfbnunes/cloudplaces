@@ -44,7 +44,7 @@ public class PropertyQueries {
     if (!houseList.isEmpty()) {
       return houseList;
     }
-    return null;
+    return new ArrayList<>();
   }
   
   public List<House> getProperties(String name, String location, Float minPrice, Float maxPrice, Integer minNRooms, Integer maxNRooms, Integer minHabSpace, Integer maxHabSpace, Integer availability) {
@@ -95,7 +95,7 @@ public class PropertyQueries {
     if (!houseList.isEmpty()) {
       return houseList;
     }
-    return null;
+    return new ArrayList<>();
   }
 
   public House getProperty(long id) {
@@ -106,10 +106,10 @@ public class PropertyQueries {
     return null;
   }
 
-  public House addProperty(String name, String location, float price, int nRooms, String user_email, int habSpace, int nBathrooms, int garage, String description, String propertyFeatures, int availability, List<HousePhotos> photos, List<Wishlist> whishlist, List<Review> reviews, List<RecentSearches> previousSearches) {
+  public House addProperty(String name, String location, float price, int nRooms, String userEmail, int habSpace, int nBathrooms, int garage, String description, String propertyFeatures, int availability/*, List<HousePhotos> photos, List<Wishlist> whishlist, List<Review> reviews, List<RecentSearches> previousSearches*/) {
     Date date = new Date();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-    Optional<User> user = userRepo.findById(user_email);
+    Optional<User> user = userRepo.findById(userEmail);
     if (user.isPresent()) {
       House h = new House(location, nRooms, habSpace, price, name, formatter.format(date), user.get(), nBathrooms, garage, description, propertyFeatures, availability, photos, new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
       propertyRepo.save(h);
@@ -118,7 +118,7 @@ public class PropertyQueries {
     return null;
   }
 
-  public House editProperty(String name, String location, float price, int nRooms, String email, int habSpace, int nBathrooms, int garage, String description, String propertyFeatures, int availability, List<HousePhotos> photos, List<Wishlist> whishlist, List<Review> reviews, List<RecentSearches> previousSearches) {
+  public House editProperty(String name, String location, float price, int nRooms, String email, int habSpace, int nBathrooms, int garage, String description, String propertyFeatures, int availability/*, List<HousePhotos> photos, List<Wishlist> whishlist, List<Review> reviews, List<RecentSearches> previousSearches*/) {
     Date date = new Date();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
     Optional<User> user = userRepo.findById(email);

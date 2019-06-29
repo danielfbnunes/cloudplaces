@@ -1,4 +1,4 @@
-package cloudplaces.cucumber;
+package cloudplaces.webapp;
 
 import cloudplaces.webapp.CloudPlacesApplication;
 import cloudplaces.webapp.database_queries.GeneralQueries;
@@ -59,7 +59,7 @@ public class Stepdefs {
 
         driver = new FirefoxDriver(service);
         
-        driver.manage().timeouts().implicitlyWait(180, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(240, TimeUnit.SECONDS);
         System.out.println("A pedir Login");
         driver.get(baseUrl+"login");
         System.out.println("Recebeu Login");
@@ -85,7 +85,7 @@ public class Stepdefs {
         Thread.sleep(waitingTimer);
         driver.findElement(By.xpath("//div/div/div")).click();
         try {
-            assertEquals("Cloud Places", driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Home'])[1]/preceding::div[1]")).getText());
+            assertEquals("Cloud Places", driver.findElement(By.linkText("Cloud Places")).getText());
         } catch (Error e) {
             verificationErrors.append(e.toString());
         }
@@ -168,9 +168,9 @@ public class Stepdefs {
         Thread.sleep(waitingTimer);
         driver.findElement(By.xpath("//div/div/div")).click();
         try {
-          assertEquals("Cloud Places", driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Home'])[1]/preceding::div[1]")).getText());
+            assertEquals("Cloud Places", driver.findElement(By.linkText("Cloud Places")).getText());
         } catch (Error e) {
-          verificationErrors.append(e.toString());
+            verificationErrors.append(e.toString());
         }
         driver.close();
     }

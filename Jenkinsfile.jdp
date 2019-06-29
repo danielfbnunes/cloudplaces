@@ -17,42 +17,28 @@ pipeline {
         maven 'mvn'
     }
     stages {
-
-        stage('Install') {
+        stage('Slack - Build Started Feedback') {
             steps {
                 //Send message to Slack informing that the Build is Starting
                 slackSend (message: "*Build Started* - ${env.JOB_NAME} *#${env.BUILD_NUMBER}* (<${env.BUILD_URL}|Open Build Logs>)")
-
+            }
+        }
+        
+        stage('Install + SonarQube Analysis') {
+            steps {
                 //Create a display to emulate a GUI
                 sh '''
                     Xvfb :99 -ac &
                     export DISPLAY=:99
                 '''
-
-                // Maven Install
-                sh '''
-                    cd CloudPlaces
-                    mvn -U clean install cobertura:cobertura -Dcobertura.report.format=xml
-                '''
-            }
-            //post {
-            //    always {
-            //        junit '**/target/*-reports/TEST-*.xml'
-            //            step([$class: 'CoberturaPublisher', coberturaReportFile: 'CloudPlaces/target/site/cobertura/coverage.xml'])
-            //
-            //    }
-            //}
-        }
-
-        stage('SonarQube Analysis') {
-            steps {
+                
                 withSonarQubeEnv('mySonar') {
-                    // Optionally use a Maven environment you've configured already
                     withMaven(maven:'mvn') {
+                        // Maven Install
                         sh '''
-			                cd CloudPlaces/
-			                mvn clean package sonar:sonar
-			            '''
+                            cd CloudPlaces
+                            mvn clean install sonar:sonar
+                        '''
                     }
                 }
             }
@@ -69,14 +55,34 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+        
+        stage("JMeter Analysis") {
+            steps {
+            
+                //Run project withou tests - tests have been made in the previous stages
+                sh'''
+                    cd CloudPlaces
+                    mvn -N io.takari:maven:wrapper
+                    ./mvnw clean install -DskipTests
+                    nohup ./mvnw spring-boot:run &
+                    
+                    while ! httping -qc1 http://0.0.0.0:8080 ; do sleep 1 ; done
+                '''
+                    
+                //Run jmeter tests
+                sh '''
+                    cd jmeter
+                    jmeter -Jjmeter.save.saveservice.output_format=xml  -n -t RESTAPI.jmx -l RESTAPI.jtl
+                '''
+                
+                step([$class: 'ArtifactArchiver', artifacts: 'jmeter/RESTAPI.jtl'])
+                
+            }
+        }
+
+        stage('Deploy to Production') {
             steps {
                 input 'Do you approve the deployment?'
-
-                //sh '''
-                //  cd CloudPlaces
-                //  mvn install
-                //'''
 
                 //Send jar with dependencies
                 sshPut remote: remote, from: 'CloudPlaces/target/cloudplaces-1.0-SNAPSHOT.jar', into: './deploy'

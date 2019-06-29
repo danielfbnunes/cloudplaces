@@ -11,7 +11,6 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Propagation;
 
 
 public class GeneralQueries {
@@ -24,7 +23,10 @@ public class GeneralQueries {
     @Autowired
     private EntityManager em;
     
-
+    public void reloadTestDatabase(){
+        propertyRepo.deleteAll();
+        userRepo.deleteAll();
+    }
     
     public void reloadDatabase(){
         propertyRepo.deleteAll();
