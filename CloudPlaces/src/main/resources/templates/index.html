@@ -40,71 +40,48 @@
     <header class="header-section">
     </header>
     <!-- Header Section End -->
-    <!-- Hero Section Begin -->
-    <section class="hero-section set-bg search-result" data-setbg="img/bg.jpg">
-        <div class="container hero-text text-white">
-            <h2>Cloud Places</h2>
-        </div>
-    </section>
-    <!-- Hero Section End -->
     <!-- Filter Search Section Begin -->
     <div class="filter-search">
         <div class="container ">
-            <div class="row">
+            <div class="row" >
                 <div class="col-lg-12">
-                    <form class="filter-form" style="margin-top:100px; background-color:rgba(148, 124, 176, 0.5)">
-                        <div class="location">
-                            <p>Location</p>
-                            <select class="filter-location">
-                                <option value="">London</option>
-                                <option value="">US</option>
-                                <option value="">UAE</option>
-                            </select>
+                    <div class="filter-form" style="margin-top:100px; background-color:rgba(148, 124, 176, 0.5)">
+                        <div class="location" style="padding:20px 17px 29px !important">
+                            <p style="color: black; font-weight:800">Name</p>
+                            <input type="text" name="Name" id="name" placeholder="Casa da Mata"
+                                style="background: transparent; border-right: none; border-top: none; border-left: none;"\>
                         </div>
-                        <div class="search-type">
-                            <p>Property Type</p>
-                            <select class="filter-property">
-                                <option value="">House</option>
-                                <option value="">Resort</option>
-                                <option value="">Hotel</option>
-                            </select>
+                        <div class="location" style="padding:20px 17px 29px !important">
+                            <p style="color: black; font-weight:800">Location</p>
+                            <input type="text" name="Location" id="location" placeholder="Aveiro"
+                                style="background: transparent; border-right: none; border-top: none; border-left: none;"\>
                         </div>
                         <div class="price-range">
-                            <p>Price</p>
+                            <p style="color: black; font-weight:800">Price Per Night</p>
                             <div class="range-slider">
-                                <div id="slider-range">
+                                <div id="slider-range" style="border: 1px solid gray !important">
                                     <div tabindex="0"
-                                        class="ui-slider-handle ui-corner-all ui-state-default slider-left">50k</div>
+                                        class="ui-slider-handle ui-corner-all ui-state-default slider-left" id="min_price">100$</div>
                                     <div tabindex="0"
-                                        class="ui-slider-handle ui-corner-all ui-state-default slider-right">300k</div>
+                                        class="ui-slider-handle ui-corner-all ui-state-default slider-right" id="max_price">500$</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="bedrooms">
-                            <p>Bedrooms</p>
-                            <div class="room-filter-pagi">
-                                <div class="bf-item">
-                                    <input type="radio" name="room" id="room-1">
-                                    <label for="room-1">1</label>
-                                </div>
-                                <div class="bf-item">
-                                    <input type="radio" name="room" id="room-2">
-                                    <label for="room-2">2</label>
-                                </div>
-                                <div class="bf-item">
-                                    <input type="radio" name="room" id="room-3">
-                                    <label for="room-3">3</label>
-                                </div>
-                                <div class="bf-item">
-                                    <input type="radio" name="room" id="room-4">
-                                    <label for="room-4">4+</label>
+                        <div class="price-range" style="width:17% !important">
+                                <p style="color: black; font-weight:800">Rooms</p>
+                                <div class="range-slider">
+                                    <div id="slider-range-bedrooms" style="border: 1px solid gray !important">
+                                        <div tabindex="0"
+                                            class="ui-slider-handle ui-corner-all ui-state-default slider-left" style="left: 0%; width:25px; text-align:center" id="min_rooms">1</div>
+                                        <div tabindex="0"
+                                            class="ui-slider-handle ui-corner-all ui-state-default slider-right" style="left: 0%; width:25px; text-align:center" id="max_rooms">6</div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         <div class="search-btn">
-                            <button type="submit" style="width: 100%"><i class="flaticon-search"></i>Search</button>
+                            <button onclick="postSearch()" type="submit" style="width: 100%"><i class="flaticon-search"></i>Search</button>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -113,7 +90,11 @@
     <!-- Hotel Room Section Begin -->
     <section class="hotel-rooms spad">
         <div class="container">
-            <div class="row">
+            <div th:if="!${has_elements}">
+                <h3>No available properties...</h3>
+            </div>
+            <div th:if="${has_elements}" class="row" id=housesRow>
+
                 <th:block th:each="i: ${#numbers.sequence(0, #lists.size(houses) - 1)}">
                     <div class="col-lg-4 col-md-4 col-md-6">
                         <div class="room-items">
@@ -265,6 +246,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="js/jquery-ui.min.js"></script>
     <script src="js/jquery.slicknav.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/searchProperties.js"></script>
 </body>
 
 </html>
