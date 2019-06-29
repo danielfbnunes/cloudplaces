@@ -259,7 +259,21 @@ public class CloudPlacesController {
    * @return 
    */
   @GetMapping("/getMyProperties")
-  public String loadMyProperties(Model model) {
+  public String loadMyProperties(HttpServletRequest request, Model model) {
+    if (!userLoggedIn(request)) {
+      return "redirect:/login";
+    }
+    
+    List<House> houses = new ArrayList<>();
+    
+    for (House house : propertyQueries.getAllProperties()) {
+      if (house.getUser().getEmail().equals(request.getSession().getAttribute("username"))) {
+        houses.add(house);
+      }
+    }
+    
+    model.addAttribute("userEmail", request.getSession().getAttribute("username"));
+    model.addAttribute("houses", houses);
     return "properties.html";
   }
   
@@ -306,7 +320,7 @@ public class CloudPlacesController {
    */
   @PutMapping(path = "/editProperty", consumes = "application/json", produces = "application/json")
   public String editProperty(@RequestBody HousePOJO property, Model model) {
-    propertyQueries.editProperty(property.getName(), property.getAddress(), property.getPrice(), property.getNRooms(), property.getUser().getEmail(), property.getHabSpace(), property.getNBathrooms(), property.getGarage(), property.getDescription(), property.getPropertyFeatures(), property.getAvailability()/*, property.getPhotos(), property.getWishes(), property.getReviews(), property.getSearches()*/);
+    propertyQueries.editProperty(property.getName(), property.getAddress(), property.getPrice(), property.getNRooms(), property.getUser().getEmail(), property.getHabSpace(), property.getNBathrooms(), property.getGarage(), property.getDescription(), property.getPropertyFeatures(), property.getAvailability(), property.getPhotos());
     
     return "properties.html";
   }
