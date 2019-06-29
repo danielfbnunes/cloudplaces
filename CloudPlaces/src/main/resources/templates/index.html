@@ -90,6 +90,9 @@
     <!-- Hotel Room Section Begin -->
     <section class="hotel-rooms spad">
         <div class="container">
+            <div th:if="!${has_elements}">
+                <h3>No available properties...</h3>
+            </div>
             <div th:if="${has_elements}" class="row" id=housesRow>
 
                 <th:block th:each="i: ${#numbers.sequence(0, #lists.size(houses) - 1)}">
