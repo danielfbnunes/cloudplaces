@@ -319,7 +319,12 @@ public class CloudPlacesController {
    * @return 
    */
   @PutMapping(path = "/editProperty", consumes = "application/json", produces = "application/json")
-  public String editProperty(@RequestBody HousePOJO property, Model model) {
+  public String editProperty(@RequestBody HousePOJO property, HttpServletRequest request, Model model) {
+    //check if user is logged in
+    if (!userLoggedIn(request)) {
+      return "redirect:/login";
+    }
+    
     propertyQueries.editProperty(property.getName(), property.getAddress(), property.getPrice(), property.getNRooms(), property.getUser().getEmail(), property.getHabSpace(), property.getNBathrooms(), property.getGarage(), property.getDescription(), property.getPropertyFeatures(), property.getAvailability(), property.getPhotos());
     
     return "properties.html";
