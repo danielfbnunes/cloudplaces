@@ -62,14 +62,14 @@ public class CloudPlacesControllerTest {
   
   /**
    * Test of propertiesPagePost method, of class CloudPlacesController.
+   * Condition 1 - name is null
    */
   @Test
-  public void testPropertiesPagePost(){
-    System.out.println("propertiesPagePost");
+  public void testPropertiesPagePostNullName(){
+    System.out.println("testPropertiesPagePostNullName");
     // prepare output data
     List<House> output1= new ArrayList<>();
     
-    // Condition 1 - name is null
     when(propertyQueries.getProperties(null, "Aveiro",(float)2, (float) 3, 4, 5, null, null, null)).thenReturn(output1);
     
     try{
@@ -84,7 +84,19 @@ public class CloudPlacesControllerTest {
       fail("Unable to Convert Url");
     }
     
-    // Condition 2 - location is null
+  }
+  
+  
+  /**
+   * Test of propertiesPagePost method, of class CloudPlacesController.
+   * Condition 2 - location is null
+   */
+  @Test
+  public void testPropertiesPagePostNullLocation(){
+    System.out.println("testPropertiesPagePostNullLocation");
+    // prepare output data
+    List<House> output1= new ArrayList<>();
+    
     House h1 = new House();
     h1.setHabSpace(33);
     output1.add(h1);
@@ -103,7 +115,21 @@ public class CloudPlacesControllerTest {
       fail("Unable to Convert Url");
     }
     
-    // Condition 2 - no one is null
+  }
+  
+  
+  /**
+   * Test of propertiesPagePost method, of class CloudPlacesController.
+   * Condition 3 - no one is null
+   */
+  @Test
+  public void testPropertiesPagePostNoNulls(){
+    System.out.println("testPropertiesPagePostNoNulls");
+    // prepare output data
+    List<House> output1= new ArrayList<>();
+    
+    House h1 = new House();
+
     h1.setHabSpace(100);
     when(propertyQueries.getProperties("Casa do Prado", "Porto",(float)2, (float) 3, 4, 5, null, null, null)).thenReturn(output1);
     
@@ -119,7 +145,6 @@ public class CloudPlacesControllerTest {
     } catch (Exception ex) {
       fail("Unable to Convert Url");
     }
-    
   }
   
   
