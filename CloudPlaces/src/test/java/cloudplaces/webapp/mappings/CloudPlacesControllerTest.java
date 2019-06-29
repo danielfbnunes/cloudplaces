@@ -129,8 +129,8 @@ public class CloudPlacesControllerTest {
     List<House> output1= new ArrayList<>();
     
     House h1 = new House();
-
     h1.setHabSpace(100);
+    output1.add(h1);
     when(propertyQueries.getProperties("Casa do Prado", "Porto",(float)2, (float) 3, 4, 5, null, null, null)).thenReturn(output1);
     
     try{
