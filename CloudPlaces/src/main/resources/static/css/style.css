@@ -159,6 +159,10 @@ ol {
 	display: none
 }
 
+#noProperties {
+	height: 250px
+}
+
 /* buttons */
 
 .site-btn {
