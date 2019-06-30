@@ -28,8 +28,8 @@ pipeline {
 
         stage('Android Testing') {
             steps {
-                   sshPut remote: remote, from: 'CloudPlacesAndroidApp/.', into: './AndroidApp'
-                   sshCommand remote: remote, command: "cd AndroidApp", sudo:false
+                   sshPut remote: remote, from: 'CloudPlacesAndroidApp/.', into: '.'
+                   sshCommand remote: remote, command: "cd CloudPlacesAndroidApp", sudo:false
                    sshCommand remote: remote, command: "gradle wrapper --gradle-version 5.1.1", sudo:true
                    sshCommand remote: remote, command: "./gradlew testDebugUnitTest", sudo:true
             }
