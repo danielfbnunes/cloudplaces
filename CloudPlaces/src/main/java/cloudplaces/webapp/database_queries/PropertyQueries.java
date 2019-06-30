@@ -1,6 +1,7 @@
 package cloudplaces.webapp.database_queries;
 
 import cloudplaces.webapp.entities.House;
+import cloudplaces.webapp.entities.HousePhotos;
 import cloudplaces.webapp.entities.PropertyRepository;
 import cloudplaces.webapp.entities.Review;
 import cloudplaces.webapp.entities.ReviewRepository;
