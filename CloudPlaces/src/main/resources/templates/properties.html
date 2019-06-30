@@ -96,10 +96,7 @@
                 <th:block th:each="i: ${#numbers.sequence(0, #lists.size(houses) - 1)}">
                     <div class="col-lg-4 col-md-4 col-md-6">
                         <div class="room-items">
-                            <div th:attr="data-setbg=${houses[i].photos[0].photo}" class="room-img set-bg" data-setbg="img/rooms/6.jpg">
-                                <a href="#" class="room-content">
-                                    <i class="flaticon-heart"></i>
-                                </a>
+                            <div th:attr="data-setbg=${houses[i].photos[0].photo}" class="room-img set-bg">
                             </div>
                             <div class="room-text">
                                 <div class="room-details">
@@ -109,14 +106,14 @@
                                     </div>
                                 </div>
                                 <a id="removeButton" class="site-btn btn-line col-lg-4 col-md-4 col-sm-4" th:attr="onclick=|removeProperty('${houses[i].houseId}')|" >Remove</a>
-                                <a id="editButton" class="site-btn btn-line col-lg-4 col-md-4 col-sm-4" data-toggle="modal" href="#editPropertyModal">Edit</a>
+                                <a id="editButton" class="site-btn btn-line col-lg-4 col-md-4 col-sm-4" data-toggle="modal" th:href="|#editPropertyModal${houses[i].houseId}|">Edit</a>
                                 <a th:href="${'/getProperty?id='+ houses[i].houseId}" class="site-btn btn-line col-lg-12 col-md-12 col-sm-12">View Property</a>
                             </div>
                         </div>
                     </div>
 
                     <!-- Modal -->
-                    <div class="modal fade" id="editPropertyModal" role="dialog">
+                    <div class="modal fade" th:id="|editPropertyModal${houses[i].houseId}|" role="dialog">
                         <div class="modal-dialog modal-lg" role="document">
                             <!-- Modal content-->
                             <div class="modal-content">
