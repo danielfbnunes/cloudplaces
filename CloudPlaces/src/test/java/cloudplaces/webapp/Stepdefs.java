@@ -485,15 +485,9 @@ public class Stepdefs {
 
     @Then("a popup should appear with the comparison of the 2 houses")
     public void a_popup_should_appear_with_the_comparison_of_the_houses2() {
-        driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='×'])[1]/following::td[2]")).click();
+        driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Colorlib'])[1]/following::div[4]")).click();
         try {
-            assertEquals("House 1", driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='×'])[1]/following::b[1]")).getText());
-        } catch (Error e) {
-            sVerificationErrors.append(e.toString());
-        }
-        driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='House 1'])[2]/following::td[1]")).click();
-        try {
-            assertEquals("House 2", driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='House 1'])[2]/following::b[1]")).getText());
+            assertEquals("Comparator", driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Colorlib'])[1]/following::h4[1]")).getText());
         } catch (Error e) {
             sVerificationErrors.append(e.toString());
         }
@@ -529,6 +523,64 @@ public class Stepdefs {
         driver.close();
     }
 
+    //Access Control
+    
+    @When("he logs out")
+    public void he_logs_out() throws InterruptedException {
+        driver.get(baseUrl+"logout");     
+        //driver.findElement(By.linkText("Logout")).click();
+        Thread.sleep(sWaitingTimer);
+    }
+
+    @Then("can't get a property")
+    public void can_t_get_a_property() throws InterruptedException {
+        driver.get(baseUrl+"getProperty?id=1");
+        Thread.sleep(sWaitingTimer);
+        driver.findElement(By.xpath("//h1")).click();
+        try {
+          assertEquals("Cloud Places", driver.findElement(By.xpath("//h1")).getText());
+        } catch (Error e) {
+          sVerificationErrors.append(e.toString());
+        }
+    }
+
+    @Then("can't get his profile")
+    public void can_t_get_his_profile() throws InterruptedException {
+        driver.get(baseUrl+"getProfile");
+        Thread.sleep(sWaitingTimer);
+        driver.findElement(By.xpath("//h1")).click();
+        try {
+          assertEquals("Cloud Places", driver.findElement(By.xpath("//h1")).getText());
+        } catch (Error e) {
+          sVerificationErrors.append(e.toString());
+        }
+    }
+
+    @Then("can't  get all properties")
+    public void can_t_get_all_properties() throws InterruptedException {
+        driver.get(baseUrl+"listProperty");
+        Thread.sleep(sWaitingTimer);
+        driver.findElement(By.xpath("//h1")).click();
+        try {
+          assertEquals("Cloud Places", driver.findElement(By.xpath("//h1")).getText());
+        } catch (Error e) {
+          sVerificationErrors.append(e.toString());
+        }
+    }
+    
+    @Then("can't get is properties")
+    public void can_t_get_is_properties() throws InterruptedException {
+        driver.get(baseUrl+"getMyProperties");
+        Thread.sleep(sWaitingTimer);
+        driver.findElement(By.xpath("//h1")).click();
+        try {
+          assertEquals("Cloud Places", driver.findElement(By.xpath("//h1")).getText());
+        } catch (Error e) {
+          sVerificationErrors.append(e.toString());
+        }
+        driver.close();
+    }
+    
     private String closeAlertAndGetItsText() {
         try {
           Alert alert = driver.switchTo().alert();
