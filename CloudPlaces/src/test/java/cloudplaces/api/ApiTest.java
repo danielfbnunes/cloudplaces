@@ -356,11 +356,44 @@ public class ApiTest {
     
     
     @Test
-    @Ignore
     /**
      * Test of api call api/delete_from_wishlsit/{user_email}, of class UserResources.
      */
     public void deleteFromWishListTest(){
-        fail("Query mal implementada");
+      try{
+        
+        Map<String, String> data = new HashMap<>();
+        data.put("user_email", "daniel@ua.pt");
+        data.put("property_id", "1");
+        String dataString = mapperObj.writeValueAsString(data);
+        mvc.perform(MockMvcRequestBuilders.post("/api/add_to_wishlist")
+            .content(dataString)
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON));
+            
+        mvc.perform(MockMvcRequestBuilders.delete("/api/delete_from_wishlist?email=daniel@ua.pt&property_id=1", 1L)
+            .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andExpect(content().string(containsString("true")));
+      }
+      catch (Exception e){
+        fail();
+      }
+    }
+    
+    @Test
+    /**
+     * Test of api call api/delete_from_wishlsit/{user_email}, of class UserResources.
+     */
+    public void deleteFromWishListErrorTest(){
+      try{           
+        mvc.perform(MockMvcRequestBuilders.delete("/api/delete_from_wishlist?email=daniel@ua.pt&property_id=1", 1L)
+            .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andExpect(content().string(containsString("\"Error\":\"House or User in question not found\"")));
+      }
+      catch (Exception e){
+        fail();
+      }
     }
 }

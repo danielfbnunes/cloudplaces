@@ -114,7 +114,7 @@ public class UserQueries {
           if (w1.getWhishListId().equals(w2.getWhishListId())){
             Optional<Wishlist> wishlist = wishlistRepo.findById(w1.getWhishListId());
             if (wishlist.isPresent()){
-              wishlistRepo.deleteById(w1.getWhishListId());
+              em.createQuery("DELETE FROM Wishlist w WHERE w.whishListId = " + w1.getWhishListId().toString()).executeUpdate();
               return true;
             }
           }
