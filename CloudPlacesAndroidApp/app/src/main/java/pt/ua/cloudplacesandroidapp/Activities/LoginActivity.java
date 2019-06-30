@@ -54,14 +54,6 @@ public class LoginActivity extends AppCompatActivity {
                 attemptLogin();
             }
         });
-
-        Button registerButton = (Button) findViewById(R.id.email_sign_in_button2);
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, Register.class));
-            }
-        });
     }
 
     /**
