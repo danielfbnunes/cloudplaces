@@ -227,12 +227,13 @@ public class CloudPlacesController {
     model.addAttribute("userImage" , tmp.getUser().getPhoto());
     
     String[] houseImages = new String[tmp.getPhotos().size()];
-    for (int i=0; i<tmp.getPhotos().size(); i++)
-      houseImages[i] = tmp.getPhotos().get(0).getPhoto();
+    for (int i=0; i<tmp.getPhotos().size(); i++){
+      houseImages[i] = tmp.getPhotos().get(i).getPhoto();
+    }
+    
     
     model.addAttribute("houseImages" , houseImages);
-    
-    
+        
     return "single-property.html";
   }
   
