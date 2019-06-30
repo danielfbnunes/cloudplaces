@@ -141,7 +141,7 @@ public class QueriesTests {
         System.out.println("getWishlist");
 
         ArrayList<Object> expResult = null;
-        List<House> result = userQueries.getWishlist("test@ua.pt");
+        Object result = userQueries.getWishlist("test@ua.pt");
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

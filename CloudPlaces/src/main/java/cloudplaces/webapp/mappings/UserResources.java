@@ -78,8 +78,8 @@ public class UserResources {
   @ApiOperation("Returns a list of properties")
   @GetMapping("api/get_wishlist")
   public Object getWishlist(@RequestParam("user_email") final String user_email) {
-    List<House> h = query.getWishlist(user_email);
-    if (!h.isEmpty()){
+    Object h = query.getWishlist(user_email);
+    if (h != null){
       return h;
     }
     error.put(errorMessage, "User not found with wishlist");
