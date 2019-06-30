@@ -31,26 +31,13 @@
     </div>
     <!-- Header Section Begin -->
     <header class="header-section">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="logo">
-                        Cloud Places
-                    </div>
-                    <ul class="main-menu">
-                        <li><a href="./getHomepage">Home</a></li>
-                        <li><a href="./getWishlist">WishList</a></li>
-                        <li><a href="./getProfile">Profile</a></li>
-                        <li><a href="./getIndex">Logout</a></li>
-                    </ul>
-                    <div id="mobile-menu-wrap"></div>
-                </div>
-            </div>
-        </div>
     </header>
     <!-- Header Section End -->
     <!-- Hero Section Begin -->
-    <section class="hero-section set-bg single-property-r" data-setbg="img/bg.jpg">
+    <section class="hero-section set-bg search-result" data-setbg="img/bg.jpg">
+        <div class="container hero-text text-white">
+            <h2></h2>
+        </div>
     </section>
     <!-- Hero Section End -->
     <!-- Single Property Section Begin -->
@@ -60,7 +47,8 @@
                 <div class="col-lg-12">
                     <div class="property-title">
                         <h3 th:text="${house.getName()}"></h3>
-                        <a th:text="${house.getAddress()}" href="#"><i class="fa flaticon-placeholder"></i> London, 76 Guild
+                        <a th:text="${house.getAddress()}" href="#"><i class="fa flaticon-placeholder"></i> London, 76
+                            Guild
                             Street, EC3P 3WF</a>
                     </div>
                     <div class="property-price">
@@ -77,7 +65,7 @@
                 <div class="col-lg-12">
                     <div class="property-img owl-carousel">
                         <th:block th:each="housePhoto : ${houseImages}">
-                            <div  class="single-img" style="text-align: center">
+                            <div class="single-img" style="text-align: center">
                                 <img th:src="${housePhoto}" alt="" style="height: 450px; width: auto !important">
                             </div>
                         </th:block>
@@ -148,10 +136,10 @@
                     <div class="row pb-30">
                         <div class="col-lg-12">
                             <div class="contact-service">
-                                
-                                
-                                <p >Listed by</p>
-                                <img th:src="${userImage}" alt="" style="height: 100px; width: auto !important" >
+
+
+                                <p>Listed by</p>
+                                <img th:src="${userImage}" alt="" style="height: 100px; width: auto !important">
                                 <h5 th:text="${user.getName()}"></h5>
                                 <table>
                                     <tr>
@@ -229,6 +217,12 @@
     <script src="js/jquery-ui.min.js"></script>
     <script src="js/jquery.slicknav.js"></script>
     <script src="js/main.js"></script>
+    <script type="text/javascript">
+        $.get('html/header.html', function(data) {
+            var h = document.getElementsByClassName("header-section");
+            h[0].innerHTML = data;
+        }, 'text');
+    </script>
 </body>
 
 </html>
