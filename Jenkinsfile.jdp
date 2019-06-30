@@ -17,15 +17,23 @@ pipeline {
         maven 'mvn'
     }
     stages {
+        stage('Slack - Build Started Feedback') {
+            steps {
+                //Send message to Slack informing that the Build is Starting
+                slackSend (message: "*Build Started* - ${env.JOB_NAME} *#${env.BUILD_NUMBER}* (<${env.BUILD_URL}|Open Build Logs>)")
+            }
+        }
+        
         
 
         stage('Android Testing') {
             steps {
                 //Create a display to emulate a GUI
-                 sshPut remote: remote, from: 'CloudPlacesAndroidApp', into: ''./AndroidApp
+                sh '''
+                    sleep 51
+                '''
             }
         }
-
     }
     post {
         always {
