@@ -28,10 +28,8 @@ pipeline {
 
         stage('Android Testing') {
             steps {
-                //Create a display to emulate a GUI
-                sh '''
-                    sleep 51
-                '''
+                  sshPut remote: remote, from: 'CloudPlaces/.', into: './AndroidApp'
+
             }
         }
     }
