@@ -60,6 +60,16 @@
                 location.reload(); 
             })
         }
+
+        function removeProperty(propertyId) {
+            $.ajax({
+                url: '/removeProperty?id=' + propertyId,
+                type: 'DELETE',
+                processData: false
+            })
+
+            location.reload();
+        }
     </script>
 </head>
 
@@ -82,7 +92,7 @@
     <!-- Hotel Room Section Begin -->
     <section class="hotel-rooms spad">
         <div class="container">
-            <div class="row">
+            <div th:if="${#lists.size(houses) > 0}" class="row">
                 <th:block th:each="i: ${#numbers.sequence(0, #lists.size(houses) - 1)}">
                     <div class="col-lg-4 col-md-4 col-md-6">
                         <div class="room-items">
@@ -98,9 +108,9 @@
                                         <i class="flaticon-placeholder"></i><span th:text="${houses[i].address}"></span>
                                     </div>
                                 </div>
-                                <a class="site-btn btn-line col-lg-4 col-md-4 col-sm-4">Remove</a>
+                                <a id="removeButton" class="site-btn btn-line col-lg-4 col-md-4 col-sm-4" th:attr="onclick=|removeProperty('${houses[i].houseId}')|" >Remove</a>
                                 <a id="editButton" class="site-btn btn-line col-lg-4 col-md-4 col-sm-4" data-toggle="modal" href="#editPropertyModal">Edit</a>
-                                <a href="./single-property.html" class="site-btn btn-line col-lg-12 col-md-12 col-sm-12">View Property</a>
+                                <a th:href="${'/getProperty?id='+ houses[i].houseId}" class="site-btn btn-line col-lg-12 col-md-12 col-sm-12">View Property</a>
                             </div>
                         </div>
                     </div>
@@ -184,6 +194,9 @@
                         </div>
                     </div>
                 </th:block>
+            </div>
+            <div id="noProperties" th:unless="${#lists.size(houses) > 0}" class="row">
+                <h3>There are no properties to show!</h3>
             </div>
         </div>
     </section>
