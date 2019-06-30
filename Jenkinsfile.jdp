@@ -37,7 +37,7 @@ pipeline {
                         // Maven Install
                         sh '''
                             cd CloudPlaces
-                            mvn clean install sonar:sonar
+                            mvn clean package sonar:sonar
                         '''
                     }
                 }
@@ -70,10 +70,7 @@ pipeline {
             
                 //Run project withou tests - tests have been made in the previous stages
                 sh'''
-                    cd CloudPlaces
-                    mvn -N io.takari:maven:wrapper
-                    ./mvnw clean install -DskipTests
-                    nohup ./mvnw spring-boot:run &
+                    java -jar CloudPlaces/target/cloudplaces-1.0-SNAPSHOT.jar &
                     
                     while ! httping -qc1 http://0.0.0.0:8080 ; do sleep 1 ; done
                 '''
