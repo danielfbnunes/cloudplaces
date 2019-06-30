@@ -6,6 +6,10 @@ String.prototype.replaceAll = function(search, replacement) {
 };
 
 function postSearch() {
+
+    // Reset compare list when searching for houses
+    compare_list = [];
+
     var name = $("#name").val();
     var location = $("#location").val();
     var min_price = $("#min_price").text().split("$")[0].replaceAll(" ","");
@@ -27,20 +31,35 @@ function postSearch() {
         url: queryUrl,
         success: function (response) {
             document.getElementById("housesRow").innerHTML = "";
+            var innerHouseRow = "";
+
+            if (response.length > 0) {
+                innerHouseRow += 
+                '<div class="col-lg-12" style="text-align: right; padding: 10px">' +
+                    '   <button disabled onclick="compareHouses()" data-toggle="modal" data-target="#myModal" id="compareHouses" type="button" class="btn btn-md btn-success">Compare Selected Houses</button>' +
+                '</div>';
+            }
+            else{
+                innerHouseRow += 
+                '<div th:if="!${has_elements}">' +
+                '<h3>No available properties...</h3>' + 
+                '</div>';
+            }
+
             response.forEach(element => {
-                document.getElementById("housesRow").innerHTML +=
+                innerHouseRow +=
                     '   <div class="col-lg-4 col-md-4 col-md-6">' +
                     '        <div class="room-items">' +
                     '            <div class="room-img" style="height:100% !important">' +
                     '                <img src="' + element["photos"][0]["photo"] + '"/>' +
-                    '                <a href="#" class="room-content">' +
-                    '                    <i class="flaticon-heart"></i>' +
+                    '                   <a class="room-content">' +
+                    '                    <button onclick="button_comparator_clicked(this)" clicked="false" type="button" class="btn btn-sm btn-warning" style="background-color: rgba(252, 185, 65, 0.5)">Compare</button>' +
                     '                </a>' +
                     '            </div>' +
                     '            <div class="room-text">' +
                     '                <div class="room-details">' +
                     '                    <div class="room-title">' +
-                    '                        <h5>' + element["name"] + '</h5>' +
+                    '                        <h5 class="name_c">' + element["name"] + '</h5>' +
                     '                        <i class="flaticon-placeholder"></i> <span>' + element["address"] + '</span>' +
                     '                        ' +
                     '                    </div>' +
@@ -51,34 +70,36 @@ function postSearch() {
                     '                            <p>Lot Size</p>' +
                     '                            <img src="img/rooms/size.png" alt="">' +
                     '                            <i class="flaticon-bath"></i>' +
-                    '                            <span>' + element["habSpace"] + '</span> <span>sqft</span>' +
+                    '                            <span class="lotSize_c">' + element["habSpace"] + '</span> <span>sqft</span>' +
                     '                        </div>' +
                     '                        <div class="beds">' +
                     '                            <p>Rooms</p>' +
                     '                            <img src="img/rooms/bed.png" alt="">' +
-                    '                            <span>' + element["nrooms"] + '</span>' +
+                    '                            <span class="rooms_c">' + element["nrooms"] + '</span>' +
                     '                        </div>' +
                     '                        <div class="baths">' +
                     '                            <p>Baths</p> ' +
                     '                            <img src="img/rooms/bath.png" alt="">' +
-                    '                            <span>' + element["nbathrooms"] + '</span>' +
+                    '                            <span class="bathrooms_c">' + element["nbathrooms"] + '</span>' +
                     '                        </div>' +
                     '                        <div class="garage">' +
                     '                            <p>Garage</p>' +
                     '                            <img src="img/rooms/garage.png" alt="">' +
-                    '                            <span>' + element["garage"] + '</span>' +
+                    '                            <span class="garage_c">' + element["garage"] + '</span>' +
                     '                        </div>' +
                     '                    </div> ' +
                     '                </div> ' +
                     '                <div class="room-price"> ' +
                     '                    <p>Price Per Month</p> ' +
-                    '                    <span>$</span><span>' + element["price"] + '</span> ' +
+                    '                    <span>$</span><span class="price_c">' + element["price"] + '</span> ' +
                     '                </div> ' +
                     '                <a href="/getProperty?id=' + element["houseId"] + '" class="site-btn btn-line">View Property</a> ' +
                     '            </div> ' +
                     '        </div> ' +
                     '    </div>';
             });
+
+            document.getElementById("housesRow").innerHTML = innerHouseRow;
 
             // For testing Purposes
             console.log(response);
