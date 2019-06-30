@@ -51,7 +51,7 @@ public class QueriesTests {
     public void setUp() {
         generalQueries.reloadTestDatabase();
         userQueries.addUser("Joao", "joao@ua.pt", "password", "987654321", "photo");
-        propertyQueries.addProperty("House 1", "Aveiro", 100, 2, "joao@ua.pt", 50, 1, 2, "Nice house", "garden;garage", 1/*, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()*/);
+        propertyQueries.addProperty("House 1", "Aveiro", 100, 2, "joao@ua.pt", 50, 1, 2, "Nice house", "garden;garage", 1, new ArrayList<>());
 
     }
 

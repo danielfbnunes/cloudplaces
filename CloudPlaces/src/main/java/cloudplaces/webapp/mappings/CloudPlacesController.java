@@ -4,15 +4,13 @@
 
 package cloudplaces.webapp.mappings;
 
-
-
 import cloudplaces.webapp.database_queries.PropertyQueries;
 import cloudplaces.webapp.database_queries.UserQueries;
-
 import cloudplaces.webapp.entities.House;
 import cloudplaces.webapp.entities.User;
 import cloudplaces.webapp.pojo.HousePOJO;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
@@ -278,11 +276,13 @@ public class CloudPlacesController {
    * @return 
    */
   @GetMapping("/listProperty")
-  public String loadListProperty(
-          @RequestParam(name="email", required=true) final String email,
-          Model model
-  ){
-    model.addAttribute("userEmail", email);
+  public String loadListProperty(HttpServletRequest request, Model model){
+    //check if user is logged in
+    if (!userLoggedIn(request)) {
+      return "redirect:/login";
+    }
+    
+    model.addAttribute("userEmail", request.getSession().getAttribute("username"));
     return "list-property.html";
   }
   
@@ -293,8 +293,13 @@ public class CloudPlacesController {
    * @return 
    */
   @PostMapping(path = "/addProperty", consumes = "application/json", produces = "application/json")
-  public String addProperty(@RequestBody HousePOJO property, Model model) {
-    propertyQueries.addProperty(property.getName(), property.getAddress(), property.getPrice(), property.getNRooms(), property.getUser().getEmail(), property.getHabSpace(), property.getNBathrooms(), property.getGarage(), property.getDescription(), property.getPropertyFeatures(), property.getAvailability()/*, property.getPhotos(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()*/);
+  public String addProperty(@RequestBody HousePOJO property, HttpServletRequest request, Model model) {
+    //check if user is logged in
+    if (!userLoggedIn(request)) {
+      return "redirect:/login";
+    }
+    
+    propertyQueries.addProperty(property.getName(), property.getAddress(), property.getPrice(), property.getNRooms(), property.getUser().getEmail(), property.getHabSpace(), property.getNBathrooms(), property.getGarage(), property.getDescription(), property.getPropertyFeatures(), property.getAvailability(), property.getPhotos());
     
     return "list-property.html";
   }

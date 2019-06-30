@@ -99,7 +99,7 @@ public class PropertyResources {
     @ApiOperation("Adds a property")
     @PostMapping("api/add_property")
     public House addProperty(@RequestBody HousePOJO house){
-        return query.addProperty(house.getName(), house.getAddress(), house.getPrice(), house.getNRooms(), house.getUser().getEmail(), house.getHabSpace(), house.getNBathrooms(), house.getGarage(), house.getDescription(), house.getPropertyFeatures(), house.getAvailability()/*, house.getPhotos(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()*/);
+        return query.addProperty(house.getName(), house.getAddress(), house.getPrice(), house.getNRooms(), house.getUser().getEmail(), house.getHabSpace(), house.getNBathrooms(), house.getGarage(), house.getDescription(), house.getPropertyFeatures(), house.getAvailability(), house.getPhotos());
     }
     
     /**
