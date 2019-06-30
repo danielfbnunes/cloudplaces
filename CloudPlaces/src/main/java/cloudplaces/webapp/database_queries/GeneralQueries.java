@@ -127,9 +127,9 @@ public class GeneralQueries {
         propertyRepo.save(h2);
         
                 photos = new ArrayList<>();
-        h = new HousePhotos(house2Photo1b64);
+        h = new HousePhotos(house3Photo1b64);
         photos.add(h);
-        h = new HousePhotos(house2Photo1b64);
+        h = new HousePhotos(house3Photo1b64);
         photos.add(h);
         
         House h3 = new House(
