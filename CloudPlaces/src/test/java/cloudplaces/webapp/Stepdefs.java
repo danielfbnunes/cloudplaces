@@ -48,12 +48,12 @@ public class Stepdefs {
     //Login Test Success
     @Given("John as an account")
     public void creatJohnsAccount(){
-        gq.reloadDatabase();
+        gq.reloadSeleniumDatabase();
     }
     
     @Given("he is on the login page")
     public void getLoginPage() throws InterruptedException{
-        gq.reloadDatabase();
+        gq.reloadSeleniumDatabase();
         Map<String, String> environment = new HashMap<>();
         // check if a GUI is available
         if(System.getenv("DISPLAY") == null || System.getenv("DISPLAY").equals(":99")){
@@ -220,7 +220,7 @@ public class Stepdefs {
     //Search By Name
     @Given("John is logged in")
     public void doLogin() throws InterruptedException{
-        gq.reloadDatabase();
+        gq.reloadSeleniumDatabase();
         Map<String, String> environment = new HashMap<>();
         // check if a GUI is available
         if(System.getenv("DISPLAY") == null || System.getenv("DISPLAY").equals(":99")){
