@@ -54,9 +54,6 @@
                     <div class="property-price">
                         <p>Price Per Month</p>
                         <span th:text="${house.getPrice()}"></span><span> $</span>
-                        <a href="#" style="height:50px">
-                            <i class="flaticon-heart"></i>
-                        </a>
                     </div>
 
                 </div>
@@ -64,9 +61,9 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="property-img owl-carousel">
-                        <th:block th:each="housePhoto : ${houseImages}">
+                        <th:block th:each="i: ${#numbers.sequence(0, #lists.size(houseImages) - 1)}">
                             <div class="single-img" style="text-align: center">
-                                <img th:src="${housePhoto}" alt="" style="height: 450px; width: auto !important">
+                                <img th:src="${houseImages[i]}" alt="" style="height: 450px; width: auto !important">
                             </div>
                         </th:block>
                     </div>
