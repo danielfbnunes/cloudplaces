@@ -48,6 +48,7 @@ public class Stepdefs {
     //Login Test Success
     @Given("John as an account")
     public void creatJohnsAccount(){
+        gq.reloadDatabase();
         gq.reloadSeleniumDatabase();
     }
     
