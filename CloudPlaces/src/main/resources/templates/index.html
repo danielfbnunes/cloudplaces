@@ -23,11 +23,161 @@
     <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <script src="js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript">
-        $.get('html/header.html', function(data) {
-            var h = document.getElementsByClassName("header-section");
-            h[0].innerHTML = data;
-        }, 'text');
+    
+
+    <script>
+        compare_list = [];
+        nHouses = 3;
+
+        //disable button
+        $(document).ready(function () {
+            document.getElementById("compareHouses").disabled = true;
+        });
+
+        function button_comparator_clicked(button) {
+
+            if (button.clicked == "true") {
+                //change color
+                button.style.backgroundColor = "rgba(252, 185, 65, 0.5)";
+                button.clicked = "false";
+
+                //remove from compare_list
+                compare_list.pop(fromButtonToHouseDic(button));
+            } else {
+                if (add_to_compare_list(button)) {
+                    //change color
+                    button.style.backgroundColor = "rgba(252, 185, 65, 1)";
+                    button.clicked = "true";
+                }
+            }
+            treatCompareHousesButton();
+        }
+
+
+        function add_to_compare_list(button) {
+            if (compare_list.length < nHouses) {
+                compare_list.push(fromButtonToHouseDic(button));
+                return true;
+            } else {
+                alert("It is only possible to compare " + nHouses + " houses!");
+                return false;
+            }
+        }
+
+
+        function fromButtonToHouseDic(button) {
+
+            var houseInfoDiv = (((button.parentElement).parentElement).parentElement);
+
+            var houseSpecs = {}
+            houseSpecs["name"] = (houseInfoDiv.getElementsByClassName("name_c"))[0].innerHTML;
+            houseSpecs["lotSize"] = parseFloat((houseInfoDiv.getElementsByClassName("lotSize_c"))[0].innerHTML);
+            houseSpecs["rooms"] = parseFloat((houseInfoDiv.getElementsByClassName("rooms_c"))[0].innerHTML);
+            houseSpecs["bathrooms"] = parseFloat((houseInfoDiv.getElementsByClassName("bathrooms_c"))[0].innerHTML);
+            houseSpecs["price"] = parseFloat((houseInfoDiv.getElementsByClassName("price_c"))[0].innerHTML);
+            houseSpecs["garage"] = parseFloat((houseInfoDiv.getElementsByClassName("garage_c"))[0].innerHTML);
+
+            return houseSpecs;
+        }
+
+
+        function compareHouses() {
+            better = getMaxs()
+            // modal styling
+
+            // THEAD
+            var theadTr = document.getElementById("comparator_thead_tr");
+            
+            var colLg = compare_list.length == 2 ? 4 : 3;
+            var classBootstrap = " class=\"col-lg-" + colLg + "\" style=\"text-align:center";
+
+            var innerHTMLThead = "<td" + classBootstrap + "\"></td>";
+            compare_list.forEach(function (house) {
+                    innerHTMLThead += "<td" + classBootstrap + "\"><b>" + house["name"] +"</td>";
+            });
+            theadTr.innerHTML = innerHTMLThead;
+
+            //TABLE BODY
+            var tableBody = document.getElementById("comparator_tbody");
+            var tableRow ="";
+
+            var keys = Object.keys(compare_list[0]);
+
+            var  index = keys.indexOf("name");
+            if (index > -1) {
+                keys.splice(index, 1);
+            }
+            console.log(keys);
+
+            keys.forEach(function (key) {
+                console.log(key);
+                tableRow +="<tr>";
+                tableRow += "<td" + classBootstrap + "\"><b>" + key +"</td>";
+                
+                
+                compare_list.forEach(function (house) {
+                    // better option
+                    console.log(house);
+                    console.log(better);
+                    if (house[key] == better[key])
+                        tableRow += "<td" + classBootstrap + "; background-color:rgba(135, 211, 124, 0.3)\">" + house[key] +"</td>";
+                    else
+                        tableRow += "<td" + classBootstrap + "\">" + house[key] +"</td>";
+                });
+                tableRow+="</tr>";
+            });
+            console.log(tableRow)
+            tableBody.innerHTML = tableRow;
+
+
+
+
+        }
+
+
+        function getMaxs() {
+            console.log(compare_list[0]);
+            var keys = Object.keys(compare_list[0]);
+            var  index = keys.indexOf("name");
+            if (index > -1) {
+                keys.splice(index, 1);
+            }
+            var maxsDic = {};
+
+            keys.forEach(function (key) {
+                if(key != "price")
+                    maxsDic[key] = -999999999;
+                else
+                    maxsDic[key] = 999999999;
+
+                compare_list.forEach(function (house) {
+                    console.log(key);
+                    if(key != "price"){
+                        if (house[key] > maxsDic[key])
+                            maxsDic[key] = house[key];
+                    }
+                    else{                    
+                        if (house[key] < maxsDic[key])
+                                maxsDic[key] = house[key];
+                        }
+                });
+            });
+
+            return maxsDic;
+
+            
+        }
+
+        function treatCompareHousesButton() {
+            if (compare_list.length > 1) {
+                document.getElementById("compareHouses").disabled = false;
+                return true;
+            } else {
+                document.getElementById("compareHouses").disabled = true;
+                return false;
+            }
+
+        }
     </script>
 </head>
 
@@ -37,49 +187,62 @@
         <div class="loader"></div>
     </div>
     <!-- Header Section Begin -->
-    <header class="header-section">
+    <header class="header-section">    
     </header>
+        <!-- Header Section End -->
+        <!-- Hero Section Begin -->
+        <section class="hero-section set-bg single-property-r" data-setbg="img/bg.jpg">
+            <div class="container hero-text text-white">
+            </div>
+        </section>
     <!-- Header Section End -->
     <!-- Filter Search Section Begin -->
     <div class="filter-search">
         <div class="container ">
-            <div class="row" >
+            <div class="row">
                 <div class="col-lg-12">
-                    <div class="filter-form" style="margin-top:100px; background-color:rgba(148, 124, 176, 0.5)">
+                    <div class="filter-form" style="background-color:rgba(148, 124, 176, 0.5)">
                         <div class="location" style="padding:20px 17px 29px !important">
                             <p style="color: black; font-weight:800">Name</p>
                             <input type="text" name="Name" id="name" placeholder="Casa da Mata"
-                                style="background: transparent; border-right: none; border-top: none; border-left: none;"\>
+                                style="background: transparent; border-right: none; border-top: none; border-left: none;"
+                                \>
                         </div>
                         <div class="location" style="padding:20px 17px 29px !important">
                             <p style="color: black; font-weight:800">Location</p>
                             <input type="text" name="Location" id="location" placeholder="Aveiro"
-                                style="background: transparent; border-right: none; border-top: none; border-left: none;"\>
+                                style="background: transparent; border-right: none; border-top: none; border-left: none;"
+                                \>
                         </div>
                         <div class="price-range">
                             <p style="color: black; font-weight:800">Price Per Night</p>
                             <div class="range-slider">
                                 <div id="slider-range" style="border: 1px solid gray !important">
                                     <div tabindex="0"
-                                        class="ui-slider-handle ui-corner-all ui-state-default slider-left" id="min_price">100$</div>
+                                        class="ui-slider-handle ui-corner-all ui-state-default slider-left"
+                                        id="min_price">100$</div>
                                     <div tabindex="0"
-                                        class="ui-slider-handle ui-corner-all ui-state-default slider-right" id="max_price">500$</div>
+                                        class="ui-slider-handle ui-corner-all ui-state-default slider-right"
+                                        id="max_price">500$</div>
                                 </div>
                             </div>
                         </div>
                         <div class="price-range" style="width:17% !important">
-                                <p style="color: black; font-weight:800">Rooms</p>
-                                <div class="range-slider">
-                                    <div id="slider-range-bedrooms" style="border: 1px solid gray !important">
-                                        <div tabindex="0"
-                                            class="ui-slider-handle ui-corner-all ui-state-default slider-left" style="left: 0%; width:25px; text-align:center" id="min_rooms">1</div>
-                                        <div tabindex="0"
-                                            class="ui-slider-handle ui-corner-all ui-state-default slider-right" style="left: 0%; width:25px; text-align:center" id="max_rooms">6</div>
-                                    </div>
+                            <p style="color: black; font-weight:800">Rooms</p>
+                            <div class="range-slider">
+                                <div id="slider-range-bedrooms" style="border: 1px solid gray !important">
+                                    <div tabindex="0"
+                                        class="ui-slider-handle ui-corner-all ui-state-default slider-left"
+                                        style="left: 0%; width:25px; text-align:center" id="min_rooms">1</div>
+                                    <div tabindex="0"
+                                        class="ui-slider-handle ui-corner-all ui-state-default slider-right"
+                                        style="left: 0%; width:25px; text-align:center" id="max_rooms">6</div>
                                 </div>
                             </div>
+                        </div>
                         <div class="search-btn">
-                            <button onclick="postSearch()" type="submit" style="width: 100%"><i class="flaticon-search"></i>Search</button>
+                            <button onclick="postSearch()" type="submit" style="width: 100%"><i
+                                    class="flaticon-search"></i>Search</button>
                         </div>
                     </div>
                 </div>
@@ -93,20 +256,26 @@
             <div th:if="!${has_elements}">
                 <h3>No available properties...</h3>
             </div>
+            <div class="col-lg-12" style="text-align: right; padding: 10px">
+                <button disabled onclick="compareHouses()" data-toggle="modal" data-target="#myModal" id="compareHouses"
+                    type="button" class="btn btn-md btn-success">Compare Selected Houses</button>
+
+            </div>
             <div th:if="${has_elements}" class="row" id=housesRow>
 
                 <th:block th:each="i: ${#numbers.sequence(0, #lists.size(houses) - 1)}">
                     <div class="col-lg-4 col-md-4 col-md-6">
                         <div class="room-items">
-                            <div th:attr="data-setbg=${houses[i].photos[0].photo}" class="room-img set-bg" data-setbg="img/rooms/6.jpg">
-                                <a href="#" class="room-content">
-                                    <i class="flaticon-heart"></i>
+                            <div th:attr="data-setbg=${houses[i].photos[0].photo}" class="room-img set-bg" >
+                                <a class="room-content">
+                                    <button onclick="button_comparator_clicked(this)" clicked="false" type="button" class="btn btn-sm btn-warning" style="background-color: rgba(252, 185, 65, 0.5)">Compare</button>
                                 </a>
+                                
                             </div>
                             <div class="room-text">
                                 <div class="room-details">
                                     <div class="room-title">
-                                        <h5 th:text="${houses[i].name}"></h5>
+                                        <h5 th:text="${houses[i].name}" class="name_c"></h5>
                                         <i class="flaticon-placeholder"></i> <span th:text="${houses[i].address}"></span>
                                         
                                     </div>
@@ -117,28 +286,28 @@
                                             <p>Lot Size</p>
                                             <img src="img/rooms/size.png" alt="">
                                             <i class="flaticon-bath"></i>
-                                            <span th:text="${houses[i].habSpace}"></span> <span>sqft</span>
+                                            <span th:text="${houses[i].habSpace}" class="lotSize_c"></span> <span>sqft</span>
                                         </div>
                                         <div class="beds">
                                             <p>Rooms</p>
                                             <img src="img/rooms/bed.png" alt="">
-                                            <span th:text="${houses[i].nRooms}"></span>
+                                            <span th:text="${houses[i].nRooms}" class="rooms_c"></span>
                                         </div>
                                         <div class="baths">
                                             <p>Baths</p>
                                             <img src="img/rooms/bath.png" alt="">
-                                            <span th:text="${houses[i].nBathrooms}"></span>
+                                            <span th:text="${houses[i].nBathrooms}" class="bathrooms_c"></span>
                                         </div>
                                         <div class="garage">
                                             <p>Garage</p>
                                             <img src="img/rooms/garage.png" alt="">
-                                            <span th:text="${houses[i].garage}"></span>
+                                            <span th:text="${houses[i].garage}" class="garage_c"></span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="room-price">
                                     <p>Price Per Month</p>
-                                    <span>$</span><span th:text="${houses[i].price}"></span>
+                                    <span>$</span><span th:text="${houses[i].price}" class="price_c"></span>
                                 </div>
                                 <a th:href="${'/getProperty?id='+ houses[i].houseId}" class="site-btn btn-line">View Property</a>
                             </div>
@@ -239,6 +408,56 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     </footer>
     <!-- Footer Section End -->
 
+    <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-lg" >
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header col-lg-12" > 
+              <h4 style="float: left">Comparator</h4>
+              <button type="button" class="close" data-dismiss="modal" style="float: right" >&times;</button>
+            </div>
+            
+            <div id="modalBodyDiv"  style="padding:25px">
+                <table class="table table-bordered" style="margin-top:15px">
+                        <thead>
+                            <tr id="comparator_thead_tr">
+                                <td class="col-lg-4" ></td>
+                                <td class="col-lg-4">Lastname</td>
+                                <td class="col-lg-4">Email</td>
+                                <th class="col-lg-4">Final Choice</th>
+                            </tr>
+                        </thead>
+                        <tbody id="comparator_tbody">
+                            <tr>
+                            <td >John</td>
+                            <td>Doe</td>
+                            <td>john@example.com</td>
+                            <td>john@example.com</td>
+                            </tr>
+                            <tr>
+                            <td>Mary</td>
+                            <td>Moe</td>
+                            <td>mary@example.com</td>
+                            <td>john@example.com</td>
+                            </tr>
+                            <tr>
+                            <td>July</td>
+                            <td>Dooley</td>
+                            <td>july@example.com</td>
+                            <td>john@example.com</td>
+                            </tr>
+                        </tbody>
+                    </table>            
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
     <!-- Js Plugins -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.nice-select.min.js"></script>
@@ -247,6 +466,12 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <script src="js/jquery.slicknav.js"></script>
     <script src="js/main.js"></script>
     <script src="js/searchProperties.js"></script>
+
+    <script type="text/javascript">
+        $.get('html/header.html', function (data) {
+            var h = document.getElementsByClassName("header-section")[0].innerHTML = data;
+        }, 'text');
+    </script>
 </body>
 
 </html>
