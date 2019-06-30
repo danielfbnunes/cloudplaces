@@ -18,14 +18,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
+import pt.ua.cloudplacesandroidapp.API.CommunicationWithAPI;
+import pt.ua.cloudplacesandroidapp.API.House;
 import pt.ua.cloudplacesandroidapp.Adapters.AccommodationAdapter;
+import pt.ua.cloudplacesandroidapp.ApiClient;
 import pt.ua.cloudplacesandroidapp.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AllAccommodations extends Fragment{
 
     private RecyclerView mRecyclerView;
-    private ArrayList<String> accommodations;
+    private ArrayList<House> accommodations;
     private AccommodationAdapter accommodationAdapter;
     public Context mContext;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -35,7 +42,7 @@ public class AllAccommodations extends Fragment{
     private SearchView searchView = null;
     private SearchView.OnQueryTextListener queryTextListener;
 
-
+    CommunicationWithAPI apiInterface;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -67,16 +74,29 @@ public class AllAccommodations extends Fragment{
 
         mRecyclerView.setLayoutManager(layoutManager);
 
-        //Update all the information
-        accommodations = new ArrayList<>();
+        apiInterface = ApiClient.getClient().create(CommunicationWithAPI.class);
+        Call<List<House>> call = apiInterface.getProperties();
+        call.enqueue(new Callback<List<House>>() {
+            @Override
+            public void onResponse(Call<List<House>> call, Response<List<House>> response) {
+                List<House> houses = response.body();
+                //Update all the information
+                accommodations = new ArrayList<>();
 
-        //TODO: remove this step. Only for testing
-        accommodations.add("Casa 3");
-        accommodations.add("Casa 2");
-        accommodations.add("Casa 1");
+                for (House h : houses){
+                    accommodations.add(h);
+                }
 
-        accommodationAdapter.setData(accommodations);
-        accommodationAdapter.notifyDataSetChanged();
+                accommodationAdapter.setData(accommodations);
+                accommodationAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<House>> call, Throwable t) {
+
+            }
+        });
+
         return view;
     }
 
@@ -106,10 +126,10 @@ public class AllAccommodations extends Fragment{
                 }
                 else
                 {
-                    ArrayList<String> temp = new ArrayList<>();
-                    for (String a : accommodations)
-                        if (a.toLowerCase().startsWith(s.toLowerCase()))
-                            temp.add(a);
+                    ArrayList<House> temp = new ArrayList<>();
+                    for (House h : accommodations)
+                        if (h.getName().toLowerCase().startsWith(s.toLowerCase()))
+                            temp.add(h);
 
                     accommodationAdapter.setData(temp);
                     accommodationAdapter.notifyDataSetChanged();
@@ -126,10 +146,10 @@ public class AllAccommodations extends Fragment{
                 }
                 else
                 {
-                    ArrayList<String> temp = new ArrayList<>();
-                    for (String a : accommodations)
-                        if (a.toLowerCase().startsWith(s.toLowerCase()))
-                            temp.add(a);
+                    ArrayList<House> temp = new ArrayList<>();
+                    for (House h : accommodations)
+                        if (h.getName().toLowerCase().startsWith(s.toLowerCase()))
+                            temp.add(h);
 
                     accommodationAdapter.setData(temp);
                     accommodationAdapter.notifyDataSetChanged();

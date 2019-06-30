@@ -5,8 +5,7 @@ import cloudplaces.webapp.database_queries.GeneralQueries;
 import cloudplaces.webapp.database_queries.PropertyQueries;
 import cloudplaces.webapp.database_queries.UserQueries;
 import cloudplaces.webapp.entities.House;
-import cloudplaces.webapp.entities.RecentSearches;
-import cloudplaces.webapp.entities.Review;
+
 import cloudplaces.webapp.entities.User;
 import cloudplaces.webapp.entities.Wishlist;
 import java.util.ArrayList;
@@ -73,7 +72,7 @@ public class QueriesTests {
         String cellphone = "cellphone";
         String photo = "photo";
 
-        User u = new User(name, email, pw, cellphone, photo, new ArrayList<House>(), new ArrayList<Review>(), new ArrayList<Wishlist>(), new ArrayList<RecentSearches>());
+        User u = new User(name, email, pw, cellphone, photo, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
         User addedUser = userQueries.addUser(name, email, pw, cellphone, photo);
 
         assertEquals(u.getEmail(), addedUser.getEmail());
@@ -96,7 +95,7 @@ public class QueriesTests {
         String cellphone = "cellphone";
         String photo = "photo";
 
-        User u = new User(name, email, pw, cellphone, photo, new ArrayList<House>(), new ArrayList<Review>(), new ArrayList<Wishlist>(), new ArrayList<RecentSearches>());
+        User u = new User(name, email, pw, cellphone, photo, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
         User addedUser = userQueries.addUser(name, email, pw, cellphone, photo);
         // log user and check if it has success
         User loggedUserTestCorrect = userQueries.authenticateUser(email, pw);
@@ -192,7 +191,6 @@ public class QueriesTests {
 
     /**
      * Test getProperties method, of class PropertyQueries.
-     * Here, name parameter is the one that is tested.
      */
     @Test
     public void testGetPropertiesByName(){
@@ -206,4 +204,123 @@ public class QueriesTests {
         houses = propertyQueries.getProperties("House", null, null, null, null, null, null, null, null);
         assertEquals(expectedName, houses.get(0).getName());
     }
+    
+    /**
+     * Test getProperties method, of class PropertyQueries.
+     */
+    @Ignore
+    @Test
+    public void testGetPropertiesByLocation(){
+    }
+    
+    /**
+     * Test getProperties method, of class PropertyQueries.
+     */
+    @Ignore
+    @Test
+    public void testGetPropertiesByPriceRange(){
+    }
+    
+    /**
+     * Test getProperties method, of class PropertyQueries.
+     */
+    @Ignore
+    @Test
+    public void testGetPropertiesByHabSpace(){
+    }
+    
+    /**
+     * Test getProperties method, of class PropertyQueries.
+     */
+    @Test
+    @Ignore
+    public void testGetPropertiesByNRooms(){
+        fail("Query Mal Implementada");
+    }
+    
+    /**
+     * Test getProperties method, of class PropertyQueries.
+     */
+    @Test
+    @Ignore
+    public void testGetPropertiesByAvailability(){
+        fail("Query Mal Implementada");
+    }
+    
+    /**
+     * Test getProperty method, of class PropertyQueries.
+     */
+    @Test
+    @Ignore
+    public void testGetProperty(){
+    }
+    
+    /**
+     * Test addProperty method, of class PropertyQueries.
+     */
+    @Test
+    @Ignore
+    public void testAddProperty(){
+        fail("Query Mal Implementada");
+    }
+    
+    /**
+     * Test editProperty method, of class PropertyQueries.
+     */
+    @Test
+    @Ignore
+    public void testEditProperty(){
+        fail("Query Mal Implementada");
+    }
+    
+    /**
+     * Test removeProperty method, of class PropertyQueries.
+     */
+    @Test
+    @Ignore
+    public void testRemoveProperty(){
+    }
+    
+    /**
+     * Test addReviewmethod, of class PropertyQueries.
+     */
+    @Ignore
+    @Test
+    public void testAddReview(){
+    }
+    
+    /**
+     * Test editReviewmethod, of class PropertyQueries.
+     */
+    @Ignore
+    @Test
+    public void testEditReview(){
+    }
+    
+    /**
+     * Test editReviewmethod, of class PropertyQueries.
+     */
+    @Ignore
+    @Test
+    public void testDeleteReview(){
+    }
+    
+    //GeneralQueries
+    
+    /**
+     * Test reloadTestDatabase method, of class GeneralQueries
+     */
+    @Test
+    @Ignore
+    public void testReloadTestDatabase(){
+    }
+    
+    /**
+     * Test reloadDatabase method, of class GeneralQueries
+     */
+    @Test
+    @Ignore
+    public void testReloadDatabase(){
+    }
+    
 }

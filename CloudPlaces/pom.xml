@@ -20,6 +20,21 @@
         <docker.image.prefix>docker</docker.image.prefix>
         <mockito.version>2.24.0</mockito.version>
         <cucumber.version>4.2.5</cucumber.version>
+        
+        <sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
+        <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+        
+        <sonar.exclusions>
+            **/CloudPlacesApplication.java,
+            **/SwaggerConfig.java,
+            **/House.java,
+            **/HousePhotos.java,
+            **/RecentSearches.java,
+            **/Review.java,
+            **/User.java,
+            **/Wishlist.java,
+            **/HousePOJO.java
+        </sonar.exclusions>   
     </properties>
 
     <dependencies>
