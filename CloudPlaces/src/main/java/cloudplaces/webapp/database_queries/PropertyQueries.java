@@ -167,46 +167,4 @@ public class PropertyQueries {
     
     return null;
   }
-
-  public Review addReview(String userEmail, long propertyId, String review, int quotation) {
-    Optional<User> user = userRepo.findById(userEmail);
-    Optional<House> house = propertyRepo.findById(propertyId);
-    if (house.isPresent() && user.isPresent()){
-      Review r = new Review(review, quotation);
-      User u = user.get();
-      List<Review> reviewList = u.getReviews();
-      reviewList.add(r);
-      u.setReviews(reviewList);
-      em.merge(u);
-      r = (Review) em.createQuery("SELECT r FROM Review r ORDER BY r.reviewId DESC").setMaxResults(1).getResultList().get(0);
-      House h = house.get();
-      reviewList = h.getReviews();
-      reviewList.add(r);
-      h.setReviews(reviewList);
-      em.merge(h);
-      return r;
-    }
-    return null;
-  }
-
-  public Review editReview(long reviewId, String comment, int quotation) {
-    Optional<Review> r = reviewRepo.findById(reviewId);
-    if (r.isPresent()){
-      Review review = r.get();
-      review.setComment(comment);
-      review.setQuotation(quotation);
-      em.merge(review);
-      return review;
-    }
-    return null;
-  }
-
-  public boolean deleteReview(long reviewId) {
-    Optional<Review> review = reviewRepo.findById(reviewId);
-    if (review.isPresent()){
-      reviewRepo.deleteById(reviewId);
-      return true;
-    }
-    return false;
-  }
 }
