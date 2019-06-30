@@ -110,7 +110,7 @@ public class PropertyResources {
     @ApiOperation("Edits a property")
     @PutMapping("api/edit_property")
     public House editProperty(@RequestBody HousePOJO house) {
-        return query.editProperty(house.getName(), house.getAddress(), house.getPrice(), house.getNRooms(), house.getUser().getEmail(), house.getHabSpace(), house.getNBathrooms(), house.getGarage(), house.getDescription(), house.getPropertyFeatures(), house.getAvailability()/*, house.getPhotos(), house.getWishes(), house.getReviews(), house.getSearches()*/);
+        return query.editProperty(house.getName(), house.getAddress(), house.getPrice(), house.getNRooms(), house.getUser().getEmail(), house.getHabSpace(), house.getNBathrooms(), house.getGarage(), house.getDescription(), house.getPropertyFeatures(), house.getAvailability(), house.getPhotos());
     }
     
     /**

@@ -107,23 +107,56 @@ public class PropertyQueries {
     Date date = new Date();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
     Optional<User> user = userRepo.findById(userEmail);
+    
     if (user.isPresent()) {
       House h = new House(location, nRooms, habSpace, price, name, formatter.format(date), user.get(), nBathrooms, garage, description, propertyFeatures, availability, photos, new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
       propertyRepo.save(h);
       return h;
     }
+    
     return null;
   }
 
-  public House editProperty(String name, String location, float price, int nRooms, String email, int habSpace, int nBathrooms, int garage, String description, String propertyFeatures, int availability/*, List<HousePhotos> photos, List<Wishlist> whishlist, List<Review> reviews, List<RecentSearches> previousSearches*/) {
+  public House editProperty(String name, String location, float price, int nRooms, String email, int habSpace, int nBathrooms, int garage, String description, String propertyFeatures, int availability, List<HousePhotos> photos) {
+    Optional<User> user = userRepo.findById(email);
     Date date = new Date();
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-    Optional<User> user = userRepo.findById(email);
+    
     if (user.isPresent()) {
-      House h = new House(location, nRooms, habSpace, price, name, formatter.format(date), user.get(), nBathrooms, garage, description, propertyFeatures, availability, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
-      propertyRepo.save(h);
-      return h;
+      String houseQuery = new StringBuilder("UPDATE House h SET h.address = '").append(location)
+          .append("', h.availability = ").append(availability)
+          .append(", h.description = '").append(description)
+          .append("', h.garage = ").append(garage)
+          .append(", h.habSpace = ").append(habSpace)
+          .append(", h.nBathrooms = ").append(nBathrooms)
+          .append(", h.nRooms = ").append(nRooms)
+          .append(", h.price = ").append(price)
+          .append(", h.propertyFeatures = '").append(propertyFeatures)
+          .append("', h.publishDay = '").append(formatter.format(date))
+          .append("' WHERE h.name = '").append(name).append("'")
+          .toString();
+      
+      em.createQuery(houseQuery).executeUpdate();
+      List<House> houseList = propertyRepo.findAll();
+      
+      if (!houseList.isEmpty()) {
+        House house = houseList.get(0);
+        
+        if (!photos.isEmpty()) {
+          em.createQuery("DELETE FROM house_photos hp WHERE hp.house_id = " + house.getHouseId()).executeUpdate();
+          
+          for (HousePhotos photo : photos) {
+            String housePhotosQuery = new StringBuilder("INSERT INTO house_photos (photo, house_id) VALUES (").append(photo.getPhoto())
+                .append(", ").append(house.getHouseId()).append(")")
+                .toString();
+            em.createQuery(housePhotosQuery);
+          }
+        }
+        
+        return house;
+      }
     }
+    
     return null;
   }
 

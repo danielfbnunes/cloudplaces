@@ -201,8 +201,31 @@ public class QueriesTests {
 
         //'House 1' should be found, it was already added.
         String expectedName = "House 1";
-        houses = propertyQueries.getProperties("House", null, null, null, null, null, null, null, null);
+        houses = propertyQueries.getProperties("House 1", null, null, null, null, null, null, null, null);
         assertEquals(expectedName, houses.get(0).getName());
+    }
+    
+    /**
+     * Test editProperty method of PropertyQueries class.
+     */
+    @Test
+    public void testEditProperty() {
+      String expectedLocation = "Rua do deti, Aveiro, Portugal";
+      
+      House house = propertyQueries.editProperty("House 1", 
+          "Rua do deti, Aveiro, Portugal", 
+          100, 
+          2, 
+          "joao@ua.pt", 
+          50, 
+          1, 
+          2, 
+          "Nice house", 
+          "garden;garage", 
+          1, 
+          new ArrayList<>());
+      
+      assertEquals(expectedLocation, house.getAddress());
     }
     
     /**
@@ -256,24 +279,6 @@ public class QueriesTests {
     }
     
     /**
-     * Test addProperty method, of class PropertyQueries.
-     */
-    @Test
-    @Ignore
-    public void testAddProperty(){
-        fail("Query Mal Implementada");
-    }
-    
-    /**
-     * Test editProperty method, of class PropertyQueries.
-     */
-    @Test
-    @Ignore
-    public void testEditProperty(){
-        fail("Query Mal Implementada");
-    }
-    
-    /**
      * Test removeProperty method, of class PropertyQueries.
      */
     @Test
@@ -322,5 +327,4 @@ public class QueriesTests {
     @Ignore
     public void testReloadDatabase(){
     }
-    
 }
