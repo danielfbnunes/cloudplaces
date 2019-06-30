@@ -8,6 +8,7 @@ import cloudplaces.webapp.entities.PropertyRepository;
 import cloudplaces.webapp.entities.User;
 import cloudplaces.webapp.entities.UserRepository;
 import java.util.ArrayList;
+import org.junit.After;
 import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -39,19 +40,42 @@ public class ApiTest {
     @Autowired
     private PropertyQueries propertyQueries;
     
-    
     @Autowired
     private PropertyRepository propertyRepo;
     
     @Autowired
     private UserRepository userRepo;
     
-    private final static String sRBaseUrl = "localhost:8080/api/";
+    private final User user = new User(
+        "Daniel Nunes",
+        "daniel@ua.pt",
+        "password",
+        "987654321",
+        "",
+        new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
     
+    private final House house = new House(
+        "Rua 1",
+        3,
+        20,
+        150,
+        "House 1",
+        "data",
+        user,
+        2,
+        1,
+        "Situated in Ladywell this room enables you to have both privacy and convince - being only 10 minutes away by train to central London. The short train ride to London Bridge,Waterloo and shortly stopping at Charing Cross which will enable you to roam around Covent Garden and cross the river to Southbank or even venture further by bus or the underground to Oxford Street, Regent Street and all other destinations. Whether you have a short or long stay in London - my place is perfect.",
+        "library_garden_test1_test2_test3_test4",
+        1,
+        new ArrayList<>(),
+        new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
     
     @Before
-    public void cleanUp(){
-        generalQueries.reloadTestDatabase();
+    public void cleanUp() {
+      generalQueries.reloadTestDatabase();
+      
+      userRepo.saveAndFlush(user);
+      propertyRepo.saveAndFlush(house);
     }
     
     //General Resources Test
@@ -60,7 +84,7 @@ public class ApiTest {
     /**
      * Test of api call api/reloadDatabase, of class GeneralResources.
      */
-    public void reloadDatabaseTest(){
+    public void reloadDatabaseTest() {
     
     }
     
@@ -69,9 +93,48 @@ public class ApiTest {
      * Test of api call api/get_properties, of class PropertyResources.
      */
     @Test
-    public void getPropertiesTest() throws Exception{
-        
-        String expectedResult = "[{" +
+    public void getPropertiesTest() throws Exception {
+      String expectedResult = "[{" +
+              "\"houseId\": 1," +
+              "\"address\": \"Rua 1\"," +
+              "\"habSpace\": 20," +
+              "\"price\": 150," +
+              "\"name\": \"House 1\"," +
+              "\"publishDay\": \"data\"," +
+              "\"garage\": 1," +
+              "\"description\": \"Situated in Ladywell this room enables you to have both privacy and convince - being only 10 minutes away by train to central London. The short train ride to London Bridge,Waterloo and shortly stopping at Charing Cross which will enable you to roam around Covent Garden and cross the river to Southbank or even venture further by bus or the underground to Oxford Street, Regent Street and all other destinations. Whether you have a short or long stay in London - my place is perfect.\"," +
+              "\"propertyFeatures\": \"library_garden_test1_test2_test3_test4\"," +
+              "\"availability\": 1," +
+              "\"user\": {" +
+              "\"email\": \"daniel@ua.pt\"," +
+              "\"name\": \"Daniel Nunes\"," +
+              "\"pw\": \"password\"," +
+              "\"cellphone\": \"987654321\","+
+              "\"photo\": \"\", "+
+              "\"rentals\": []," +
+              "\"reviews\": []," +
+              "\"wishes\": []," +
+              "\"searches\": []" +
+              "},"+
+              "\"reviews\": []," +
+              "\"wishes\": []," +
+              "\"searches\": []," +
+              "\"photos\": [],"+
+              "\"nrooms\": 3," +
+              "\"nbathrooms\": 2 }]";
+
+      mvc.perform(MockMvcRequestBuilders.get("/api/get_properties", 1L)
+      .accept(MediaType.APPLICATION_JSON))
+      .andExpect(status().isOk()).andExpect(content().json(expectedResult));
+    }
+    
+    @Test
+    @Ignore
+    /**
+     * Test of api call api/get_property/{id}, of class PropertyResources.
+     */
+    public void getPropertyByIdTest() throws Exception {
+      String expectedResult = "{" +
                 "\"houseId\": 1," +
                 "\"address\": \"Rua 1\"," +
                 "\"habSpace\": 20," +
@@ -98,46 +161,11 @@ public class ApiTest {
                 "\"searches\": []," +
                 "\"photos\": [],"+
                 "\"nrooms\": 3," +
-                "\"nbathrooms\": 2 }]";
-        User u1 = new User("Daniel Nunes",
-            "daniel@ua.pt",
-            "password",
-            "987654321",
-            "",
-            new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
-        userRepo.save(u1);
+                "\"nbathrooms\": 2 }";
         
-        House h1 = new House(
-                "Rua 1",
-                3,
-                20,
-                150,
-                "House 1",
-                "data",
-                u1,
-                2,
-                1,
-                "Situated in Ladywell this room enables you to have both privacy and convince - being only 10 minutes away by train to central London. The short train ride to London Bridge,Waterloo and shortly stopping at Charing Cross which will enable you to roam around Covent Garden and cross the river to Southbank or even venture further by bus or the underground to Oxford Street, Regent Street and all other destinations. Whether you have a short or long stay in London - my place is perfect.",
-                "library_garden_test1_test2_test3_test4",
-                1,
-                new ArrayList<>(),
-                new ArrayList<>(), new ArrayList<>(), new ArrayList<>()
-        );
-        propertyRepo.save(h1);
-        
-        mvc.perform(MockMvcRequestBuilders.get("http://localhost:8080/api/get_properties")
-        .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isOk()).andExpect(content().json(expectedResult));
-    }
-    
-    
-    @Test
-    @Ignore
-    /**
-     * Test of api call api/get_property/{id}, of class PropertyResources.
-     */
-    public void getPropertyByIdTest(){
-    
+      mvc.perform(MockMvcRequestBuilders.get("/api/get_property?id=1", 1L)
+      .accept(MediaType.APPLICATION_JSON))
+      .andExpect(status().isOk()).andExpect(content().json(expectedResult));
     }
     
     @Test
@@ -229,7 +257,4 @@ public class ApiTest {
     public void deleteFromWishListTest(){
         fail("Query mal implementada");
     }
-    
-    
-    
 }
