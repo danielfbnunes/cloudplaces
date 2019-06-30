@@ -33,7 +33,8 @@
             **/Review.java,
             **/User.java,
             **/Wishlist.java,
-            **/HousePOJO.java
+            **/HousePOJO.java,
+            **/GeneralResources.java
         </sonar.exclusions>   
     </properties>
 
