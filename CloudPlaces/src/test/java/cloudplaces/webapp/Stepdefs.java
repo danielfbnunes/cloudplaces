@@ -31,7 +31,7 @@ public class Stepdefs {
     private final String baseUrl = "http://localhost:8080/";
     private boolean acceptNextAlert = true;
     private static final StringBuffer sVerificationErrors = new StringBuffer();
-    private static final long sWaitingTimer = 2000;
+    private static final long sWaitingTimer = 5000;
     
     @Autowired
     private PropertyRepository propertyRepo;
