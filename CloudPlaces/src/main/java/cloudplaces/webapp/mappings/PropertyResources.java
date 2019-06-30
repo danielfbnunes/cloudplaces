@@ -128,8 +128,8 @@ public class PropertyResources {
    */
   @ApiOperation("Deletes a property")
   @DeleteMapping("api/delete_property")
-  public Object deleteProperty(@RequestParam(name = "houseId", required = true) long houseId) {
-    if (query.removeProperty(houseId)) {
+  public Object deleteProperty(@RequestParam(name = "name", required = true) String name) {
+    if (query.removeProperty(name)) {
       return true;
     }
 

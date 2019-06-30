@@ -2,6 +2,7 @@ package cloudplaces.webapp.database_queries;
 
 import cloudplaces.webapp.entities.House;
 import cloudplaces.webapp.entities.HousePhotos;
+import cloudplaces.webapp.entities.HousePhotosRepository;
 import cloudplaces.webapp.entities.PropertyRepository;
 import cloudplaces.webapp.entities.Review;
 import cloudplaces.webapp.entities.ReviewRepository;
@@ -27,6 +28,9 @@ public class PropertyQueries {
   
   @Autowired
   private ReviewRepository reviewRepo;
+  
+  @Autowired
+  private HousePhotosRepository housePhotosRepo;
 
   @Autowired
   private EntityManager em;
@@ -143,14 +147,8 @@ public class PropertyQueries {
         House house = houseList.get(0);
         
         if (!photos.isEmpty()) {
-          em.createQuery("DELETE FROM house_photos hp WHERE hp.house_id = " + house.getHouseId()).executeUpdate();
-          
-          for (HousePhotos photo : photos) {
-            String housePhotosQuery = new StringBuilder("INSERT INTO house_photos (photo, house_id) VALUES (").append(photo.getPhoto())
-                .append(", ").append(house.getHouseId()).append(")")
-                .toString();
-            em.createQuery(housePhotosQuery);
-          }
+          housePhotosRepo.deleteAll(house.getPhotos());
+          housePhotosRepo.saveAll(photos);
         }
         
         return house;
@@ -160,10 +158,11 @@ public class PropertyQueries {
     return null;
   }
 
-  public boolean removeProperty(long houseId) {
-    Optional<House> house = propertyRepo.findById(houseId);
+  public boolean removeProperty(String name) {
+    Optional<House> house = propertyRepo.findByName(name);
+    
     if (house.isPresent()){
-      propertyRepo.deleteById(houseId);
+      propertyRepo.deleteByName(name);
       return true;
     }
     return false;

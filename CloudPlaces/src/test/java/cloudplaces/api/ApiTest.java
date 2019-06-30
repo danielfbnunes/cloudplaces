@@ -7,9 +7,10 @@ import cloudplaces.webapp.entities.House;
 import cloudplaces.webapp.entities.PropertyRepository;
 import cloudplaces.webapp.entities.User;
 import cloudplaces.webapp.entities.UserRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
-import org.junit.After;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.containsString;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -46,6 +47,8 @@ public class ApiTest {
     @Autowired
     private UserRepository userRepo;
     
+    private final ObjectMapper mapperObj = new ObjectMapper();
+    
     private final User user = new User(
         "Daniel Nunes",
         "daniel@ua.pt",
@@ -71,11 +74,9 @@ public class ApiTest {
         new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
     
     @Before
-    public void cleanUp() {
-      generalQueries.reloadTestDatabase();
-      
-      userRepo.saveAndFlush(user);
-      propertyRepo.saveAndFlush(house);
+    public void setUp() {
+      userRepo.save(user);
+      propertyRepo.save(house);
     }
     
     //General Resources Test
@@ -93,135 +94,119 @@ public class ApiTest {
      * Test of api call api/get_properties, of class PropertyResources.
      */
     @Test
-    public void getPropertiesTest() throws Exception {
-      String expectedResult = "[{" +
-              "\"houseId\": 1," +
-              "\"address\": \"Rua 1\"," +
-              "\"habSpace\": 20," +
-              "\"price\": 150," +
-              "\"name\": \"House 1\"," +
-              "\"publishDay\": \"data\"," +
-              "\"garage\": 1," +
-              "\"description\": \"Situated in Ladywell this room enables you to have both privacy and convince - being only 10 minutes away by train to central London. The short train ride to London Bridge,Waterloo and shortly stopping at Charing Cross which will enable you to roam around Covent Garden and cross the river to Southbank or even venture further by bus or the underground to Oxford Street, Regent Street and all other destinations. Whether you have a short or long stay in London - my place is perfect.\"," +
-              "\"propertyFeatures\": \"library_garden_test1_test2_test3_test4\"," +
-              "\"availability\": 1," +
-              "\"user\": {" +
-              "\"email\": \"daniel@ua.pt\"," +
-              "\"name\": \"Daniel Nunes\"," +
-              "\"pw\": \"password\"," +
-              "\"cellphone\": \"987654321\","+
-              "\"photo\": \"\", "+
-              "\"rentals\": []," +
-              "\"reviews\": []," +
-              "\"wishes\": []," +
-              "\"searches\": []" +
-              "},"+
-              "\"reviews\": []," +
-              "\"wishes\": []," +
-              "\"searches\": []," +
-              "\"photos\": [],"+
-              "\"nrooms\": 3," +
-              "\"nbathrooms\": 2 }]";
-
-      mvc.perform(MockMvcRequestBuilders.get("/api/get_properties", 1L)
-      .accept(MediaType.APPLICATION_JSON))
-      .andExpect(status().isOk()).andExpect(content().json(expectedResult));
+    public void getPropertiesTest() {
+      try {
+        mvc.perform(MockMvcRequestBuilders.get("/api/get_properties", 1L)
+            .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk()).andExpect(content().string(containsString("\"name\":\"House 1\"")));
+      }
+      catch (Exception e) {
+        fail("Unable to get all the properties!");
+      }
     }
     
     @Test
-    @Ignore
     /**
-     * Test of api call api/get_property/{id}, of class PropertyResources.
+     * Test of api call api/get_property?id={id}, of class PropertyResources.
      */
-    public void getPropertyByIdTest() throws Exception {
-      String expectedResult = "{" +
-                "\"houseId\": 1," +
-                "\"address\": \"Rua 1\"," +
-                "\"habSpace\": 20," +
-                "\"price\": 150," +
-                "\"name\": \"House 1\"," +
-                "\"publishDay\": \"data\"," +
-                "\"garage\": 1," +
-                "\"description\": \"Situated in Ladywell this room enables you to have both privacy and convince - being only 10 minutes away by train to central London. The short train ride to London Bridge,Waterloo and shortly stopping at Charing Cross which will enable you to roam around Covent Garden and cross the river to Southbank or even venture further by bus or the underground to Oxford Street, Regent Street and all other destinations. Whether you have a short or long stay in London - my place is perfect.\"," +
-                "\"propertyFeatures\": \"library_garden_test1_test2_test3_test4\"," +
-                "\"availability\": 1," +
-                "\"user\": {" +
-                "\"email\": \"daniel@ua.pt\"," +
-                "\"name\": \"Daniel Nunes\"," +
-                "\"pw\": \"password\"," +
-                "\"cellphone\": \"987654321\","+
-                "\"photo\": \"\", "+
-                "\"rentals\": []," +
-                "\"reviews\": []," +
-                "\"wishes\": []," +
-                "\"searches\": []" +
-                "},"+
-                "\"reviews\": []," +
-                "\"wishes\": []," +
-                "\"searches\": []," +
-                "\"photos\": [],"+
-                "\"nrooms\": 3," +
-                "\"nbathrooms\": 2 }";
-        
-      mvc.perform(MockMvcRequestBuilders.get("/api/get_property?id=1", 1L)
-      .accept(MediaType.APPLICATION_JSON))
-      .andExpect(status().isOk()).andExpect(content().json(expectedResult));
+    public void getPropertyByIdTest() {
+      try {
+        mvc.perform(MockMvcRequestBuilders.get("/api/get_property?id=1", 1L)
+            .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andExpect(content().string(containsString("\"name\":\"House 1\"")));
+      }
+      catch (Exception e) {
+        fail("Unable to find the property by its id!");
+      }
     }
     
     @Test
-    @Ignore
     /**
      * Test of api call api/add_property/, of class PropertyResources.
      */
-    public void addPropertyTest(){
+    public void addPropertyTest() {
+      try {
+        String houseJsonString = mapperObj.writeValueAsString(house);
+        
+        mvc.perform(MockMvcRequestBuilders.post("/api/add_property", 1L)
+            .content(houseJsonString)
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andExpect(content().string(containsString("\"name\":\"House 1\"")));
+      }
+      catch (Exception e) {
+        fail("Unable to add the property!");
+      }
+    }
     
+    @Test
+    /**
+     * Test of api call api/edit_property/, of class PropertyResources.
+     */
+    public void editPropertyTest() {
+      house.setAddress("Aveiro, Portugal");
+      propertyRepo.save(house);
+      
+      try {
+        String houseJsonString = mapperObj.writeValueAsString(house);
+        
+        mvc.perform(MockMvcRequestBuilders.put("/api/edit_property", 1L)
+            .content(houseJsonString)
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andExpect(content().string(containsString("\"address\":\"Aveiro, Portugal\"")));
+      }
+      catch (Exception e) {
+        fail("Unable to edit the property!");
+      }
     }
     
     @Test
     @Ignore
     /**
-     * Test of api call api/delete_property/, of class PropertyResources.
+     * Test of api call api/delete_property?name={name}, of class PropertyResources.
      */
     public void deletePropertyTest(){
-    
-    }
-    
-    @Test
-    @Ignore
-    /**
-     * Test of api call api/edit_review/, of class PropertyResources.
-     */
-    public void addReviewTest(){
-        fail("Query mal implementada");
-    }
-    
-    @Test
-    @Ignore
-    /**
-     * Test of api call api/edit_property/, of class PropertyResources.
-     */
-    public void editPropertyTest(){
-        fail("Query mal implementada");
-    }
-    
-    @Test
-    @Ignore
-    /**
-     * Test of api call api/edit_property/, of class PropertyResources.
-     */
-    public void removePropertyTest(){
-        fail("Query mal implementada");
+      house.setName("House 2");
+      propertyRepo.save(house);
+      
+      try {
+        mvc.perform(MockMvcRequestBuilders.delete("/api/delete_property?name='House 2'", 1L)
+            .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andExpect(content().string(containsString("\"name\":\"House 2\"")));
+      }
+      catch (Exception e) {
+        fail("Unable to remove the property!");
+      }
     }
     
     //UserResources Test
     
     @Test
-    @Ignore
     /**
      * Test of api call api/add_user/, of class UserResources.
      */
-    public void addUserTest(){
-        fail("Query mal implementada");
+    public void addUserTest() {
+      user.setEmail("dani@ua.pt");
+      
+      try {
+        String userJsonString = mapperObj.writeValueAsString(user);
+        
+        mvc.perform(MockMvcRequestBuilders.post("/api/add_user")
+            .content(userJsonString)
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andExpect(content().string(containsString("\"email\":\"dani@ua.pt\"")));
+      }
+      catch (Exception e) {
+        fail();
+      }
+      
     }
     
     @Test

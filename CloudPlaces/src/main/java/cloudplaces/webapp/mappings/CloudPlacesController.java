@@ -338,17 +338,17 @@ public class CloudPlacesController {
   
   /**
    * 
-   * @param id
+   * @param name
    * @param model
    */
   @DeleteMapping("/removeProperty")
-  public String removeProperty(@RequestParam(name="id", required=true) final long id, HttpServletRequest request, Model model) {
+  public String removeProperty(@RequestParam(name="name", required=true) final String name, HttpServletRequest request, Model model) {
     //check if user is logged in
     if (!userLoggedIn(request)) {
       return "redirect:/login";
     }
     
-    propertyQueries.removeProperty(id);
+    propertyQueries.removeProperty(name);
     
     return "properties.html";
   }
