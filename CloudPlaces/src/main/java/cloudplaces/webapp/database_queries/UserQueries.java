@@ -60,10 +60,10 @@ public class UserQueries {
     return null;
   }
   
-  public List<House> getWishlist(String userEmail){
+  public Object getWishlist(String userEmail){
     Optional<User> user = userRepo.findById(userEmail);
     if (user.isPresent()){
-      List<Wishlist> wishList = em.createQuery("select u.wishes from User u WHERE u.email = " + userEmail).getResultList();
+      List<Wishlist> wishList = em.createQuery("select u.wishes from User u WHERE u.email = '" + userEmail + "'").getResultList();
       List<House> houses = new ArrayList<>();
       List<House> houseWishes = em.createQuery("select h from House h").getResultList();
       for (Wishlist w : wishList){
@@ -77,7 +77,7 @@ public class UserQueries {
       }
       return houses;
     }
-    return new ArrayList<>();
+    return null;
   }
   
   public Wishlist addToWishlist(String userEmail, long propertyId){
