@@ -97,9 +97,9 @@ public class UserQueries {
     return null;
   }
   
-  public boolean deleteFromWishlist(String email, long property_id) {
+  public boolean deleteFromWishlist(String email, long propertyId) {
     Optional<User> user = userRepo.findById(email);
-    Optional<House> house = propertyRepo.findById(property_id);
+    Optional<House> house = propertyRepo.findById(propertyId);
     if (user.isPresent() && house.isPresent()){
       User u = user.get();
       House h = house.get();

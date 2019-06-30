@@ -97,9 +97,7 @@ public class PropertyQueries {
     return new ArrayList<>();
   }
 
-  //ToDo Fix this method no longer uses houseId
   public House getProperty(long id) {
-    //TODO ADicionar a chamada assim -- propertyRepo.findById(id) --- É melhor
     List<House> houseList = em.createQuery("SELECT h FROM House h WHERE h.houseId = " + id).getResultList();
     if (!houseList.isEmpty()) {
       return houseList.get(0);
