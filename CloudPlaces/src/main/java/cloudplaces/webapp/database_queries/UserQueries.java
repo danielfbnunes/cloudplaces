@@ -104,14 +104,14 @@ public class UserQueries {
   public boolean deleteFromWishlist(String email, long property_id) {
     Optional<User> user = userRepo.findById(email);
     Optional<House> house = propertyRepo.findById(property_id);
-    if (user.isPresent()){
+    if (user.isPresent() && house.isPresent()){
       User u = user.get();
       House h = house.get();
       List<Wishlist> userWishlist = u.getWishes();
       List<Wishlist> houseWishlist = h.getWishes();
       for (Wishlist w1 : userWishlist){
         for (Wishlist w2 : houseWishlist){
-          if (w1.getWhishListId() == w2.getWhishListId()){
+          if (w1.getWhishListId().equals(w2.getWhishListId())){
             Optional<Wishlist> wishlist = wishlistRepo.findById(w1.getWhishListId());
             if (wishlist.isPresent()){
               wishlistRepo.deleteById(w1.getWhishListId());
