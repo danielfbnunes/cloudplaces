@@ -123,17 +123,74 @@ public class PropertyResources {
   /**
    * Remove uma propriedade.
    * 
-   * @param houseId
+   * @param name
    * @return 
    */
   @ApiOperation("Deletes a property")
   @DeleteMapping("api/delete_property")
   public Object deleteProperty(@RequestParam(name = "name", required = true) String name) {
-    if (query.removeProperty(name)) {
-      return true;
+    if (query.removeProperty(name) != 0) {
+      return "true";
     }
 
     error.put(errorMessage, "House to remove not found");
+    return error;
+  }
+
+  /**
+   * Adiciona uma review
+   * 
+   * 
+   * @param reviewInfo
+   * @return 
+   */
+  @ApiOperation("Adds a review")
+  @PostMapping("api/add_review")
+  public Object addReview(@RequestBody Map<String, Object> reviewInfo) {
+    Review review = (Review) reviewInfo.get("review");
+    review = query.addReview((String) reviewInfo.get("user_email"), (Long) reviewInfo.get("property_id"), review.getComment(), review.getQuotation());
+    
+    if (review != null) {
+      return review;
+    }
+    
+    error.put(errorMessage, "House or User in question not found");
+    return error;
+  }
+
+  /**
+   * Edita uma dada review
+   * 
+   * @param review
+   * @return True ou False consoante o resultado.
+   */
+  @ApiOperation("Edits a review")
+  @PutMapping("api/edit_review")
+  public Object editReview(@RequestBody Review review) {
+    Review r = query.editReview(review.getReviewId(), review.getComment(), review.getQuotation());
+    
+    if (r != null) {
+      return r;
+    }
+    
+    error.put(errorMessage, "Review not found");
+    return error;
+  }
+
+  /**
+   * Remove uma review.
+   * 
+   * @param review_id Id da review
+   * @return True ou False consoante o resultado.
+   */
+  @ApiOperation("Deletes a review")//TODO Fix api call
+  @DeleteMapping("api/delete_review")
+  public Object deleteReview(@RequestParam("review_id") final long review_id) {
+    if(query.deleteReview(review_id)) {
+      return true;
+    }
+    
+    error.put(errorMessage, "Review not found");
     return error;
   }
 }
