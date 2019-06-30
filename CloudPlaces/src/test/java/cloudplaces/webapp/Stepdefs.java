@@ -31,7 +31,7 @@ public class Stepdefs {
     private final String baseUrl = "http://localhost:8080/";
     private boolean acceptNextAlert = true;
     private static final StringBuffer sVerificationErrors = new StringBuffer();
-    private static final long sWaitingTimer = 5000;
+    private static final long sWaitingTimer = 2000;
     
     @Autowired
     private PropertyRepository propertyRepo;
@@ -575,6 +575,24 @@ public class Stepdefs {
         driver.findElement(By.xpath("//h1")).click();
         try {
           assertEquals("Cloud Places", driver.findElement(By.xpath("//h1")).getText());
+        } catch (Error e) {
+          sVerificationErrors.append(e.toString());
+        }
+        driver.close();
+    }
+    
+    //See profile
+    @When("he presses the profile button")
+    public void he_presses_the_profile_button() throws InterruptedException {
+        driver.findElement(By.linkText("Profile")).click();
+        Thread.sleep(sWaitingTimer);
+    }
+
+    @Then("he should be redirected to his profile")
+    public void he_should_be_redirected_to_his_profile() {
+        driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Logout'])[1]/following::td[1]")).click();
+        try {
+          assertEquals("Rafael Direito", driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Logout'])[1]/following::span[1]")).getText());
         } catch (Error e) {
           sVerificationErrors.append(e.toString());
         }

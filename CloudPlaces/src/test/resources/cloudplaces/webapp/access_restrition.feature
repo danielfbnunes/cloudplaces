@@ -1,4 +1,4 @@
-Feature: John needs to be logged inn
+Feature: John needs to be logged in to work
 
     John when logout, can't access the system.
     
