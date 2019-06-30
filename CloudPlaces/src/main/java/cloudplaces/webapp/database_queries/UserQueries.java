@@ -6,6 +6,7 @@ import cloudplaces.webapp.entities.PropertyRepository;
 import cloudplaces.webapp.entities.User;
 import cloudplaces.webapp.entities.UserRepository;
 import cloudplaces.webapp.entities.Wishlist;
+import cloudplaces.webapp.entities.WishlistRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -26,6 +27,9 @@ public class UserQueries {
   
   @Autowired
   private UserRepository userRepo;
+  
+  @Autowired
+  private WishlistRepository wishlistRepo;
   
   @Autowired
   private EntityManager em;
@@ -97,7 +101,27 @@ public class UserQueries {
     return null;
   }
   
-  public boolean deleteFromWishlist(){
-    return true;
+  public boolean deleteFromWishlist(String email, long property_id) {
+    Optional<User> user = userRepo.findById(email);
+    Optional<House> house = propertyRepo.findById(property_id);
+    if (user.isPresent()){
+      User u = user.get();
+      House h = house.get();
+      List<Wishlist> userWishlist = u.getWishes();
+      List<Wishlist> houseWishlist = h.getWishes();
+      for (Wishlist w1 : userWishlist){
+        for (Wishlist w2 : houseWishlist){
+          if (w1.getWhishListId() == w2.getWhishListId()){
+            Optional<Wishlist> wishlist = wishlistRepo.findById(w1.getWhishListId());
+            if (wishlist.isPresent()){
+              wishlistRepo.deleteById(w1.getWhishListId());
+              return true;
+            }
+          }
+        }
+      }
+      return false;
+    }
+    return false;
   }
 }
