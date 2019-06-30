@@ -15,6 +15,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -29,7 +30,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AllAccommodations extends Fragment{
+public class AllAccommodations extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private RecyclerView mRecyclerView;
     private ArrayList<House> accommodations;
@@ -43,6 +44,8 @@ public class AllAccommodations extends Fragment{
     private SearchView.OnQueryTextListener queryTextListener;
 
     CommunicationWithAPI apiInterface;
+
+    SwipeRefreshLayout swipeLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -61,6 +64,9 @@ public class AllAccommodations extends Fragment{
         drawer.setDrawerListener(toggle);
 
         View view = inflater.inflate(R.layout.fragment_show_accommodations, container, false);
+
+        swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
+        swipeLayout.setOnRefreshListener(this);
 
         RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.accommodations_list);
 
@@ -156,6 +162,35 @@ public class AllAccommodations extends Fragment{
                 }
                 return true;
             }
+        });
+    }
+
+    @Override
+    public void onRefresh() {
+        apiInterface = ApiClient.getClient().create(CommunicationWithAPI.class);
+        Call<List<House>> call = apiInterface.getProperties();
+        call.enqueue(new Callback<List<House>>() {
+            @Override
+            public void onResponse(Call<List<House>> call, Response<List<House>> response) {
+                List<House> houses = response.body();
+                //Update all the information
+                accommodations = new ArrayList<>();
+
+                for (House h : houses){
+                    accommodations.add(h);
+                }
+
+                accommodationAdapter.setData(accommodations);
+                accommodationAdapter.notifyDataSetChanged();
+
+                swipeLayout.setRefreshing(false);
+            }
+
+            @Override
+            public void onFailure(Call<List<House>> call, Throwable t) {
+                swipeLayout.setRefreshing(false);
+            }
+
         });
     }
 }
