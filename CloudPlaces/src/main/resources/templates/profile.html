@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <script src="js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript">
-        $.get('html/header.html', function(data) {
+        $.get('html/header.html', function (data) {
             var h = document.getElementsByClassName("header-section");
             h[0].innerHTML = data;
         }, 'text');
@@ -51,25 +51,16 @@
         <div class="row pb-30">
             <div class="col-lg-12">
                 <div class="contact-service">
-                    <img src="img/single-property/small.png" alt="">
+                    <img th:src="${user.getPhoto()}" alt="" style="height: 175px; width: auto !important">
                     <table>
                         <tr>
-                            <td>Name : <span>Oliver G Harris</span></td>
+                            <td>Name : <span th:text="${user.getName()}"></span></td>
                         </tr>
                         <tr>
-                            <td>Office : <span>1-139-954-3228</span></td>
+                            <td>Email : <span th:text="${user.getEmail()}"></span></td>
                         </tr>
                         <tr>
-                            <td>Mobile : <span>1-517-328-7751</span></td>
-                        </tr>
-                        <tr>
-                            <td>Fax : <span>1-458-284-9871</span></td>
-                        </tr>
-                        <tr>
-                            <td>WhatsApp : <span>1-812-117-2663</span></td>
-                        </tr>
-                        <tr>
-                            <td>Email : <span>oliver@homes.com</span></td>
+                            <td>Mobile :<span th:text="${user.getCellphone()}"></span></td>
                         </tr>
                     </table>
                 </div>
@@ -156,8 +147,11 @@
                 <div class="col-lg-12 text-center">
                     <div class="copyright">
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy;<script>
+                            document.write(new Date().getFullYear());
+                        </script> All rights reserved | This template is made with <i class="fa fa-heart-o"
+                            aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 
                     </div>
                 </div>

@@ -244,12 +244,22 @@ public class CloudPlacesController {
    */
   @GetMapping("/getProfile")
   public String loadProfile(Model model, HttpServletRequest request){
-    //check if user is logged in
+    // check if user is logged in
     if (!userLoggedIn(request)) {
-      return redirect;
+      return "redirect:/login";
     }
     
-    return "profile.html";
+    //get user from database
+    String userEmail = "";
+    try{
+      userEmail = (String) request.getSession().getAttribute(username);
+    }catch(NullPointerException e){
+      return "redirect:/";
+    }
+    User u = userQueries.getUser(userEmail);
+    
+    model.addAttribute("user", u);
+    return "profile.html";    
   }
   
   /**
