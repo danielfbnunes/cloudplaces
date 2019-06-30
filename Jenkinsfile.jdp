@@ -34,7 +34,7 @@ pipeline {
                    
                    //sshCommand remote: remote, command: "cd CloudPlacesAndroidApp/ && sudo chmod 777 ./gradle"
                    sshCommand remote: remote, command: "chmod -R 777 CloudPlacesAndroidApp/", sudo:true
-                   sshCommand remote: remote, command: "cd CloudPlacesAndroidApp/ && sudo ./gradlew testDebugUnitTest"
+                   sshCommand remote: remote, command: "cd CloudPlacesAndroidApp/ && ./gradlew testDebugUnitTest"
             }
         }
     }
