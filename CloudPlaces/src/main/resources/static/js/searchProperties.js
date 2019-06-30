@@ -1,24 +1,30 @@
 var postData = {};
 
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.replace(new RegExp(search, 'g'), replacement);
+};
+
 function postSearch() {
     var name = $("#name").val();
     var location = $("#location").val();
-    var min_price = $("#min_price").text().split("$")[0];
-    var max_price = $("#max_price").text().split("$")[0];
-    var min_rooms = $("#min_rooms").text();
-    var max_rooms = $("#max_rooms").text();
+    var min_price = $("#min_price").text().split("$")[0].replaceAll(" ","");
+    var max_price = $("#max_price").text().split("$")[0].replaceAll(" ","");
+    var min_rooms = $("#min_rooms").text().replaceAll(" ","");
+    var max_rooms = $("#max_rooms").text().replaceAll(" ","");
 
-    postData["name"] = name;
-    postData["location"] = location;
-    postData["min_price"] = min_price;
-    postData["max_price"] = max_price;
-    postData["min_rooms"] = min_rooms;
-    postData["max_rooms"] = max_rooms;
+    var queryUrl = 
+    "/propertiesSearch?"
+    + "name=" + name
+    + "&location=" + location
+    + "&min_price=" + min_price
+    + "&max_price="  + max_price
+    + "&min_rooms="  + min_rooms
+    + "&max_rooms="+ max_rooms;
 
     $.ajax({
-        type: "POST",
-        url: "/",
-        contentType: "application/json",
+        type: "GET",
+        url: queryUrl,
         success: function (response) {
             document.getElementById("housesRow").innerHTML = "";
             response.forEach(element => {
@@ -74,15 +80,8 @@ function postSearch() {
                     '    </div>';
             });
 
-
+            // For testing Purposes
             console.log(response);
-            console.log(response[0]["photos"][0]["photo"]);
-
-
-
-
-
         },
-        data: JSON.stringify(postData)
     });
 }
