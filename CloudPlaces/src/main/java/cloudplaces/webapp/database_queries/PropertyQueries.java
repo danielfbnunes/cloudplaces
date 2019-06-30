@@ -3,12 +3,10 @@ package cloudplaces.webapp.database_queries;
 import cloudplaces.webapp.entities.House;
 import cloudplaces.webapp.entities.HousePhotos;
 import cloudplaces.webapp.entities.PropertyRepository;
-import cloudplaces.webapp.entities.RecentSearches;
 import cloudplaces.webapp.entities.Review;
 import cloudplaces.webapp.entities.ReviewRepository;
 import cloudplaces.webapp.entities.User;
 import cloudplaces.webapp.entities.UserRepository;
-import cloudplaces.webapp.entities.Wishlist;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -62,23 +60,23 @@ public class PropertyQueries {
     }
 
     if (minHabSpace != null && maxHabSpace != null) {
-      baseQuery += " AND h.hab_space >= " + minHabSpace + " AND h.hab_space <= " + maxHabSpace;
+      baseQuery += " AND h.habSpace >= " + minHabSpace + " AND h.habSpace <= " + maxHabSpace;
     }
     if (minHabSpace != null && maxHabSpace == null) {
-      baseQuery += " AND h.hab_space >= " + minHabSpace;
+      baseQuery += " AND h.habSpace >= " + minHabSpace;
     }
     if (minHabSpace == null && maxHabSpace != null) {
-      baseQuery += " AND h.hab_space <= " + maxHabSpace;
+      baseQuery += " AND h.habSpace <= " + maxHabSpace;
     }
 
-    if (minNRooms != null && maxNRooms != null) {
-      baseQuery += " AND h.n_rooms >= " + minNRooms + " AND h.n_rooms <= " + maxNRooms;
+    if (minNRooms != null && maxNRooms != null) { //TODO Verificar estas comparações
+      baseQuery += " AND h.nRooms >= " + minNRooms + " AND h.nRooms <= " + maxNRooms;
     }
     if (minNRooms != null && maxHabSpace == null) {
-      baseQuery += " AND h.n_rooms >= " + minNRooms;
+      baseQuery += " AND h.nRooms >= " + minNRooms;
     }
     if (minNRooms == null && maxHabSpace != null) {
-      baseQuery += " AND h.n_rooms <= " + maxNRooms;
+      baseQuery += " AND h.nRooms <= " + maxNRooms;
     }
 
     if (availability != null) {
@@ -95,7 +93,9 @@ public class PropertyQueries {
     return new ArrayList<>();
   }
 
+  //ToDo Fix this method no longer uses houseId
   public House getProperty(long id) {
+    //TODO ADicionar a chamada assim -- propertyRepo.findById(id) --- É melhor
     List<House> houseList = em.createQuery("SELECT h FROM House h WHERE h.houseId = " + id).getResultList();
     if (!houseList.isEmpty()) {
       return houseList.get(0);
@@ -123,20 +123,21 @@ public class PropertyQueries {
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
     
     if (user.isPresent()) {
-      String houseQuery = new StringBuilder("UPDATE house h SET h.address = ").append(location)
-          .append(", h.availability = ").append(availability)
-          .append(", h.description = ").append(description)
-          .append(", h.garage = ").append(garage)
-          .append(", h.hab_space = ").append(habSpace)
-          .append(", h.n_bathrooms = ").append(nBathrooms)
-          .append(", h.n_rooms = ").append(nRooms)
+      String houseQuery = new StringBuilder("UPDATE House h SET h.address = '").append(location)
+          .append("', h.availability = ").append(availability)
+          .append(", h.description = '").append(description)
+          .append("', h.garage = ").append(garage)
+          .append(", h.habSpace = ").append(habSpace)
+          .append(", h.nBathrooms = ").append(nBathrooms)
+          .append(", h.nRooms = ").append(nRooms)
           .append(", h.price = ").append(price)
-          .append(", h.property_features = ").append(propertyFeatures)
-          .append(", h.publish_day = ").append(formatter.format(date))
-          .append(" WHERE h.name = ").append(name)
+          .append(", h.propertyFeatures = '").append(propertyFeatures)
+          .append("', h.publishDay = '").append(formatter.format(date))
+          .append("' WHERE h.name = '").append(name).append("'")
           .toString();
       
-      List<House> houseList = em.createQuery(houseQuery).getResultList();
+      em.createQuery(houseQuery).executeUpdate();
+      List<House> houseList = propertyRepo.findAll();
       
       if (!houseList.isEmpty()) {
         House house = houseList.get(0);

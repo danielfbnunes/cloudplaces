@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="pt.ua.cloudplacesandroidapp">
 
+    <!--Internet Permission-->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -26,10 +29,6 @@
             android:name=".Activities.Welcome"
             android:label="@string/title_activity_welcome"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:configChanges="orientation|screenSize|keyboardHidden|locale"
-            android:name=".Activities.Register"
-            android:label="Register"/>
     </application>
 
 </manifest>

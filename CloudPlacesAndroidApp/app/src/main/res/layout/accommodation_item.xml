@@ -2,6 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp">
@@ -13,25 +14,161 @@
 
         <ImageView
             android:id="@+id/accommodationImage"
-            android:layout_width="140dp"
+            android:layout_width="120dp"
             android:layout_height="100dp"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
 
         <TextView
             android:id="@+id/accommodationName"
             android:layout_width="0dp"
             android:layout_height="22dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:text="TextView"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/accommodationPrice"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/accommodationImage"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/accommodationPrice"
+            android:layout_width="0dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="TextView"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/accommodationName"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/locationImage"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/ic_location"
+            app:layout_constraintBottom_toTopOf="@+id/lotImage"
+            app:layout_constraintStart_toEndOf="@+id/accommodationImage"
+            app:layout_constraintTop_toBottomOf="@+id/accommodationName" />
+
+        <TextView
+            android:id="@+id/accommodationLocation"
+            android:layout_width="0dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="TextView"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/locationImage"
+            app:layout_constraintTop_toBottomOf="@+id/accommodationName" />
+
+        <ImageView
+            android:id="@+id/lotImage"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/accommodationImage"
+            app:layout_constraintTop_toBottomOf="@+id/accommodationLocation" />
+
+        <TextView
+            android:id="@+id/accommodationLot"
+            android:layout_width="0dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="T"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/lotImage"
+            app:layout_constraintTop_toBottomOf="@+id/accommodationLocation" />
+
+        <ImageView
+            android:id="@+id/bedImage"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/bed"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/accommodationLot"
+            app:layout_constraintTop_toBottomOf="@+id/accommodationLocation" />
+
+        <TextView
+            android:id="@+id/accommodationBeds"
+            android:layout_width="0dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="T"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/bedImage"
+            app:layout_constraintTop_toBottomOf="@+id/accommodationLocation" />
+
+        <ImageView
+            android:id="@+id/bathImage"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/bath"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/accommodationBeds"
+            app:layout_constraintTop_toBottomOf="@+id/accommodationLocation" />
+
+        <TextView
+            android:id="@+id/accommodationBath"
+            android:layout_width="0dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="T"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/bathImage"
+            app:layout_constraintTop_toBottomOf="@+id/accommodationLocation" />
+
+        <ImageView
+            android:id="@+id/garageImage"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/garage"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/accommodationBath"
+            app:layout_constraintTop_toBottomOf="@+id/accommodationLocation" />
+
+        <TextView
+            android:id="@+id/accommodationGarage"
+            android:layout_width="0dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="T"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/garageImage"
+            app:layout_constraintTop_toBottomOf="@+id/accommodationLocation" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

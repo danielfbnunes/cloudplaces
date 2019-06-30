@@ -56,4 +56,10 @@
         <item name="android:fontFamily">@font/raleway_semibold</item>
         <item name="android:textSize">26sp</item>
     </style>
+
+    <style name="Title2CloudPlaces">
+        <item name="android:textColor">#131339</item>
+        <item name="android:fontFamily">@font/raleway_semibold</item>
+        <item name="android:textSize">20sp</item>
+    </style>
 </resources>

@@ -113,27 +113,33 @@ public class CloudPlacesController {
    * Este método disponibiliza a página inicial de um utlizador que tenha realizado o login.
    * @return Retorna a página de inicial de um utilizador que tenha realizado o login.
    */
-  @PostMapping(path="/",  consumes = "application/json")
+  @GetMapping("/propertiesSearch")
   @ResponseBody
-  public List<House> propertiesPagePost(Model model,  HttpServletRequest request, @RequestBody Map<String,String> postPayload){ 
+  public List<House> propertiesPagePost(
+          Model model,
+          HttpServletRequest request,
+          @RequestParam(name="name", required=false, defaultValue="") String name,
+          @RequestParam(name="location", required=false, defaultValue="") String location,
+          @RequestParam(name="min_price", required=true) final float min_price,
+          @RequestParam(name="max_price", required=true) final float max_price,
+          @RequestParam(name="min_rooms", required=true) final int min_rooms,
+          @RequestParam(name="max_rooms", required=true) final int max_rooms){ 
     //check if user is logged in  
         
-    String name = postPayload.get("name");
     if(name.equals("")){
       name=null;
     }
     
-     String location = postPayload.get("location");
     if(location.equals("")){
       location=null;
     }
     List<House> houseList = propertyQueries.getProperties(
             name,
             location,
-            Float.parseFloat(postPayload.get("min_price").replaceAll(" ", "")), 
-            Float.parseFloat(postPayload.get("max_price").replaceAll(" ", "")), 
-            Integer.parseInt(postPayload.get("min_rooms").replaceAll(" ", "")), 
-            Integer.parseInt(postPayload.get("max_rooms").replaceAll(" ", "")), 
+            min_price,
+            max_price, 
+            min_rooms, 
+            max_rooms,
             null, 
             null, 
             null
@@ -319,7 +325,12 @@ public class CloudPlacesController {
    * @return 
    */
   @PutMapping(path = "/editProperty", consumes = "application/json", produces = "application/json")
-  public String editProperty(@RequestBody HousePOJO property, Model model) {
+  public String editProperty(@RequestBody HousePOJO property, HttpServletRequest request, Model model) {
+    //check if user is logged in
+    if (!userLoggedIn(request)) {
+      return "redirect:/login";
+    }
+    
     propertyQueries.editProperty(property.getName(), property.getAddress(), property.getPrice(), property.getNRooms(), property.getUser().getEmail(), property.getHabSpace(), property.getNBathrooms(), property.getGarage(), property.getDescription(), property.getPropertyFeatures(), property.getAvailability(), property.getPhotos());
     
     return "properties.html";
