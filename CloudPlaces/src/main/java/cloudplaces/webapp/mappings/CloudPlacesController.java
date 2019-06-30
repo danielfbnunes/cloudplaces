@@ -151,18 +151,6 @@ public class CloudPlacesController {
     return houseList;
   }
   
-  
-  /**
-   * Este método disponibiliza a página com informações sobre a aplicação web.
-   *
-   *
-   * @return Retorna a página com informações sobre a aplicação web.
-   */
-  @GetMapping("/getAbout")
-  public String loadAbout(Model model){
-    return "about.html";
-  }
-  
   /**
    * Este método disponibiliza a página de inscrição na aplicação web.
    *
@@ -255,7 +243,12 @@ public class CloudPlacesController {
    * @return Retorna a página com informações sobre o utilizador em questão.
    */
   @GetMapping("/getProfile")
-  public String loadProfile(Model model){
+  public String loadProfile(Model model, HttpServletRequest request){
+    //check if user is logged in
+    if (!userLoggedIn(request)) {
+      return redirect;
+    }
+    
     return "profile.html";
   }
   
@@ -343,11 +336,13 @@ public class CloudPlacesController {
    */
   @DeleteMapping("/removeProperty")
   public String removeProperty(@RequestParam(name="name", required=true) final String name, HttpServletRequest request, Model model) {
+    
+    /*
     //check if user is logged in
     if (!userLoggedIn(request)) {
       return "redirect:/login";
     }
-    
+    */  
     propertyQueries.removeProperty(name);
     
     return "properties.html";
