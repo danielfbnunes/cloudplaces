@@ -170,7 +170,7 @@ public class QueriesTests {
         System.out.println("deleteFromWishlist");
         UserQueries instance = new UserQueries();
         boolean expResult = false;
-        boolean result = instance.deleteFromWishlist();
+        boolean result = instance.deleteFromWishlist("", 0);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
