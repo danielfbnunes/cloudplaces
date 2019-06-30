@@ -366,11 +366,11 @@ public class Stepdefs {
 
     @Then("he should be redirected to the property details")
     public void he_should_be_redirected_to_the_property_details() {
-        driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Logout'])[2]/following::h3[1]")).click();    
+        driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Logout'])[1]/following::div[5]")).click();
         try {
-            assertEquals("House 1", driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Logout'])[2]/following::h3[1]")).getText());
+          assertEquals("House 1", driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Logout'])[1]/following::h3[1]")).getText());
         } catch (Error e) {
-            sVerificationErrors.append(e.toString());
+          sVerificationErrors.append(e.toString());
         }
         driver.close();
     }
