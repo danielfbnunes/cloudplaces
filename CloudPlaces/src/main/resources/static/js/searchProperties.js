@@ -50,8 +50,7 @@ function postSearch() {
                 innerHouseRow +=
                     '   <div class="col-lg-4 col-md-4 col-md-6">' +
                     '        <div class="room-items">' +
-                    '            <div class="room-img" style="height:100% !important">' +
-                    '                <img src="' + element["photos"][0]["photo"] + '"/>' +
+                    '            <div class="room-img set-bg" data-setbg="' + element["photos"][0]["photo"] +'" style="background-image: url('+ element["photos"][0]["photo"] + ');">' +
                     '                   <a class="room-content">' +
                     '                    <button onclick="button_comparator_clicked(this)" clicked="false" type="button" class="btn btn-sm btn-warning" style="background-color: rgba(252, 185, 65, 0.5)">Compare</button>' +
                     '                </a>' +
