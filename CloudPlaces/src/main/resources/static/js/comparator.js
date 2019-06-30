@@ -79,18 +79,14 @@ function compareHouses() {
     if (index > -1) {
         keys.splice(index, 1);
     }
-    console.log(keys);
 
     keys.forEach(function (key) {
-        console.log(key);
         tableRow += "<tr>";
         tableRow += "<td" + classBootstrap + "\"><b>" + key + "</td>";
 
 
         compare_list.forEach(function (house) {
             // better option
-            console.log(house);
-            console.log(better);
             if (house[key] == better[key])
                 tableRow += "<td" + classBootstrap + "; background-color:rgba(135, 211, 124, 0.3)\">" + house[key] + "</td>";
             else
@@ -98,13 +94,11 @@ function compareHouses() {
         });
         tableRow += "</tr>";
     });
-    console.log(tableRow)
     tableBody.innerHTML = tableRow;
 }
 
 
 function getMaxs() {
-    console.log(compare_list[0]);
     var keys = Object.keys(compare_list[0]);
     var index = keys.indexOf("name");
     if (index > -1) {
@@ -119,7 +113,6 @@ function getMaxs() {
             maxsDic[key] = 999999999;
 
         compare_list.forEach(function (house) {
-            console.log(key);
             if (key != "price") {
                 if (house[key] > maxsDic[key])
                     maxsDic[key] = house[key];
