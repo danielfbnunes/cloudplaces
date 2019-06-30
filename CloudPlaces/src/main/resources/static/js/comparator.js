@@ -1,4 +1,4 @@
-compare_list = [];
+
 nHouses = 3;
 
 //disable button
