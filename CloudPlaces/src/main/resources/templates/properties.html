@@ -63,7 +63,7 @@
 
         function removeProperty(propertyName) {
             $.ajax({
-                url: '/api/removeProperty?name=' + propertyName,
+                url: '/removeProperty?name=' + propertyName,
                 type: 'DELETE',
                 processData: false,
                 success: location.reload()
