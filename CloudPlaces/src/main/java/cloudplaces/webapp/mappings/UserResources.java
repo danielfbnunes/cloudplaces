@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
  * Classe responsável pelo mapeamento das chamadas à API relacionadas com os 
  * utilizadores.
  */
-//Todo create logs when pages are accessed.
 @RestController
 @Api(value = "User Resources")
 public class UserResources {
@@ -113,9 +112,9 @@ public class UserResources {
   @DeleteMapping("api/delete_from_wishlist")
   public Object deleteFromWishlist(
       @RequestParam(name="email", required=true) String email,
-      @RequestParam(name="property_id", required=true) long property_id
+      @RequestParam(name="property_id", required=true) long propertyId
   ) {
-    boolean checkVal = query.deleteFromWishlist(email, property_id);
+    boolean checkVal = query.deleteFromWishlist(email, propertyId);
     error.put(errorMessage, "House or User in question not found");
     return (checkVal) ? true : error;
   }

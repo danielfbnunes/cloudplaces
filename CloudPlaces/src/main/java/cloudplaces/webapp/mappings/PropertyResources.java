@@ -5,7 +5,6 @@ package cloudplaces.webapp.mappings;
 
 import cloudplaces.webapp.database_queries.PropertyQueries;
 import cloudplaces.webapp.entities.House;
-import cloudplaces.webapp.entities.Review;
 import cloudplaces.webapp.pojo.HousePOJO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
  * Classe responável pelo mapeamento da API para queries sobre as
  * propriedades.
  */
-//Todo create logs when pages are accessed.
 @RestController
 @Api(value = "Property Resources")
 public class PropertyResources {
