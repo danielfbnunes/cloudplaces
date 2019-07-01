@@ -46,8 +46,8 @@
         function editProperty() {
             var userEmail = document.getElementById("userEmail").innerHTML;
 
-            $.get("/api/get_user/" + userEmail, function(data, status) {
-                var property = JSON.stringify({ user: data, name: document.forms["editPropertyForm"]["name"].value, address: document.forms["editPropertyForm"]["address"].value, price: document.forms["editPropertyForm"]["price"].value, n_rooms: document.forms["editPropertyForm"]["n_rooms"].value, hab_space: document.forms["editPropertyForm"]["hab_space"].value, n_bathrooms: document.forms["editPropertyForm"]["n_bathrooms"].value, garage: document.forms["editPropertyForm"]["garage"].value, description: document.forms["editPropertyForm"]["description"].value, property_features: document.forms["editPropertyForm"]["property_features"].value, availability: document.forms["editPropertyForm"]["availability"].value, photos: photosBase64 });
+            $.get("/api/get_user?email=" + userEmail, function(data, status) {
+                var property = JSON.stringify({ user: data, name: document.forms["editPropertyForm"]["name"].value, address: document.forms["editPropertyForm"]["address"].value, price: document.forms["editPropertyForm"]["price"].value, nRooms: document.forms["editPropertyForm"]["n_rooms"].value, habSpace: document.forms["editPropertyForm"]["hab_space"].value, nBathrooms: document.forms["editPropertyForm"]["n_bathrooms"].value, garage: document.forms["editPropertyForm"]["garage"].value, description: document.forms["editPropertyForm"]["description"].value, propertyFeatures: document.forms["editPropertyForm"]["property_features"].value, availability: document.forms["editPropertyForm"]["availability"].value, photos: photosBase64 });
 
                 $.ajax({
                     url: '/editProperty',
@@ -56,14 +56,12 @@
                     processData: false,
                     contentType: 'application/json'
                 })
-
-                location.reload(); 
             })
         }
 
-        function removeProperty(propertyId) {
+        function removeProperty(propertyName) {
             $.ajax({
-                url: '/removeProperty?id=' + propertyId,
+                url: '/removeProperty?name=' + propertyName,
                 type: 'DELETE',
                 processData: false
             })
@@ -105,7 +103,7 @@
                                         <i class="flaticon-placeholder"></i><span th:text="${houses[i].address}"></span>
                                     </div>
                                 </div>
-                                <a id="removeButton" class="site-btn btn-line col-lg-4 col-md-4 col-sm-4" th:attr="onclick=|removeProperty('${houses[i].houseId}')|" >Remove</a>
+                                <a id="removeButton" class="site-btn btn-line col-lg-4 col-md-4 col-sm-4" th:attr="onclick=|removeProperty('${houses[i].name}')|" >Remove</a>
                                 <a id="editButton" class="site-btn btn-line col-lg-4 col-md-4 col-sm-4" data-toggle="modal" th:href="|#editPropertyModal${houses[i].houseId}|">Edit</a>
                                 <a th:href="${'/getProperty?id='+ houses[i].houseId}" class="site-btn btn-line col-lg-12 col-md-12 col-sm-12">View Property</a>
                             </div>
