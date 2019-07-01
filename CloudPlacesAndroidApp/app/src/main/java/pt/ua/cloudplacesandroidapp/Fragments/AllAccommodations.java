@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.SearchView;
 
 import androidx.annotation.Nullable;
@@ -30,7 +31,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AllAccommodations extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class AllAccommodations extends Fragment {
 
     private RecyclerView mRecyclerView;
     private ArrayList<House> accommodations;
@@ -43,9 +44,10 @@ public class AllAccommodations extends Fragment implements SwipeRefreshLayout.On
     private SearchView searchView = null;
     private SearchView.OnQueryTextListener queryTextListener;
 
+    private Button refresh;
+
     CommunicationWithAPI apiInterface;
 
-    SwipeRefreshLayout swipeLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -65,9 +67,6 @@ public class AllAccommodations extends Fragment implements SwipeRefreshLayout.On
 
         View view = inflater.inflate(R.layout.fragment_show_accommodations, container, false);
 
-        swipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
-        swipeLayout.setOnRefreshListener(this);
-
         RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.accommodations_list);
 
         accommodationAdapter = new AccommodationAdapter(getActivity(), accommodations, getActivity());
@@ -79,6 +78,14 @@ public class AllAccommodations extends Fragment implements SwipeRefreshLayout.On
         RecyclerView.LayoutManager layoutManager =  new LinearLayoutManager(getActivity());
 
         mRecyclerView.setLayoutManager(layoutManager);
+
+        refresh = (Button) view.findViewById(R.id.refreshContent);
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                refreshApp();
+            }
+        });
 
         apiInterface = ApiClient.getClient().create(CommunicationWithAPI.class);
         Call<List<House>> call = apiInterface.getProperties();
@@ -165,8 +172,7 @@ public class AllAccommodations extends Fragment implements SwipeRefreshLayout.On
         });
     }
 
-    @Override
-    public void onRefresh() {
+    public void refreshApp() {
         apiInterface = ApiClient.getClient().create(CommunicationWithAPI.class);
         Call<List<House>> call = apiInterface.getProperties();
         call.enqueue(new Callback<List<House>>() {
@@ -183,12 +189,10 @@ public class AllAccommodations extends Fragment implements SwipeRefreshLayout.On
                 accommodationAdapter.setData(accommodations);
                 accommodationAdapter.notifyDataSetChanged();
 
-                swipeLayout.setRefreshing(false);
             }
 
             @Override
             public void onFailure(Call<List<House>> call, Throwable t) {
-                swipeLayout.setRefreshing(false);
             }
 
         });

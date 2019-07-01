@@ -13,17 +13,11 @@ import androidx.test.runner.AndroidJUnit4;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import pt.ua.cloudplacesandroidapp.API.CommunicationWithAPI;
-import pt.ua.cloudplacesandroidapp.ApiClient;
 import pt.ua.cloudplacesandroidapp.R;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -44,18 +38,6 @@ public class testSearchHouseByName {
 
     @Rule
     public ActivityTestRule<LoginActivity> mActivityTestRule = new ActivityTestRule<>(LoginActivity.class);
-
-    @Before
-    public void setUp(){
-        CommunicationWithAPI apiInterface = ApiClient.getClient().create(CommunicationWithAPI.class);
-        Call<Void> call = apiInterface.reloadDatabase();
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {}
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {}
-        });
-    }
 
     @Test
     public void testSearchHouseByName() {
@@ -114,17 +96,23 @@ public class testSearchHouseByName {
                                                 1)),
                                 0),
                         isDisplayed()));
-        searchAutoComplete.perform(replaceText("house 2"), closeSoftKeyboard());
+        searchAutoComplete.perform(replaceText("c"), closeSoftKeyboard());
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         ViewInteraction textView = onView(
-                allOf(withId(R.id.accommodationName), withText("House 2"),
+                allOf(withId(R.id.accommodationName), withText("Chiado Loft 3"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.cardView),
                                         0),
                                 1),
                         isDisplayed()));
-        textView.check(matches(withText("House 2")));
+        textView.check(matches(withText("Chiado Loft 3")));
     }
 
     private static Matcher<View> childAtPosition(
