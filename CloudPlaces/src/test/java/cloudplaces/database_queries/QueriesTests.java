@@ -6,15 +6,12 @@ import cloudplaces.webapp.database_queries.PropertyQueries;
 import cloudplaces.webapp.database_queries.UserQueries;
 import cloudplaces.webapp.entities.House;
 import cloudplaces.webapp.entities.User;
-import cloudplaces.webapp.entities.Wishlist;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
-import static org.junit.matchers.JUnitMatchers.*;
 import static org.hamcrest.Matchers.*;
-import static org.hamcrest.CoreMatchers.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -138,51 +135,7 @@ public class QueriesTests {
 
     assertEquals(newUser.getEmail(), email);
   }
-
-  /**
-   * Test of getWishlist method, of class UserQueries.
-   */
-  @Test
-  @Ignore
-  public void testGetWishlist() {
-    System.out.println("getWishlist");
-
-    ArrayList<Object> expResult = null;
-    Object result = userQueries.getWishlist("test@ua.pt");
-    assertEquals(expResult, result);
-    // TODO review the generated test code and remove the default call to fail.
-    fail("The test case is a prototype.");
-  }
-
-  /**
-   * Test of addToWishlist method, of class UserQueries.
-   */
-  @Test
-  @Ignore
-  public void testAddToWishlist() {
-    System.out.println("addToWishlist");
-    boolean expResult = false;
-    Wishlist result = userQueries.addToWishlist("test@ua.pt", 0L);
-    assertEquals(expResult, result);
-    // TODO review the generated test code and remove the default call to fail.
-    fail("The test case is a prototype.");
-  }
-
-  /**
-   * Test of deleteFromWishlist method, of class UserQueries.
-   */
-  @Test
-  @Ignore
-  public void testDeleteFromWishlist() {
-    System.out.println("deleteFromWishlist");
-    UserQueries instance = new UserQueries();
-    boolean expResult = false;
-    boolean result = instance.deleteFromWishlist("", 0);
-    assertEquals(expResult, result);
-    // TODO review the generated test code and remove the default call to fail.
-    fail("The test case is a prototype.");
-  }
-
+  
   //PropertyQueries Test
   /**
    * Test of getAllProperties method, of class PropertyQueries.

@@ -4,7 +4,6 @@ import cloudplaces.webapp.entities.House;
 import cloudplaces.webapp.entities.HousePhotos;
 import cloudplaces.webapp.entities.HousePhotosRepository;
 import cloudplaces.webapp.entities.PropertyRepository;
-import cloudplaces.webapp.entities.Review;
 import cloudplaces.webapp.entities.ReviewRepository;
 import cloudplaces.webapp.entities.User;
 import cloudplaces.webapp.entities.UserRepository;

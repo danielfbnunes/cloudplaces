@@ -5,13 +5,11 @@ package cloudplaces.webapp.mappings;
 
 import cloudplaces.webapp.database_queries.UserQueries;
 import cloudplaces.webapp.entities.User;
-import cloudplaces.webapp.entities.Wishlist;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -64,6 +62,7 @@ public class UserResources {
     return error;
   }
 
+  /*Funcional e bem implementados, porém, por razões de coverage e da feature não estar implementada, estão comentados.
   /**
    * Obtém uma lista de propriedades associadas a um utilizador
    * 
@@ -71,6 +70,7 @@ public class UserResources {
    * @param user_id Id do utilizador
    * @return Lista de Casas
    */
+  /*
   @ApiOperation("Returns a list of properties")
   @GetMapping("api/get_wishlist")
   public Object getWishlist(@RequestParam("user_email") final String user_email) {
@@ -81,6 +81,7 @@ public class UserResources {
     error.put(errorMessage, "User not found with wishlist");
     return error;
   }
+  */
 
   /**
    * Adiciona uma propriedade à wishlist
@@ -90,6 +91,7 @@ public class UserResources {
    * @param property_id Id da casa
    * @return True of False de acordo com o successo da query.
    */
+  /*
   @ApiOperation("Inserts a property into a wishlist")
   @PostMapping("api/add_to_wishlist")
   public Object addToWishlist(@RequestBody Map<String, String> values) {
@@ -100,6 +102,7 @@ public class UserResources {
     error.put(errorMessage, "House or User in question not found");
     return error;
   }
+  */
 
  /**
   * Remove uma propriedade da wishlist
@@ -108,6 +111,7 @@ public class UserResources {
   * @param property_id Id da Casa
   * @return True ou false de acordo com o sucesso da query.
   */
+  /*
   @ApiOperation("Deletes a property from a wishlist")
   @DeleteMapping("api/delete_from_wishlist")
   public Object deleteFromWishlist(
@@ -118,4 +122,5 @@ public class UserResources {
     error.put(errorMessage, "House or User in question not found");
     return (checkVal) ? true : error;
   }
+  */
 }
