@@ -32,7 +32,6 @@ import springfox.documentation.annotations.ApiIgnore;
  * que permitiram obter as páginas web.
  */
 
-//Todo create logs when pages are accessed.
 @ApiIgnore
 @Controller
 public class CloudPlacesController {
@@ -46,6 +45,9 @@ public class CloudPlacesController {
   
   private final String username = "username";
   private final String redirect = "redirect:/login";
+  private final String red = "redirect:/";
+  private final String HOUSES = "houses";
+  private final String PROPERTIESHTML = "properties.html";
   
   /**
    * Este método disponibiliza a página inicial da aplicação web.
@@ -73,7 +75,7 @@ public class CloudPlacesController {
     
     //check if user is logged in
     if (userLoggedIn(request)) {
-      return "redirect:/";
+      return red;
     }
     
     User u = userQueries.authenticateUser(user.getEmail(), user.getPw());
@@ -84,7 +86,7 @@ public class CloudPlacesController {
     else{
       //save login
       request.getSession().setAttribute(username, u.getEmail());
-      return "redirect:/";
+      return red;
     }
   }
   
@@ -102,7 +104,7 @@ public class CloudPlacesController {
     //get properties from database
     List<House> houseList = propertyQueries.getAllProperties();
     model.addAttribute("has_elements" , !houseList.isEmpty());
-    model.addAttribute("houses", houseList);
+    model.addAttribute(HOUSES, houseList);
 
     logger.info("User: " + request.getSession().getAttribute(username));
     return "index";
@@ -145,7 +147,7 @@ public class CloudPlacesController {
             null
     );
     model.addAttribute("has_elements" , !houseList.isEmpty());
-    model.addAttribute("houses", houseList);
+    model.addAttribute(HOUSES, houseList);
     model.addAttribute("user", new User());
 
     return houseList;
@@ -247,7 +249,7 @@ public class CloudPlacesController {
   public String loadProfile(Model model, HttpServletRequest request){
     // check if user is logged in
     if (!userLoggedIn(request)) {
-      return "redirect:/login";
+      return redirect;
     }
     
     //get user from database
@@ -255,7 +257,7 @@ public class CloudPlacesController {
     try{
       userEmail = (String) request.getSession().getAttribute(username);
     }catch(NullPointerException e){
-      return "redirect:/";
+      return red;
     }
     User u = userQueries.getUser(userEmail);
     
@@ -271,20 +273,20 @@ public class CloudPlacesController {
   @GetMapping("/getMyProperties")
   public String loadMyProperties(HttpServletRequest request, Model model) {
     if (!userLoggedIn(request)) {
-      return "redirect:/login";
+      return redirect;
     }
     
     List<House> houses = new ArrayList<>();
     
     for (House house : propertyQueries.getAllProperties()) {
-      if (house.getUser().getEmail().equals(request.getSession().getAttribute("username"))) {
+      if (house.getUser().getEmail().equals(request.getSession().getAttribute(username))) {
         houses.add(house);
       }
     }
     
-    model.addAttribute("userEmail", request.getSession().getAttribute("username"));
-    model.addAttribute("houses", houses);
-    return "properties.html";
+    model.addAttribute("userEmail", request.getSession().getAttribute(username));
+    model.addAttribute(HOUSES, houses);
+    return PROPERTIESHTML;
   }
   
   /**
@@ -297,10 +299,10 @@ public class CloudPlacesController {
   public String loadListProperty(HttpServletRequest request, Model model){
     //check if user is logged in
     if (!userLoggedIn(request)) {
-      return "redirect:/login";
+      return redirect;
     }
     
-    model.addAttribute("userEmail", request.getSession().getAttribute("username"));
+    model.addAttribute("userEmail", request.getSession().getAttribute(username));
     return "list-property.html";
   }
   
@@ -314,7 +316,7 @@ public class CloudPlacesController {
   public String addProperty(@RequestBody HousePOJO property, HttpServletRequest request, Model model) {
     //check if user is logged in
     if (!userLoggedIn(request)) {
-      return "redirect:/login";
+      return redirect;
     }
     
     propertyQueries.addProperty(property.getName(), property.getAddress(), property.getPrice(), property.getNRooms(), property.getUser().getEmail(), property.getHabSpace(), property.getNBathrooms(), property.getGarage(), property.getDescription(), property.getPropertyFeatures(), property.getAvailability(), property.getPhotos());
@@ -332,12 +334,12 @@ public class CloudPlacesController {
   public String editProperty(@RequestBody HousePOJO property, HttpServletRequest request, Model model) {
     //check if user is logged in
     if (!userLoggedIn(request)) {
-      return "redirect:/login";
+      return redirect;
     }
     
     propertyQueries.editProperty(property.getName(), property.getAddress(), property.getPrice(), property.getNRooms(), property.getUser().getEmail(), property.getHabSpace(), property.getNBathrooms(), property.getGarage(), property.getDescription(), property.getPropertyFeatures(), property.getAvailability(), property.getPhotos());
     
-    return "properties.html";
+    return PROPERTIESHTML;
   }
   
   /**
@@ -348,15 +350,9 @@ public class CloudPlacesController {
   @DeleteMapping("/removeProperty")
   public String removeProperty(@RequestParam(name="name", required=true) final String name, HttpServletRequest request, Model model) {
     
-    /*
-    //check if user is logged in
-    if (!userLoggedIn(request)) {
-      return "redirect:/login";
-    }
-    */  
     propertyQueries.removeProperty(name);
     
-    return "properties.html";
+    return PROPERTIESHTML;
   }
   
   
