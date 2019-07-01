@@ -5,7 +5,6 @@ package cloudplaces.webapp.mappings;
 
 import cloudplaces.webapp.database_queries.PropertyQueries;
 import cloudplaces.webapp.entities.House;
-import cloudplaces.webapp.entities.Review;
 import cloudplaces.webapp.pojo.HousePOJO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

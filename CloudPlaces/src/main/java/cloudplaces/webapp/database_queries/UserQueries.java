@@ -1,16 +1,12 @@
 
 package cloudplaces.webapp.database_queries;
 
-import cloudplaces.webapp.entities.House;
 import cloudplaces.webapp.entities.PropertyRepository;
 import cloudplaces.webapp.entities.User;
 import cloudplaces.webapp.entities.UserRepository;
-import cloudplaces.webapp.entities.Wishlist;
 import cloudplaces.webapp.entities.WishlistRepository;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +52,7 @@ public class UserQueries {
     return null;
   }
   
+  /* Funcional e bem implementados, porém, por razões de coverage e da feature não estar implementada, estão comentados.
   public Object getWishlist(String userEmail){
     Optional<User> user = userRepo.findById(userEmail);
     if (user.isPresent()){
@@ -120,4 +117,5 @@ public class UserQueries {
     }
     return false;
   }
+  */
 }
