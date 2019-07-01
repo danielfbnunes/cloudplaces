@@ -138,11 +138,26 @@ public class ApiTest {
    * Test of api call api/edit_property/, of class PropertyResources.
    */
   public void editPropertyTest() {
-    house.setAddress("Aveiro, Portugal");
-    propertyRepo.save(house);
+    House house2 = new House(
+        "Rua 1",
+        3,
+        20,
+        150,
+        "House 2",
+        "data",
+        user,
+        2,
+        1,
+        "Situated in Ladywell this room enables you to have both privacy and convince - being only 10 minutes away by train to central London. The short train ride to London Bridge,Waterloo and shortly stopping at Charing Cross which will enable you to roam around Covent Garden and cross the river to Southbank or even venture further by bus or the underground to Oxford Street, Regent Street and all other destinations. Whether you have a short or long stay in London - my place is perfect.",
+        "library_garden_test1_test2_test3_test4",
+        1,
+        new ArrayList<>(),
+        new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+    propertyRepo.save(house2);
+    house2.setAddress("Aveiro, Portugal");
 
     try {
-      String houseJsonString = mapperObj.writeValueAsString(house);
+      String houseJsonString = mapperObj.writeValueAsString(house2);
 
       mvc.perform(MockMvcRequestBuilders.put("/api/edit_property", 1L)
           .content(houseJsonString)
@@ -152,22 +167,21 @@ public class ApiTest {
           .andExpect(content().string(containsString("\"address\":\"Aveiro, Portugal\"")));
     }
     catch (Exception e) {
-      fail("Unable to edit the property!");
+      fail("Unable to edit the property!" + e);
     }
   }
 
   @Test
-  @Ignore
   /**
    * Test of api call api/delete_property?name={name}, of class PropertyResources.
    */
   public void deletePropertyTest() {
-    House house2 = new House(
+    House house3 = new House(
       "Rua 1",
       3,
       20,
       150,
-      "House 2",
+      "House 3",
       "data",
       user,
       2,
@@ -177,16 +191,14 @@ public class ApiTest {
       1,
       new ArrayList<>(),
       new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
-    propertyRepo.save(house2);
+    propertyRepo.save(house3);
 
     try {
-      mvc.perform(MockMvcRequestBuilders.delete("/api/delete_property?name='House 2'", 1L)
-          .accept(MediaType.APPLICATION_JSON))
-          .andExpect(status().isOk())
-          .andExpect(content().string("true"));
+      mvc.perform(MockMvcRequestBuilders.delete("/api/delete_property?name=House 3", 1L))
+          .andExpect(status().isOk());
     }
     catch (Exception e) {
-      fail("Unable to remove the property!");
+      fail("Unable to remove the property!" + e);
     }
   }
 
