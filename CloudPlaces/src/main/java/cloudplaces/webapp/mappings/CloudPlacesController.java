@@ -188,18 +188,6 @@ public class CloudPlacesController {
       return "[Error] User was not added! A user with the same email already exists!";
   }
   
-  
-  /**
-   * Este método disponibiliza a página com a wishlist de um dado utilizador.
-   *
-   *
-   * @return Retorna a página com a wishlist de um dado utilizador.
-   */
-  @GetMapping("/getWishlist")
-  public String loadWishList(Model model){
-    return "wishlist.html";
-  }
-  
   /**
    * Este método disponibiliza a página com informações sobre uma dada propriedade.
    *
@@ -319,6 +307,7 @@ public class CloudPlacesController {
       return redirect;
     }
     
+    System.out.println("PROPERTY FEATURES = " + property.getPropertyFeatures());
     propertyQueries.addProperty(property.getName(), property.getAddress(), property.getPrice(), property.getNRooms(), property.getUser().getEmail(), property.getHabSpace(), property.getNBathrooms(), property.getGarage(), property.getDescription(), property.getPropertyFeatures(), property.getAvailability(), property.getPhotos());
     
     return "list-property.html";
@@ -339,7 +328,7 @@ public class CloudPlacesController {
     
     propertyQueries.editProperty(property.getName(), property.getAddress(), property.getPrice(), property.getNRooms(), property.getUser().getEmail(), property.getHabSpace(), property.getNBathrooms(), property.getGarage(), property.getDescription(), property.getPropertyFeatures(), property.getAvailability(), property.getPhotos());
     
-    return PROPERTIESHTML;
+    return "index";
   }
   
   /**
