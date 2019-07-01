@@ -131,7 +131,7 @@ public class Welcome extends AppCompatActivity implements NavigationView.OnNavig
                         for (House h1 : temp) {
                             boolean contains = false;
                             for (House h2 : AppConstants.CURRENT_HOUSES){
-                                if (h1.getHouseId() == h2.getHouseId()) contains = true;
+                                if (h1.getName().equals(h2.getName())) contains = true;
                             }
                             if (!contains) notification(h1.getName(), h1.getDescription());
                         }
