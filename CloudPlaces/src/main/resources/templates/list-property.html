@@ -52,7 +52,7 @@
             }
 
             $.get("/api/get_user?email=" + userEmail, function(data, status) {
-                var property = JSON.stringify({ user: data, name: document.forms["newProperty"]["name"].value, address: document.forms["newProperty"]["address"].value, price: document.forms["newProperty"]["price"].value, nRooms: document.forms["newProperty"]["n_rooms"].value, habSpace: document.forms["newProperty"]["hab_space"].value, nBathrooms: document.forms["newProperty"]["n_bathrooms"].value, garage: document.forms["newProperty"]["garage"].value, description: document.forms["newProperty"]["description"].value, propertyFeatures: document.forms["newProperty"]["property_features"].value, availability: document.forms["newProperty"]["availability"].value, photos: photosBase64 });
+                var property = JSON.stringify({ user: data, name: document.forms["newProperty"]["name"].value, address: document.forms["newProperty"]["address"].value, price: document.forms["newProperty"]["price"].value, nRooms: document.forms["newProperty"]["nRooms"].value, habSpace: document.forms["newProperty"]["habSpace"].value, nBathrooms: document.forms["newProperty"]["nBathrooms"].value, garage: document.forms["newProperty"]["garage"].value, description: document.forms["newProperty"]["description"].value, propertyFeatures: document.forms["newProperty"]["propertyFeatures"].value, availability: document.forms["newProperty"]["availability"].value, photos: photosBase64 });
 
                 $.ajax({
                     url: '/addProperty',

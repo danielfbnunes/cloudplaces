@@ -138,10 +138,10 @@ public class PropertyQueries {
           .toString();
       
       em.createQuery(houseQuery).executeUpdate();
-      List<House> houseList = propertyRepo.findAll();
+      Optional<House> houseList = propertyRepo.findByName(name);
       
-      if (!houseList.isEmpty()) {
-        House house = houseList.get(0);
+      if (houseList.isPresent()) {
+        House house = houseList.get();
         
         if (!photos.isEmpty()) {
           housePhotosRepo.deleteAll(house.getPhotos());
